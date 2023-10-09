@@ -4,6 +4,7 @@ Development of multifunctional application for e-identity
 - [Installation](#installation)
 - [Usage](#usage)
 - [Creation of database](#creation-of-database)
+- [Rules](#rules)
 
 ## Installation
 To initialize the project use:
@@ -21,3 +22,13 @@ Please create your local database with the following information (so we can use 
 1. username:
 2. password:
 3. db_name:
+
+## Rules
+1. <b>DO NOT USE MAIN BRANCH</b>
+2. Branch names for features starts with feat/ and for bugs bug/
+3. Commit messages should be in english
+4. Commit messages should be short and descriptive
+5. Always make pull request and request at least one rewiever
+6. Always merge into development branch
+7. Always delete branch after merging
+
