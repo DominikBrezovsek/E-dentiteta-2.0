@@ -20,7 +20,7 @@ To run the project use:
 ## Creation of database
 Please create your local database with the following information (so we can use the same .env file which will be uploaded to the server too):
 1. username: `ijw26577_e-identity`
-2. password: `EIdentity1!`
+2. password: `EIdentity1`
 3. db_name: `ijw26577_e-identity`
 4. host: `localhost`
 
