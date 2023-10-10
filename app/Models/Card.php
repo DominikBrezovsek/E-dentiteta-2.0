@@ -19,6 +19,7 @@ class Card extends Model
         'id_organisation',
         'name',
         'description',
+        'auto_join',
     ];
 
     // Relationships
