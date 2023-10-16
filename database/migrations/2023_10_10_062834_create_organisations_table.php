@@ -17,6 +17,7 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->enum('verified', ['Y', 'N'])->default('N');
             $table->enum('checkking_all_cards', ['Y', 'N'])->default('N');
+
             $table->timestamps();
         });
     }

@@ -20,6 +20,7 @@ class Organisation extends Model
         'description',
         'verified',
         'checking_all_cards',
+        'id_admin'
     ];
 
     // Relationships
@@ -31,6 +32,10 @@ class Organisation extends Model
     public function cards()
     {
         return $this->hasMany(Card::class, 'id_organisation');
+    }
+
+    public function admin(){
+        return $this->hasOne(User::class, 'id_admin','id_user' );
     }
 }
 

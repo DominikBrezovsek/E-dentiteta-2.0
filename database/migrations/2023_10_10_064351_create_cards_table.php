@@ -16,10 +16,10 @@ return new class extends Migration
             $table->uuid('id_organisation');
             $table->string('name', 50);
             $table->string('description', 100)->nullable();
-            
+
             $table->timestamps();
 
-            $table->foreign('id_organisation')->references('id_organisation')->on('organisations')->onDelete('cascade');
+            $table->foreign('id_organisation')->references('id_organisation')->on('organisations')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 
