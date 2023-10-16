@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -16,5 +17,70 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('layout');
+})->name('home');
+/**
+ * Route for logout
+ */
+Route::get('/logout', [LogoutController::class, 'logout'])->name('logout');
+/**
+ * Routes for login
+ */
+Route::group(['middleware' => 'login'], function () {
+    Route::get('/login', [LoginController::class, 'getLogin'])->name('login');
+    Route::post('/login', [LoginController::class, 'postLogin'])->name('login.post');
 });
+/**
+ * Routes for register
+ */
+Route::group(['middleware' => 'register'], function () {
+    Route::get('/register', [RegisterController::class, 'getRegister'])->name('register');
+    Route::post('/register', [RegisterController::class, 'postRegister'])->name('register.post');
+});
+/**
+ * Routes for admin
+ */
+Route::group(['middleware' => 'ADM'], function () {
 
+    Route::prefix('admin')->group(function (){
+        /**
+         * Routes for admin profile
+         */
+        Route::prefix('/profile')->group(function (){
+            Route::get('/edit', [ProfileController::class, 'getProfile'])->name('profile');
+            Route::post('/edit', [ProfileController::class, 'postProfile'])->name('profile.post');
+        });
+
+    });
+});
+/**
+ * Routes for organisation
+ */
+Route::group(['middleware' => 'ORG'], function () {
+
+    Route::prefix('organisation')->group(function (){
+        /**
+         * Routes for organisation profile
+         */
+        Route::prefix('/profile')->group(function (){
+            Route::get('/edit', [ProfileController::class, 'getProfile'])->name('profile');
+            Route::post('/edit', [ProfileController::class, 'postProfile'])->name('profile.post');
+        });
+
+    });
+});
+/**
+ * Routes for user
+ */
+Route::group(['middleware' => 'USR'], function () {
+
+    Route::prefix('user')->group(function (){
+        /**
+         * Routes for user profile
+         */
+        Route::prefix('/profile')->group(function (){
+            Route::get('/edit', [ProfileController::class, 'getProfile'])->name('profile');
+            Route::post('/edit', [ProfileController::class, 'postProfile'])->name('profile.post');
+        });
+
+    });
+});
