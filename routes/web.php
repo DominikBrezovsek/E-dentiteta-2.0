@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RegisterController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,14 +29,14 @@ Route::get('/logout', [LogoutController::class, 'logout'])->name('logout');
  */
 Route::group(['middleware' => 'login'], function () {
     Route::get('/login', [LoginController::class, 'getLogin'])->name('login');
-    Route::post('/login', [LoginController::class, 'postLogin'])->name('login.post');
+    Route::post('/login', [LoginController::class, 'postLogin'])->name('login.create');
 });
 /**
  * Routes for register
  */
 Route::group(['middleware' => 'register'], function () {
     Route::get('/register', [RegisterController::class, 'getRegister'])->name('register');
-    Route::post('/register', [RegisterController::class, 'postRegister'])->name('register.post');
+    Route::post('/register', [RegisterController::class, 'postRegister'])->name('register.create');
 });
 /**
  * Routes for admin
@@ -47,7 +49,7 @@ Route::group(['middleware' => 'ADM'], function () {
          */
         Route::prefix('/profile')->group(function (){
             Route::get('/edit', [ProfileController::class, 'getProfile'])->name('profile');
-            Route::post('/edit', [ProfileController::class, 'postProfile'])->name('profile.post');
+            Route::post('/edit', [ProfileController::class, 'postProfile'])->name('profile.update');
         });
 
     });
@@ -63,7 +65,7 @@ Route::group(['middleware' => 'ORG'], function () {
          */
         Route::prefix('/profile')->group(function (){
             Route::get('/edit', [ProfileController::class, 'getProfile'])->name('profile');
-            Route::post('/edit', [ProfileController::class, 'postProfile'])->name('profile.post');
+            Route::post('/edit', [ProfileController::class, 'postProfile'])->name('profile.update');
         });
 
     });
