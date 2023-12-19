@@ -5,7 +5,7 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">{{ __('Long Form') }}</div>
+                    <div class="card-header">{{ __('Prijavi se') }}</div>
 
                     <div class="card-body">
                         <x-form 

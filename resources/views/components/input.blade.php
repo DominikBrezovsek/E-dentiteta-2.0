@@ -11,4 +11,3 @@
         <div class="alert alert-danger auto-dismiss">{{ $message }}</div>
     @enderror
 </div>
-</div>

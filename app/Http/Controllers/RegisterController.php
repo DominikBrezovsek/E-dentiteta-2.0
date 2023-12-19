@@ -22,10 +22,10 @@ class RegisterController extends Controller
             'username' => ['required', 'max:255', 'unique:users'],
             'password' => ['required', 'max:255'],
             'password2' => ['required', 'max:255'],
-            'email' => ['required', 'max:255'],
+            'email' => ['required', 'max:255', 'unique:users'],
             'name' => ['required', 'max:255'],
-            'surname' => ['required', 'max:255'],
-            'emso' => ['required', 'max:13', 'min:13'],
+            'surname' => ['required', 'max:255'],   
+            'emso' => ['required', 'max:13', 'min:13', 'unique:users'],
         ]);
 
         function isValidPassword($password)
@@ -62,8 +62,8 @@ class RegisterController extends Controller
         $user->username = $credentials['username'];
         $user->password = Hash::make($credentials['password']);
         $user->email = $credentials['email'];
-        $user->first_name = $credentials['name'];
-        $user->last_name = $credentials['surname'];
+        $user->name = $credentials['name'];
+        $user->surname = $credentials['surname'];
         $user->emso = $credentials['emso'];
 
         $user->save();

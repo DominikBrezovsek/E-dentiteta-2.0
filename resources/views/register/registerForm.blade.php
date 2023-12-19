@@ -5,9 +5,10 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">{{ __('Long Form') }}</div>
+                    <div class="card-header">{{ __('Registriraj se') }}</div>
 
                     <div class="card-body">
+
                         <x-form 
                         :existingData="$existingData" 
                         submitRouteName="register" 
@@ -16,39 +17,39 @@
                         backButtonName="Domov">
 
                             <x-input 
+                            type="text"
                             name="name" 
-                            displayedName="Ime" 
-                            type="text" ></x-input>
+                            displayedName="Ime" />
 
                             <x-input 
+                            type="text"
                             name="surname" 
-                            displayedName="Priimek" 
-                            type="text" ></x-input>
+                            displayedName="Priimek" />
 
                             <x-input 
+                            type="text"
                             name="username" 
-                            displayedName="Uporabniško ime" 
-                            type="text" ></x-input>
+                            displayedName="Uporabniško ime" />
 
                             <x-input 
+                            type="email"
                             name="email" 
-                            displayedName="E-pošta" 
-                            type="email" ></x-input>
+                            displayedName="E-pošta" />
 
                             <x-input 
+                            type="number"
                             name="emso" 
-                            displayedName="EMŠO" 
-                            type="text" ></x-input>
+                            displayedName="EMŠO" />
 
                             <x-input 
+                            type="password"
                             name="password" 
-                            displayedName="Geslo" 
-                            type="password"></x-input>
+                            displayedName="Geslo" />
 
                             <x-input 
+                            type="password"
                             name="password2" 
-                            displayedName="Potrdi geslo" 
-                            type="password" ></x-input>
+                            displayedName="Potrdi geslo" />
 
                         </x-form>
                     </div>
