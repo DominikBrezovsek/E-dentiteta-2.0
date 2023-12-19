@@ -5,8 +5,9 @@
                     <div class="collapse navbar-collapse" id="navbarNav">
                         <ul class="navbar-nav">
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('profile') }}">Moj profil</a>
+                                <a class="nav-link" href="{{ route('admin.profile') }}">Moj profil</a>
                             </li>
+                            <li>Admin</li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('logout') }}">Odjava</a>
                             </li>

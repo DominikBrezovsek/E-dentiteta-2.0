@@ -48,8 +48,8 @@ Route::group(['middleware' => 'ADM'], function () {
          * Routes for admin profile
          */
         Route::prefix('/profile')->group(function (){
-            Route::get('/edit', [ProfileController::class, 'getProfile'])->name('profile');
-            Route::post('/edit', [ProfileController::class, 'postProfile'])->name('profile.update');
+            Route::get('/edit', [ProfileController::class, 'getProfile'])->name('admin.profile');
+            Route::post('/edit', [ProfileController::class, 'postProfile'])->name('admin.profile.update');
         });
 
     });
