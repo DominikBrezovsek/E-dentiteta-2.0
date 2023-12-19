@@ -29,7 +29,11 @@ class LoginController extends Controller
             } else if (Auth::user()->role == 'USR') {
                 return redirect()->route('profile');
             }
-
+            else if (Auth::user()->role == 'ORG') {
+                return redirect()->route('profile');
+            }
+        }
+        else {
             return back()->withErrors([
                 'username' => 'Napačno uporabniško ime ali geslo.',
             ])->onlyInput('username');
