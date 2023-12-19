@@ -48,7 +48,7 @@ Route::group(['middleware' => 'ADM'], function () {
          * Routes for admin profile
          */
         Route::prefix('/profile')->group(function (){
-            Route::get('/edit', [ProfileController::class, 'getProfile'])->name('admin.profile');
+            Route::get('/edit', [ProfileController::class, 'getProfileAdmin'])->name('admin.profile');
             Route::post('/edit', [ProfileController::class, 'postProfile'])->name('admin.profile.update');
         });
 
@@ -64,7 +64,7 @@ Route::group(['middleware' => 'ORG'], function () {
          * Routes for organisation profile
          */
         Route::prefix('/profile')->group(function (){
-            Route::get('/edit', [ProfileController::class, 'getProfile'])->name('profile');
+            Route::get('/edit', [ProfileController::class, 'getProfileOrganisation'])->name('user.profile');
             Route::post('/edit', [ProfileController::class, 'postProfile'])->name('profile.update');
         });
 
@@ -80,8 +80,8 @@ Route::group(['middleware' => 'USR'], function () {
          * Routes for user profile
          */
         Route::prefix('/profile')->group(function (){
-            Route::get('/edit', [ProfileController::class, 'getProfile'])->name('profile');
-            Route::post('/edit', [ProfileController::class, 'postProfile'])->name('profile.post');
+            Route::get('/edit', [ProfileController::class, 'getProfileUser'])->name('user.profile');
+            Route::post('/edit', [ProfileController::class, 'postProfile'])->name('user.profile.post');
         });
 
     });
