@@ -77,7 +77,8 @@ Route::group(['middleware' => 'ORG'], function () {
          */
         Route::prefix('/profile')->group(function (){
             Route::get('/edit', [ProfileController::class, 'getProfileOrganisation'])->name('organisation.profile');
-            Route::post('/edit', [ProfileController::class, 'postProfile'])->name('organisation.profile.update');
+            Route::post('/edit', [ProfileController::class, 'postProfileOrganisation'])->name('organisation.profile.update');
+            Route::put('/edit', [ProfileController::class, 'postProfileOrganisation'])->name('organisation.profile.update');
         });
 
     });
@@ -94,6 +95,7 @@ Route::group(['middleware' => 'USR'], function () {
         Route::prefix('/profile')->group(function (){
             Route::get('/edit', [ProfileController::class, 'getProfileUser'])->name('user.profile');
             Route::post('/edit', [ProfileController::class, 'postProfile'])->name('user.profile.update');
+            Route::put('/edit', [ProfileController::class, 'postProfile'])->name('user.profile.update');
         });
 
     });

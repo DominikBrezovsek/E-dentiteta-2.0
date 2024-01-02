@@ -25,6 +25,30 @@ class ProfileController extends Controller
         ]);
         return redirect()->route('admin.profile')->with('message', 'Profil je bil posodobljen!');
     }
+    //TODO: CHANGE THIIS
+    public function postProfileOrganisation(Request $request){
+        $request->validate([
+            'name' => ['required', 'max:255'],
+            'surname' => ['required', 'max:255'],
+        ]);
+        User::where('id', session('user')->id)->update([
+            'name' => $request->input('name'),
+            'surname' => $request->input('surname'),
+        ]);
+        return redirect()->route('organisation.profile')->with('message', 'Profil je bil posodobljen!');
+    }
+        //TODO: CHANGE THIIS
+        public function postProfileUser(Request $request){
+            $request->validate([
+                'name' => ['required', 'max:255'],
+                'surname' => ['required', 'max:255'],
+            ]);
+            User::where('id', session('user')->id)->update([
+                'name' => $request->input('name'),
+                'surname' => $request->input('surname'),
+            ]);
+            return redirect()->route('user.profile')->with('message', 'Profil je bil posodobljen!');
+        }
     public function getProfileUser()
     {
         return view('user.profile.profileForm', [
