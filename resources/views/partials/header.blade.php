@@ -15,6 +15,9 @@
                                 <a class="nav-link" href="{{ route('admin.cards') }}">Kartice</a>
                             </li>
                             <li class="nav-item">
+                                <a class="nav-link" href="{{ route('admin.users') }}">Uporabniki</a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link" href="{{ route('logout') }}">Odjava</a>
                             </li>
                         </ul>

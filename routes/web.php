@@ -6,6 +6,7 @@ use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\AddCardController;
+use App\Http\Controllers\AddUserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -73,6 +74,16 @@ Route::group(['middleware' => 'ADM'], function () {
             Route::post('/add', [AddCardController::class, 'postAddCard'])->name('admin.card.create');
             Route::put('/add', [AddCardController::class, 'postAddCard'])->name('admin.card.create');
             Route::delete('/delete/{cardId}', [AddCardController::class, 'deleteCard'])->name('admin.card.delete');
+        });
+        Route::prefix('/users')->group(function (){
+            Route::get('/', [AddUserController::class, 'getUsers'])->name('admin.users');
+            Route::get('/edit/{userId}', [AddUserController::class, 'getUser'])->name('admin.user');
+            Route::post('/edit/{userId}', [AddUserController::class, 'postUser'])->name('admin.user.update');
+            Route::put('/edit/{userId}', [AddUserController::class, 'postUser'])->name('admin.user.update');
+            Route::get('/add', [AddUserController::class, 'getAddUser'])->name('admin.user.add');
+            Route::post('/add', [AddUserController::class, 'postAddUser'])->name('admin.user.create');
+            Route::put('/add', [AddUserController::class, 'postAddUser'])->name('admin.user.create');
+            Route::delete('/delete/{userId}', [AddUserController::class, 'deleteUser'])->name('admin.user.delete');
         });
 
     });
