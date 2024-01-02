@@ -12,7 +12,7 @@ class OrganisationUser extends Pivot
     use HasUuids;
 
     protected $table = 'organisation_users';
-    protected $primaryKey = 'id_organisation_users';
+    protected $primaryKey = 'id';
     public $incrementing = false;
     protected $keyType = 'string';
 }

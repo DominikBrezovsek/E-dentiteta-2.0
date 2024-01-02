@@ -17,7 +17,7 @@ class UserSeeder extends Seeder
     public function run(): void
     {
        DB::table('users')->insert([
-            'id_user' => Str::uuid(),
+            'id' => Str::uuid(),
             'name' => 'Žan',
             'surname' => 'Škorja',
             'email' => 'zan.skorja@gmail.com',
@@ -29,7 +29,7 @@ class UserSeeder extends Seeder
             'updated_at' => \Carbon\Carbon::now(),
         ]);
         DB::table('users')->insert([
-            'id_user' => Str::uuid(),
+            'id' => Str::uuid(),
             'name' => 'Dominik',
             'surname' => 'Brezovšek',
             'email' => 'dominikbe25@gmail.com',
@@ -41,7 +41,7 @@ class UserSeeder extends Seeder
             'updated_at' => \Carbon\Carbon::now(),
         ]);
         DB::table('users')->insert([
-            'id_user' => Str::uuid(),
+            'id' => Str::uuid(),
             'name' => 'Nik',
             'surname' => 'Mejak',
             'email' => 'mejaknik@gmail.com',

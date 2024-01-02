@@ -1,10 +1,10 @@
 <div class="container">
     <form class="form-horizontal"
-    action="{{ isset($existingData->id_user)
+    action="{{ isset($existingData->id)
         ? route(
             $submitRouteName . '.update',
             array_filter([
-                $variableName ?? 'default_variable_name' => $existingData->id_user ?? null,
+                $variableName ?? 'default_variable_name' => $existingData->id ?? null,
                 $optionalVariableName ?? null => $optionalId ?? null,
             ]),
         )

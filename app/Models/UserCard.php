@@ -12,7 +12,7 @@ class UserCard extends Pivot
     use HasUuids;
 
     protected $table = 'user_cards';
-    protected $primaryKey = 'id_user_card';
+    protected $primaryKey = 'id';
     public $incrementing = false;
     protected $keyType = 'string';
 }

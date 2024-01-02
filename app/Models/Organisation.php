@@ -11,7 +11,7 @@ class Organisation extends Model
     use HasFactory;
     use HasUuids;
 
-    protected $primaryKey = 'id_organisation';
+    protected $primaryKey = 'id';
     public $incrementing = false;
     protected $keyType = 'string';
 
@@ -20,7 +20,7 @@ class Organisation extends Model
         'description',
         'verified',
         'checking_all_cards',
-        'id_admin'
+        'id_user'
     ];
 
     // Relationships
@@ -35,7 +35,7 @@ class Organisation extends Model
     }
 
     public function admin(){
-        return $this->hasOne(User::class, 'id_admin','id_user' );
+        return $this->hasOne(User::class, 'id_user','id' );
     }
 }
 

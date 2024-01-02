@@ -25,12 +25,12 @@ class LoginController extends Controller
             $request->session()->regenerate();
             $request->session()->put('user', Auth::user());
             if (Auth::user()->role == 'ADM') {
-                return redirect()->route('profile');
+                return redirect()->route('admin.profile');
             } else if (Auth::user()->role == 'USR') {
-                return redirect()->route('profile');
+                return redirect()->route('user.profile');
             }
             else if (Auth::user()->role == 'ORG') {
-                return redirect()->route('profile');
+                return redirect()->route('organisation.profile');
             }
         }
         else {

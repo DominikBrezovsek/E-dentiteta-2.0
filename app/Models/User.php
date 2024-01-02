@@ -13,13 +13,13 @@ class User extends Model implements Authenticatable
     use HasUuids;
 
     
-    protected $primaryKey = 'id_user';
+    protected $primaryKey = 'id';
     public $incrementing = false;
     protected $keyType = 'string';
 
     public function getAuthIdentifierName()
     {
-        return 'id_user'; // Change this to your primary key column name if it's different
+        return 'id'; // Change this to your primary key column name if it's different
     }
 
     public function getAuthIdentifier()

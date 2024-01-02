@@ -11,7 +11,7 @@ class Card extends Model
     use HasFactory;
     use HasUuids;
 
-    protected $primaryKey = 'id_card';
+    protected $primaryKey = 'id';
     public $incrementing = false;
     protected $keyType = 'string';
 
@@ -25,12 +25,12 @@ class Card extends Model
     // Relationships
     public function organisation()
     {
-        return $this->belongsTo(Organisation::class, 'id_organisation');
+        return $this->belongsTo(Organisation::class, 'id');
     }
 
     public function users()
     {
-        return $this->belongsToMany(User::class, 'user_cards', 'id_card', 'id_user');
+        return $this->belongsToMany(User::class, 'user_cards', 'id_user', 'id_card');
     }
 }
 

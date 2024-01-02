@@ -12,7 +12,7 @@
                     setTimeout(function() {
                         alert.remove();
                     }, 500);
-                }, 3000); 
+                }, 3000);
             });
         });
     </script>
@@ -43,10 +43,17 @@
             padding: 10px 20px;
             margin: 10px;
         }
+
         .btn-primary:hover {
             background-color: transparent;
             border-color: transparent;
             color: #2b2c2c;
+        }
+        .btn{
+            font-size: 20px;
+            border-color: rgb(71, 68, 68);
+            padding: 10px 20px;
+            margin: 10px;
         }
     </style>
 </head>
@@ -54,8 +61,20 @@
 <body>
     @include('partials.header')
     <div class="main">
-        <div class="content">   
-            @yield('content')
+        @if (session('message'))
+        <div class="alert alert-success auto-dismiss">
+            {{ session('message') }}
+        </div>
+    @endif
+        <div class="content">
+
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-md-8">
+                        @yield('content')
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>

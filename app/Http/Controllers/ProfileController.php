@@ -11,21 +11,32 @@ class ProfileController extends Controller
     {
         return view('admin.profile.profileForm', [
             'title' => 'Profil',
-            'existingData' => User::where('id_user', session('user')->id_user)->first(),
+            'existingData' => User::where('id', session('user')->id)->first(),
         ]);
+    }
+    public function postProfileAdmin(Request $request){
+        $request->validate([
+            'name' => ['required', 'max:255'],
+            'surname' => ['required', 'max:255'],
+        ]);
+        User::where('id', session('user')->id)->update([
+            'name' => $request->input('name'),
+            'surname' => $request->input('surname'),
+        ]);
+        return redirect()->route('admin.profile')->with('message', 'Profil je bil posodobljen!');
     }
     public function getProfileUser()
     {
         return view('user.profile.profileForm', [
             'title' => 'Profil',
-            'existingData' => User::where('id_user', session('user')->id_user)->first(),
+            'existingData' => User::where('id', session('user')->id)->first(),
         ]);
     }
     public function getProfileOrganisation()
     {
         return view('organisation.profile.profileForm', [
             'title' => 'Profil',
-            'existingData' => User::where('id_user', session('user')->id_user)->first(),
+            'existingData' => User::where('id', session('user')->id)->first(),
         ]);
     }
 }
