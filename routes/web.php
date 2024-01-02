@@ -5,6 +5,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\AddCardController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -62,6 +63,16 @@ Route::group(['middleware' => 'ADM'], function () {
             Route::post('/add', [AddOrganisationController::class, 'postAddOrganisation'])->name('admin.organisation.create');
             Route::put('/add', [AddOrganisationController::class, 'postAddOrganisation'])->name('admin.organisation.create');
             Route::delete('/delete/{organisationId}', [AddOrganisationController::class, 'deleteOrganisation'])->name('admin.organisation.delete');
+        });
+        Route::prefix('/cards')->group(function (){
+            Route::get('/', [AddCardController::class, 'getCards'])->name('admin.cards');
+            Route::get('/edit/{cardId}', [AddCardController::class, 'getCard'])->name('admin.card');
+            Route::post('/edit/{cardId}', [AddCardController::class, 'postCard'])->name('admin.card.update');
+            Route::put('/edit/{cardId}', [AddCardController::class, 'postCard'])->name('admin.card.update');
+            Route::get('/add', [AddCardController::class, 'getAddCard'])->name('admin.card.add');
+            Route::post('/add', [AddCardController::class, 'postAddCard'])->name('admin.card.create');
+            Route::put('/add', [AddCardController::class, 'postAddCard'])->name('admin.card.create');
+            Route::delete('/delete/{cardId}', [AddCardController::class, 'deleteCard'])->name('admin.card.delete');
         });
 
     });
