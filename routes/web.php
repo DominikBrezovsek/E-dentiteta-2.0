@@ -102,7 +102,7 @@ Route::group(['middleware' => 'ORG'], function () {
             Route::post('/edit', [ProfileController::class, 'postProfileOrganisation'])->name('organisation.profile.update');
             Route::put('/edit', [ProfileController::class, 'postProfileOrganisation'])->name('organisation.profile.update');
         });
-
+        //TODO: Add routes for cards(create,approve,addcardstouser,check)
     });
 });
 /**
@@ -119,6 +119,6 @@ Route::group(['middleware' => 'USR'], function () {
             Route::post('/edit', [ProfileController::class, 'postProfileUser'])->name('user.profile.update');
             Route::put('/edit', [ProfileController::class, 'postProfileUser'])->name('user.profile.update');
         });
-
+        //TODO: Add routes for cards(show,join)
     });
 });
