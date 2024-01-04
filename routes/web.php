@@ -7,6 +7,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\AddCardController;
 use App\Http\Controllers\AddUserController;
+use App\Http\Controllers\AddUserCardController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -120,5 +121,15 @@ Route::group(['middleware' => 'USR'], function () {
             Route::put('/edit', [ProfileController::class, 'postProfileUser'])->name('user.profile.update');
         });
         //TODO: Add routes for cards(show,join)
+        Route::prefix('/cards')->group(function (){
+            Route::get('/', [AddUserCardController::class, 'getCards'])->name('user.cards');
+            Route::get('/card/{cardId}', [AddUserCardController::class, 'getCard'])->name('user.card');
+            Route::post('/card/{cardId}', [AddUserCardController::class, 'postCard'])->name('user.card.update');
+            Route::put('/card/{cardId}', [AddUserCardController::class, 'postCard'])->name('user.card.update');
+            Route::get('/join', [AddUserCardController::class, 'getAddCard'])->name('user.card.join');
+            Route::post('/join/{cardId}', [AddUserCardController::class, 'postAddCard'])->name('user.card.create');
+            Route::put('/join/{cardId}', [AddUserCardController::class, 'postAddCard'])->name('user.card.create');
+            Route::delete('/delete/{cardId}', [AddUserCardController::class, 'deleteCard'])->name('user.card.delete');
+        });
     });
 });

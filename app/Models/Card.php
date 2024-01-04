@@ -32,5 +32,10 @@ class Card extends Model
     {
         return $this->belongsToMany(User::class, 'user_cards', 'id_user', 'id_card');
     }
+    public function userCards()
+    {
+        return $this->hasMany(UserCard::class, 'id_card', 'id');
+    }
+
 }
 

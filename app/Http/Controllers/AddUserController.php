@@ -98,10 +98,10 @@ class AddUserController extends Controller
                 $userIds = $userId->id;
                 $selectedCardId = Card::where('id', $selectedCard)->first()->id_organisation;
 
-                $isNotMember = !OrganisationUser::where('id_user', $userIds)
+                $isNotMember = OrganisationUser::where('id_user', $userIds)
                     ->where('id_organisation', $selectedCardId)
                     ->exists();
-                if ($isNotMember) {
+                if (!$isNotMember) {
                     $organisationUser = new OrganisationUser([
                         'id_user' => $userId->id,
                         'id_organisation' => Card::where('id', $selectedCard)->first()->id_organisation,
