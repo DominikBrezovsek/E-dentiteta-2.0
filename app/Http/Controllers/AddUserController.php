@@ -173,4 +173,5 @@ class AddUserController extends Controller
         $userId->delete();
         return redirect()->route('admin.users')->with('message', 'Uporabnik je izbrisan!');
     }
+
 }

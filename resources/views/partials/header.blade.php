@@ -1,3 +1,4 @@
+    @php use App\Models\Organisation; @endphp
     <div class="header">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container-fluid">
@@ -35,6 +36,11 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('organisation.card.approve') }}">Zahteve za kartico</a>
                         </li>
+                        @if (Organisation::where('id_user', session('user')->id)->exists())
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('organisation.users') }}">Uporabniki organizacije</a>
+                        </li>
+                        @endif
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('logout') }}">Odjava</a>
                         </li>

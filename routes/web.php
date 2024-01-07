@@ -9,6 +9,7 @@ use App\Http\Controllers\AddCardController;
 use App\Http\Controllers\AddUserController;
 use App\Http\Controllers\AddUserCardController;
 use App\Http\Controllers\OrganisationCardsController;
+use App\Http\Controllers\AddUserOrganisationController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -119,6 +120,13 @@ Route::group(['middleware' => 'ORG'], function () {
             Route::post('/decline/{requestId}', [OrganisationCardsController::class, 'getDeclineCard'])->name('organisation.card.decline.card');
             Route::put('/decline/{requestId}', [OrganisationCardsController::class, 'getDeclineCard'])->name('organisation.card.decline.card');
             Route::delete('/delete/{cardId}', [OrganisationCardsController::class, 'deleteCard'])->name('organisation.card.delete');
+        });
+        Route::prefix('/users')->group(function (){
+            Route::get('/', [AddUserOrganisationController::class, 'getUsers'])->name('organisation.users');
+            Route::get('/add', [AddUserOrganisationController::class, 'getAddUser'])->name('organisation.user.add');;
+            Route::post('/add/{userId}', [AddUserOrganisationController::class, 'postAddUser'])->name('organisation.user.add.create');
+            Route::put('/add/{userId}', [AddUserOrganisationController::class, 'postAddUser'])->name('organisation.user.add.create');
+            Route::delete('/delete/{userId}', [AddUserOrganisationController::class, 'deleteUser'])->name('organisation.user.delete');
         });
     });
 });
