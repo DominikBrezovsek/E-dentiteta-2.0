@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Card;
 use App\Models\OrganisationUser;
 use App\Models\UserCard;
+use App\Models\RequestCard;
 
 class AddUserCardController extends Controller
 {
@@ -38,11 +39,17 @@ class AddUserCardController extends Controller
 
     public function getAddCard()
     {
-        $userId = session('user')->id; // Get the user's id from the session
+        $userId = session('user')->id;
+        //TODO: You can make join with pivot points
 
         $cards = Card::whereDoesntHave('userCards', function ($query) use ($userId) {
             $query->where('id_user', $userId);
-        })->get();
+        })
+            ->whereDoesntHave('requestCards', function ($query) use ($userId) {
+                $query->where('id_user', $userId);
+            })
+            ->get();
+
         return view(
             'user.card.cardJoin',
             [
@@ -52,9 +59,34 @@ class AddUserCardController extends Controller
         );
     }
 
-    public function postAddCard(Request $request)
+    public function postAddCard(Request $request, Card $cardId)
     {
-        // Logic for handling the "user.card.create" route (POST and PUT methods)
+        $userId = session('user')->id;
+        $selectedOrganisationId = $cardId->id_organisation;
+
+        $isNotMember = !OrganisationUser::where('id_user', $userId)
+            ->where('id_organisation', $selectedOrganisationId)
+            ->exists();
+        if ($cardId->auto_join == 'Y') {
+            UserCard::create([
+                'id_user' => $userId,
+                'id_card' => $cardId->id,
+            ]);
+            if ($isNotMember) {
+                OrganisationUser::create([
+                    'id_user' => $userId,
+                    'id_organisation' => $selectedOrganisationId,
+                ]);
+            }
+            return redirect()->route('user.card.join')->with('message', 'Kartica je bila dodana!');
+        } else {
+            RequestCard::create([
+                'id_user' => $userId,
+                'id_card' => $cardId->id,
+                'id_organisation' => $selectedOrganisationId,
+            ]);
+            return redirect()->route('user.card.join')->with('message', 'Kartica je bila zahtevana!');
+        }
     }
 
     public function deleteCard(Request $request, Card $cardId)

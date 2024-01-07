@@ -8,6 +8,7 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\AddCardController;
 use App\Http\Controllers\AddUserController;
 use App\Http\Controllers\AddUserCardController;
+use App\Http\Controllers\OrganisationCardsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -103,7 +104,22 @@ Route::group(['middleware' => 'ORG'], function () {
             Route::post('/edit', [ProfileController::class, 'postProfileOrganisation'])->name('organisation.profile.update');
             Route::put('/edit', [ProfileController::class, 'postProfileOrganisation'])->name('organisation.profile.update');
         });
-        //TODO: Add routes for cards(create,approve,addcardstouser,check)
+        //TODO: Add routes for cards check
+        Route::prefix('/cards')->group(function(){
+            Route::get('/', [OrganisationCardsController::class, 'getCards'])->name('organisation.cards');
+            Route::get('/edit/{cardId}', [OrganisationCardsController::class, 'getCard'])->name('organisation.card');
+            Route::post('/edit/{cardId}', [OrganisationCardsController::class, 'postCard'])->name('organisation.card.update');
+            Route::put('/edit/{cardId}', [OrganisationCardsController::class, 'postCard'])->name('organisation.card.update');
+            Route::get('/add', [OrganisationCardsController::class, 'getAddCard'])->name('organisation.card.add');
+            Route::post('/add', [OrganisationCardsController::class, 'postAddCard'])->name('organisation.card.create');
+            Route::put('/add', [OrganisationCardsController::class, 'postAddCard'])->name('organisation.card.create');
+            Route::get('/approve', [OrganisationCardsController::class, 'getApproveCards'])->name('organisation.card.approve');
+            Route::post('/approve/{requestId}', [OrganisationCardsController::class, 'getApproveCard'])->name('organisation.card.approve.card');
+            Route::put('/approve/{requestId}', [OrganisationCardsController::class, 'getApproveCard'])->name('organisation.card.approve.card');
+            Route::post('/decline/{requestId}', [OrganisationCardsController::class, 'getDeclineCard'])->name('organisation.card.decline.card');
+            Route::put('/decline/{requestId}', [OrganisationCardsController::class, 'getDeclineCard'])->name('organisation.card.decline.card');
+            Route::delete('/delete/{cardId}', [OrganisationCardsController::class, 'deleteCard'])->name('organisation.card.delete');
+        });
     });
 });
 /**

@@ -6,35 +6,28 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 
-class RequestCard extends Model
+class OrganisationEmployees extends Model
 {
     use HasFactory;
     use HasUuids;
 
-    protected $table = 'request_card';
-    protected $primaryKey = 'id_request_card';
+    protected $primaryKey = 'id';
     public $incrementing = false;
     protected $keyType = 'string';
 
     protected $fillable = [
         'id_user',
-        'id_card',
-        'id_organisation',
-        'status'
+        'id_organisation'
     ];
+    protected $table = 'organisation_employees'; // Explicitly defining the table name
 
+    // Define the relationship back to the User
     public function user()
     {
         return $this->belongsTo(User::class, 'id_user');
     }
-    
-    // RequestCard belongs to a Card
-    public function card()
-    {
-        return $this->belongsTo(Card::class, 'id_card');
-    }
-    
-    // RequestCard belongs to an Organisation
+
+    // Define the relationship back to the Organisation
     public function organisation()
     {
         return $this->belongsTo(Organisation::class, 'id_organisation');

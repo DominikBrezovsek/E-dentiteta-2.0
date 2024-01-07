@@ -7,7 +7,6 @@
         </div>
         <a href="{{ route('user.card.join')}}"
                 class="btn btn-primary">Dodaj kartico v svoj račun</a>
-        {{-- TODO: Add card to user --}}
         <div class="col-md-12 table-responsive card-body">
             <table class="table table-striped">
                 <tr>
@@ -22,8 +21,9 @@
                         @foreach ($data as $row)
                             <tr>
                                 <td>{{ $row?->name }}</td>
-                                <td><a href="{{ route('user.card', ['cardId' => $row?->id]) }}"
-                                    class="btn btn-primary">Verifikacija kartice</a></td>
+                                {{-- TODO make verification --}}
+                                <td><a href="{{ route('user.cards', ['cardId' => $row?->id]) }}"
+                                    class="btn btn-primary" onclick="return confirm('Verifikacija je še v izdelavi :)');">Verifikacija kartice</a></td>
                                 <td>
                                     <form
                                         action="{{ route('user.card.delete', ['cardId' => $row?->id_card]) }}"

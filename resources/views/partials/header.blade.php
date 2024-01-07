@@ -30,6 +30,12 @@
                             <a class="nav-link" href="{{ route('organisation.profile') }}">Moj profil</a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link" href="{{ route('organisation.cards') }}">Kartice</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('organisation.card.approve') }}">Zahteve za kartico</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="{{ route('logout') }}">Odjava</a>
                         </li>
                     </ul>
