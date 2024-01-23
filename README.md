@@ -7,6 +7,11 @@ Development of multifunctional application for e-identity
 - [Rules](#rules)
 
 ## Installation
+### Prerequsites: 
+- PHP installed localy and added to the PATH
+- SQL database engine(MariaDB works just fine)
+- Composer
+
 To initialize the project use:
 1. composer install
 
@@ -24,6 +29,7 @@ Please create your local database with the following information (so we can use 
 3. db_name: `ijw26577_eidentity`
 4. host: `localhost`
 
+For MacOS users, such as myself, I recomend using [Homebrew](https://brew.sh/) to install MariaDB as noted in their [official documentation](https://mariadb.com/kb/en/installing-mariadb-on-macos-using-homebrew/)
 ## Rules
 1. <b>DO NOT USE MAIN BRANCH</b>
 2. Branch names for features starts with feat/, for bugs bug/ and for development /dev, followed by short description of the feature/bug/development
@@ -37,3 +43,7 @@ Please create your local database with the following information (so we can use 
 10. Please keep your code neat and commented.
 11. Avoid magic functions
 12. Handle the errors
+
+## Stats of our programming time
+- zanurban: <a href="https://wakatime.com/badge/user/357a7788-d233-45e0-bd9c-f6990b124cba/project/207587a4-3e6c-47f5-be1b-d68e11540812"><img src="https://wakatime.com/badge/user/357a7788-d233-45e0-bd9c-f6990b124cba/project/207587a4-3e6c-47f5-be1b-d68e11540812.svg?style=for-the-badge" alt="wakatime"></a>
+- dominikbrezovsek: <a href="https://wakatime.com/badge/github/Project-Matura/E-dentiteta"><img src="https://wakatime.com/badge/github/Project-Matura/E-dentiteta.svg?style=for-the-badge" alt="wakatime"></a>
