@@ -37,4 +37,5 @@ Please create your local database with the following information (so we can use 
 9. Always use camelCase for variables and methods
 
 ## Stats of our programming time
-- zanurban: <a href="https://wakatime.com/badge/user/357a7788-d233-45e0-bd9c-f6990b124cba/project/207587a4-3e6c-47f5-be1b-d68e11540812"><img src="https://wakatime.com/badge/user/357a7788-d233-45e0-bd9c-f6990b124cba/project/207587a4-3e6c-47f5-be1b-d68e11540812.svg" alt="wakatime"></a>
+- zanurban: <a href="https://wakatime.com/badge/user/357a7788-d233-45e0-bd9c-f6990b124cba/project/207587a4-3e6c-47f5-be1b-d68e11540812"><img src="https://wakatime.com/badge/user/357a7788-d233-45e0-bd9c-f6990b124cba/project/207587a4-3e6c-47f5-be1b-d68e11540812.svg?style=for-the-badge" alt="wakatime"></a>
+- dominikbrezovsek: <a href="https://wakatime.com/badge/github/Project-Matura/E-dentiteta"><img src="https://wakatime.com/badge/github/Project-Matura/E-dentiteta.svg?style=for-the-badge" alt="wakatime"></a>
