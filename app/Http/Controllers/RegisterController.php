@@ -24,7 +24,7 @@ class RegisterController extends Controller
             'password2' => ['required', 'max:255'],
             'email' => ['required', 'max:255', 'unique:users'],
             'name' => ['required', 'max:255'],
-            'surname' => ['required', 'max:255'],   
+            'surname' => ['required', 'max:255'],
             'emso' => ['required', 'max:13', 'min:13', 'unique:users'],
         ]);
 
@@ -68,6 +68,6 @@ class RegisterController extends Controller
 
         $user->save();
 
-        return redirect()->route('login');
+        return redirect()->route('login')->with('message', 'Registracija uspešna!');
     }
 }

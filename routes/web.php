@@ -4,6 +4,7 @@ use App\Http\Controllers\AddOrganisationController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\QRCodeController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\AddCardController;
 use App\Http\Controllers\AddUserController;
@@ -154,6 +155,7 @@ Route::group(['middleware' => 'USR'], function () {
             Route::post('/join/{cardId}', [AddUserCardController::class, 'postAddCard'])->name('user.card.create');
             Route::put('/join/{cardId}', [AddUserCardController::class, 'postAddCard'])->name('user.card.create');
             Route::delete('/delete/{cardId}', [AddUserCardController::class, 'deleteCard'])->name('user.card.delete');
+            Route::get('/validate/{cardId}', [QRCodeController::class, 'generateQRCode'])->name('user.qrcode-generate');
         });
     });
 });

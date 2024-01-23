@@ -9,46 +9,46 @@
 
                     <div class="card-body">
 
-                        <x-form 
-                        :existingData="$existingData" 
-                        submitRouteName="register" 
+                        <x-form
+                        :existingData="$existingData"
+                        submitRouteName="register"
                         backRouteName="home"
-                        submitButtonName="Registriraj se" 
-                        backButtonName="Domov">
+                        submitButtonName="Registriraj se"
+                        backButtonName="Nazaj">
 
-                            <x-input 
+                            <x-input
                             type="text"
-                            name="name" 
+                            name="name"
                             displayedName="Ime" />
 
-                            <x-input 
+                            <x-input
                             type="text"
-                            name="surname" 
+                            name="surname"
                             displayedName="Priimek" />
 
-                            <x-input 
+                            <x-input
                             type="text"
-                            name="username" 
+                            name="username"
                             displayedName="Uporabniško ime" />
 
-                            <x-input 
+                            <x-input
                             type="email"
-                            name="email" 
+                            name="email"
                             displayedName="E-pošta" />
 
-                            <x-input 
+                            <x-input
                             type="number"
-                            name="emso" 
+                            name="emso"
                             displayedName="EMŠO" />
 
-                            <x-input 
+                            <x-input
                             type="password"
-                            name="password" 
+                            name="password"
                             displayedName="Geslo" />
 
-                            <x-input 
+                            <x-input
                             type="password"
-                            name="password2" 
+                            name="password2"
                             displayedName="Potrdi geslo" />
 
                         </x-form>
