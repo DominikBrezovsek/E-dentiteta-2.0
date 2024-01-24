@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AddOrganisationController;
+use App\Http\Controllers\CheckCardController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\ProfileController;
@@ -158,4 +159,7 @@ Route::group(['middleware' => 'USR'], function () {
             Route::get('/validate/{cardId}', [QRCodeController::class, 'generateQRCode'])->name('user.qrcode-generate');
         });
     });
+});
+Route::prefix('/verify')->group(function (){
+    Route::get('/card/', [CheckCardController::class, 'verifyCard'])->name('card-check.verify-card');
 });

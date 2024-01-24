@@ -38,9 +38,10 @@ class QRCodeController extends Controller
                 'check_seq' => $chkSeq,
                 'expires' => time() + 2*60
             ]);
-            return 'uid=' . $cardData->id_user . '?' . 'cid=' . $cardData->id_card . '?' . 'chk=' . $chkSeq;
-        } catch (\Exception $e) {
-            return $e;
+            $verifyId = CardVerification::whereIdUser($cardData->id_user)->whereIdCard($cardData->id_card)->first();
+            return route('card-check.verify-card', ['verifyId' => $verifyId->id_verify, 'uid' => $cardData->id_user, 'cid' => $cardData->id_card]);
+        } catch (\Exception) {
+            return "error=true";
         }
     }
 
