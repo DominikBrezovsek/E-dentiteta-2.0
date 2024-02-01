@@ -1,5 +1,5 @@
     @php use App\Models\Organisation; @endphp
-    <div class="header">
+    <div class="header ">
         <div class="navbar-custom">
             <div>
                 @if (Auth::user() && Auth::user()->role == 'ADM')
