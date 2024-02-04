@@ -11,7 +11,7 @@
             <table class="table table-striped">
                 <tr>
                     <th>Ime kartice</th>
-                    <th>Odprt pristop k kartici</th>
+                    <th>Verifikacijska koda</th>
                     <th colspan="2">Upravljanje s kartico</th>
                 </tr>
 
@@ -22,8 +22,8 @@
                             <tr>
                                 <td>{{ $row?->name }}</td>
                                 {{-- TODO make verification --}}
-                                <td><a href="{{ route('user.cards', ['cardId' => $row?->id]) }}"
-                                    class="btn btn-primary" onclick="return confirm('Verifikacija je še v izdelavi :)');">Verifikacija kartice</a></td>
+                                <td><a href="{{ route('user.qrcode-generate', ['cardId' => $row->id_card])}}"
+                                       class="btn btn-primary">Verifikacija kartice</a></td>
                                 <td>
                                     <form
                                         action="{{ route('user.card.delete', ['cardId' => $row?->id_card]) }}"
@@ -31,7 +31,7 @@
                                         @method('DELETE')
                                         @csrf
                                         <div class="d-flex gap-2">
-                                            
+
                                             <button type="submit" class="btn btn-outline-danger btn-sm"
                                                 onclick="return confirm('Ali ste prepričani, da želite izbrisati to kartico?');">
                                                 Izbriši

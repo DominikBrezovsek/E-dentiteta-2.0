@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Organisation;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
@@ -15,9 +16,13 @@ class CardSeeder extends Seeder
      */
     public function run(): void
     {
+        $KER = Organisation::where('name', '=', 'Srednja šola za kemijo, elektrotehniko in računalništvo')->select('id')->first();
+        $SMP = Organisation::where('name', '=', 'Srednja šola za medijske poklice')->select('id')->first();
+
+
         DB::table('cards')->insert([
             'id' => Str::uuid(),
-            'id_organisation' => '55c8f13b-d2c6-41f8-adde-362093237725',
+            'id_organisation' => $KER->id,
             'name' => 'Dijaška KER',
             'created_at' => \Carbon\Carbon::now(),
             'updated_at' => \Carbon\Carbon::now(),
@@ -25,7 +30,7 @@ class CardSeeder extends Seeder
         ]);
         DB::table('cards')->insert([
             'id' => Str::uuid(),
-            'id_organisation' => 'd2fddf70-58ad-40fe-9be3-8fee066f0250',
+            'id_organisation' => $SMP->id,
             'name' => 'Dijaška SMP',
             'created_at' => \Carbon\Carbon::now(),
             'updated_at' => \Carbon\Carbon::now(),

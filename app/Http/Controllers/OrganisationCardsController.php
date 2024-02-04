@@ -21,7 +21,7 @@ class OrganisationCardsController extends Controller
             ->merge(OrganisationEmployees::where('id_user', $userId)->pluck('id_organisation'))
             ->unique();
 
-        
+
         $cards = Card::whereIn('id_organisation', $organisationIds)->get();
 
         return view(
@@ -62,7 +62,7 @@ class OrganisationCardsController extends Controller
     {
         return view('organisation.card.cardCreate',
             [
-                'title' => 'Dodajanj kartico',
+                'title' => 'Dodaj kartico',
                 'existingData' => (object) [],
             ]);
     }
@@ -76,7 +76,7 @@ class OrganisationCardsController extends Controller
             ->merge(OrganisationEmployees::where('id_user', $userId)->pluck('id_organisation'))
             ->first();
 
-    
+
         $validated = $request->validate([
             'name' => ['required', 'max:255'],
             'description' => ['max:255'],
@@ -90,7 +90,7 @@ class OrganisationCardsController extends Controller
             'auto_join' => $validated['auto_join'],
         ]);
         $card->save();
-        return redirect()->route('organisation.cards')->with('message', 'Katrica ustvarjena!');
+        return redirect()->route('organisation.cards')->with('message', 'Kartica ustvarjena!');
     }
 
     public function getApproveCards()
@@ -108,8 +108,8 @@ class OrganisationCardsController extends Controller
                 ->get([
                     'request_card.*',
                     'users.name as user_name',
-                    'users.*', 
-                    'cards.name as card_name', 
+                    'users.*',
+                    'cards.name as card_name',
                 ]);
             }
             else{
