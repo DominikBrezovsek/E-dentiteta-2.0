@@ -1,0 +1,202 @@
+@import "base.css";
+
+
+/*navbar styling*/
+.navbar-custom {
+    width: 100vw;
+    height: 10vh;
+    padding: 1vh 2vw;
+    background-image: linear-gradient(90deg, var(--primary) 0%, var(--secondary) 100%);
+    display: flex;
+
+}
+.nav-items {
+    width: 100%;
+    display: flex;
+    align-self: center;
+    flex-direction: row;
+    justify-content: left;
+    align-items: center;
+    gap: 2rem;
+}
+
+.nav-item {
+    padding: 0 3%;
+}
+.nav-item, .nav-item a{
+    text-decoration: none;
+    color: var(--text);
+    font-size: 1.5rem;
+}
+
+.nav-item a:hover {
+    color: var(--background);
+    transition: all ease-in-out 0.15s;
+}
+/*end of navigation styles*/
+
+
+/*login page styling*/
+
+.login-page{
+    width: 100vw;
+    height: 100vh;
+    display: grid;
+    grid-template-columns: 50% 50%;
+    justify-items: center;
+    align-items: center;
+}
+
+.login-form {
+    height: 70%;
+    width:60%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0.7rem;
+
+}
+
+.form-title {
+    align-self: center;
+    font-size: 3rem;
+    font-weight: 600;
+    color: var(--text);
+}
+
+.form-subtitle {
+    color: var(--text-50);
+    margin-bottom: 1.5rem;
+    font-weight: 500;
+}
+
+.form-main{
+    width: 100%;
+}
+.form-body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.form-body input {
+    height: 3.2rem;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--primary-50);
+    backdrop-filter: blur(20px);
+    border-radius: 15px;
+    border: none;
+    box-shadow: var(--shadow-input);
+}
+
+.form-body form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.form-inputs {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 2rem;
+}
+
+.input {
+    padding: 0.65rem;
+    width: 75%;
+    margin-right: auto;
+    margin-left: auto;
+
+}
+
+.input:focus{
+    color: var(--text-50);
+    outline: none;
+    border: 2px solid var(--primary);
+}
+
+.input::placeholder {
+    color: var(--text-50);
+}
+
+.form-buttons {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    margin-top: 1rem;
+}
+
+.btn-save {
+    padding: 1.5rem 3rem;
+    border-radius: 20px;
+    border: none;
+    box-shadow: var(--shadow-input);
+    background: var(--gradient-primary) ;
+    color: var(--text-white);
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.create-account {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 15em;
+    height: 5rem;
+    gap: 1rem;
+}
+.create-account svg{
+    width: 100%;
+    stroke: var(--primary);
+    stroke-width: 3;
+}
+
+.create-account .text {
+    text-align: center;
+    color: var(--text);
+}
+.btn-register {
+    padding: 1rem  4rem;
+    border: 2px solid var(--primary);
+    border-radius: 20px;
+    color: var(--text);
+}
+
+.landing-text {
+    width: 100%;
+    height: 100%;
+    background: var(--gradient-primary);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.landing-text .card {
+    width: 80%;
+    height: 70%;
+    border: 1px solid var(--text-white);
+    border-radius: 25px;
+    padding: 0 1.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(20px);
+    background-color: rgba(255, 255, 255, 0.15);
+    box-shadow: var(--shadow-input);
+}
+
+.landing-text p{
+    font-size: 2.1rem;
+    font-weight: 500;
+    text-align: left;
+    color: var(--text-white);
+}
+

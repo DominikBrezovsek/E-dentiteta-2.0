@@ -25,9 +25,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('layout');
-})->name('home');
+Route::get('/',[LoginController::class, 'getLogin'])->name('home');
 /**
  * Route for logout
  */
@@ -36,7 +34,6 @@ Route::get('/logout', [LogoutController::class, 'logout'])->name('logout');
  * Routes for login
  */
 Route::group(['middleware' => 'login'], function () {
-    Route::get('/login', [LoginController::class, 'getLogin'])->name('login');
     Route::post('/login', [LoginController::class, 'postLogin'])->name('login.create');
 });
 /**
@@ -142,6 +139,7 @@ Route::group(['middleware' => 'USR'], function () {
          * Routes for user profile
          */
         Route::prefix('/profile')->group(function (){
+            Route::get('/redis', [ProfileController::class, 'redisGetProfile'])->name('user.redis');
             Route::get('/edit', [ProfileController::class, 'getProfileUser'])->name('user.profile');
             Route::post('/edit', [ProfileController::class, 'postProfileUser'])->name('user.profile.update');
             Route::put('/edit', [ProfileController::class, 'postProfileUser'])->name('user.profile.update');

@@ -1,13 +1,14 @@
-<div class="form-group">
-    <label for="{{ $name }}">{{ $displayedName }}</label>
+<div class="inputs">
     <input type="{{ $type }}"
-           class="form-control {{ isset($errorMessaage) ? 'is-invalid' : '' }}"
+           class="input {{ isset($errorMessaage) ? 'is-invalid' : '' }}"
+           id="{{ $name }}"
            name="{{ $name }}"
+           placeholder="{{$displayedName}}"
            value="{{ old($name, $value ?? '') }}"
            {{ isset($readonly) && $readonly ? 'readonly' : '' }}
     >
 
     @error($name)
-        <div class="alert alert-danger auto-dismiss">{{ $message }}</div>
+        <div class="alert alert-danger auto-dismiss" popover>{{ $message }}</div>
     @enderror
 </div>

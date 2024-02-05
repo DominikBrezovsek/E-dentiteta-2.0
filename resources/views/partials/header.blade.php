@@ -1,7 +1,6 @@
     @php use App\Models\Organisation; @endphp
-    <div class="header ">
+    <div class="header">
         <div class="navbar-custom">
-            <div>
                 @if (Auth::user() && Auth::user()->role == 'ADM')
                     <div class="nav-items">
                             <div class="nav-item">Admin</div>
@@ -57,17 +56,7 @@
                             <a class="nav-link" href="{{ route('logout') }}">Odjava</a>
                         </div>
                 </div>
-                @else
-                <div class="nav-items">
-                        <div class="nav-item">
-                            <a class="nav-link" href="{{ route('login') }}">Prijava</a>
-                        </div>
-                        <div class="nav-item">
-                            <a class="nav-link" href="{{ route('register') }}">Registracija</a>
-                        </div>
-
-                </div>
                 @endif
             </div>
         </div>
-    </div>
+
