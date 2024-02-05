@@ -33,7 +33,7 @@ body {
         --primary-50: rgba(110, 104, 199, 0.7);
         --secondary: #7e70db;
         --accent: #d8417d;
-        --shadow-input: -2px 17px 34px -3px rgba(0,0,0,0.1);
+        --shadow-input: -2px 17px 34px -3px rgba(126, 112, 219, 0.15);
         --gradient-primary: linear-gradient(to left top, #5038ed, #624cf0, #735ef2, #8270f3, #9181f4);
         --text-white: #fff
     }

@@ -13,7 +13,7 @@
                 $optionalVariableName ?? null => $optionalId ?? null,
             ]),
         ) }}"
-    method="POST" enctype="multipart/form-data">
+    method="POST" enctype="multipart/form-data" autocomplete="off">
     @csrf
     @if (isset($existingData->id))
         @method('PUT')

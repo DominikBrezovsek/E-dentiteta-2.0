@@ -5,6 +5,7 @@
            name="{{ $name }}"
            placeholder="{{$displayedName}}"
            value="{{ old($name, $value ?? '') }}"
+           autocomplete="off"
            {{ isset($readonly) && $readonly ? 'readonly' : '' }}
     >
 

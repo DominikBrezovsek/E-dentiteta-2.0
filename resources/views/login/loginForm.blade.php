@@ -43,9 +43,11 @@
                 </div>
             </div>
             <div class="register">
-                <div class="btn-register">
-                    Registracija
-                </div>
+                <a href="{{route('register')}}">
+                    <div class="btn-register">
+                        Registracija
+                    </div>
+                </a>
             </div>
         </div>
         <div class="landing-text">
