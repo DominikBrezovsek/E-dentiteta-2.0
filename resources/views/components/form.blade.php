@@ -25,7 +25,7 @@
 
     <div class="form-buttons">
         <button type="submit" class="btn btn-save">{{ $submitButtonName ?? 'Shrani' }}</button>
-        @if($backRouteName != null && $backButtonName != null)
+        @if(isset($backRouteName) && isset($backButtonName))
             <a href="{{ isset($optionalVariableName)
             ? route($backRouteName, [$optionalVariableName => $optionalId])
             : route($backRouteName) }}"
