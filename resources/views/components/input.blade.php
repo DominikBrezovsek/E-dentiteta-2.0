@@ -1,9 +1,9 @@
 <div class="inputs">
     <input type="{{ $type }}"
-           class="input {{ isset($errorMessaage) ? 'is-invalid' : ''}} {{$faClass}}"
+           class="input {{ isset($errorMessaage) ? 'is-invalid' : ''}}"
            id="{{ $name }}"
            name="{{ $name }}"
-           placeholder="{!! $icon !!}"
+           placeholder="{{ $displayedName }}"
            value="{{ old($name, $value ?? '') }}"
            autocomplete="off"
            {{ isset($readonly) && $readonly ? 'readonly' : '' }}
