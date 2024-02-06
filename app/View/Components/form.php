@@ -14,10 +14,8 @@ class form extends Component
     public function __construct(
         public object $existingData,
         public string $submitRouteName,
-        public string $backRouteName = '',
         public string $variableName = '',
         public string $submitButtonName = 'Shrani',
-        public string $backButtonName = '',
         public string $optionalVariableName = '',
         public string $optionalId = '',
     ) {

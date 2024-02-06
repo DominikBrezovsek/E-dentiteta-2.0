@@ -15,6 +15,8 @@
                             type="text"
                             name="username"
                             displayed-name="Uporabniško ime"
+                            icon="&#xf007;"
+                            fa-class="fa-regular"
                         />
 
                     </div>
@@ -59,18 +61,5 @@
             </div>
         </div>
     </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-    <script>
-
-        let registerButton = document.querySelector(".btn-register");
-
-        let animation = gsap.to(".btn-register", {
-            paused: true,
-            background: "var(--gradient-primary)",
-        })
-
-        registerButton.addEventListener("mouseover",() => animation.play())
-        registerButton.addEventListener("mouseleave",() => animation.reverse())
-    </script>
-
+    <script src="https://kit.fontawesome.com/f618edc45d.js" crossorigin="anonymous"></script>
 @endsection

@@ -68,6 +68,6 @@ class RegisterController extends Controller
 
         $user->save();
 
-        return redirect()->route('login')->with('message', 'Registracija uspešna!');
+        return redirect()->route('home')->with('message', 'Registracija uspešna!');
     }
 }

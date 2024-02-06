@@ -24,7 +24,7 @@
 
 <body>
 
-@unless(Route::getCurrentRoute()->uri() == '/' || Route::getCurrentRoute()->uri() == '/register')
+@unless(Route::getCurrentRoute()->uri() == '/' || Route::getCurrentRoute()->uri() == 'register')
     @include('partials.header')
 @endunless
         @if (session('message'))
@@ -33,5 +33,8 @@
         </div>
     @endif
         @yield('content')
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 </body>
 </html>

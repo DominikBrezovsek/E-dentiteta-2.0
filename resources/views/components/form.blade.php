@@ -25,12 +25,6 @@
 
     <div class="form-buttons">
         <button type="submit" class="btn btn-save">{{ $submitButtonName ?? 'Shrani' }}</button>
-        @if(isset($backRouteName) && isset($backButtonName))
-            <a href="{{ isset($optionalVariableName)
-            ? route($backRouteName, [$optionalVariableName => $optionalId])
-            : route($backRouteName) }}"
-               class="btn btn-back" style="margin-left: 10px">{{ $backButtonName ?? 'Nazaj' }}</a>
-        @endif
 
     </div>
  </form>
