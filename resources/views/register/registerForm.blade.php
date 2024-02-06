@@ -2,6 +2,7 @@
 
 @section('content')
     <div class="register-page">
+        <link rel="stylesheet" href="{{asset('/assets/css/main.css')}}">
         <div class="register-form">
             <div class="form-title">{{ __('Registriraj se') }}</div>
             <div class="form-subtitle">Ustvari svoj račun</div>
