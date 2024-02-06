@@ -3,7 +3,7 @@
            class="input {{ isset($errorMessaage) ? 'is-invalid' : ''}} {{$faClass}}"
            id="{{ $name }}"
            name="{{ $name }}"
-           placeholder="@if($value == '') {!! $icon !!}@endif"
+           placeholder="{!! $icon !!}"
            value="{{ old($name, $value ?? '') }}"
            autocomplete="off"
            {{ isset($readonly) && $readonly ? 'readonly' : '' }}
