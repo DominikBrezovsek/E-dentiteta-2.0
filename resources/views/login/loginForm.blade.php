@@ -15,8 +15,7 @@
                             type="text"
                             name="username"
                             displayed-name="Uporabniško ime"
-                            icon="&#xf007;"
-                            fa-class="fa-regular"
+                            fa-icon="fa-regular fa-user"
                         />
 
                     </div>
@@ -25,6 +24,7 @@
                             type="password"
                             name="password"
                             displayed-name="Geslo"
+                            fa-icon="fa-solid fa-lock"
                         />
                     </div>
                 </x-form>

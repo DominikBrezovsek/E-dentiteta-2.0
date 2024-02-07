@@ -89,9 +89,7 @@
     flex-direction: column;
     background-color: var(--primary-50);
     backdrop-filter: blur(20px);
-    border-radius: 15px;
     border: none;
-    box-shadow: var(--shadow-input);
 }
 
 .form-body form {
@@ -104,21 +102,22 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    justify-items: center;
+    width: 70%;
     gap: 1.2rem;
+    align-self: center;
 }
 
 .input {
     padding: 0.65rem;
-    width: 75%;
-    margin-right: auto;
-    margin-left: auto;
     color: var(--text);
+    width: 100%;
 
 }
 .input:focus{
     color: var(--text-50);
     outline: none;
-    border: 2px solid var(--primary);
+    border-bottom: 2px solid var(--primary);
 }
 
 .input::placeholder {
@@ -134,7 +133,16 @@
     gap: 2rem;
     margin-top: 1rem;
 }
-
+.inputs {
+    display: flex;
+    flex-direction: row;
+    background-color:var(--primary-50);
+    border-radius: 15px;
+    backdrop-filter: blur(20px);
+    height: 3.2rem;
+    align-items: center;
+    gap: 1rem
+}
 .btn-save {
     padding: 1.5rem 3rem;
     border-radius: 20px;

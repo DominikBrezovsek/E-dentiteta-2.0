@@ -2,7 +2,6 @@
 
 @section('content')
     <div class="register-page">
-        <link rel="stylesheet" href="{{asset('/assets/css/main.css')}}">
         <div class="register-form">
             <div class="form-title">{{ __('Registriraj se') }}</div>
             <div class="form-subtitle">Ustvari svoj račun</div>
@@ -18,39 +17,55 @@
                     <x-input
                         type="text"
                         name="name"
-                        displayedName="Ime"/>
+                        displayedName="Ime"
+                        fa-icon="fa-solid fa-user-pen"
+                    />
+
 
                     <x-input
                         type="text"
                         name="surname"
-                        displayedName="Priimek"/>
+                        displayedName="Priimek"
+                        fa-icon="fa-solid fa-user-pen"
+                    />
+
 
                     <x-input
                         type="text"
                         name="username"
-                        displayedName="Uporabniško ime"/>
+                        displayedName="Uporabniško ime"
+                        fa-icon="fa-solid fa-user-plus"/>
+
 
                     <x-input
                         type="email"
                         name="email"
-                        displayedName="E-pošta"/>
+                        displayedName="E-pošta"
+                        fa-icon="fa-solid fa-envelope"
+                    />
 
                     <x-input
                         type="text"
                         name="emso"
                         pattern="[0-9]*"
                         inputmode="numeric"
-                        displayedName="EMŠO"/>
+                        displayedName="EMŠO"
+                        fa-icon="fa-solid fa-address-card"
+                    />
 
                     <x-input
                         type="password"
                         name="password"
-                        displayedName="Geslo"/>
+                        displayedName="Geslo"
+                        fa-icon="fa-solid fa-key"
+                    />
 
                     <x-input
                         type="password"
                         name="password2"
-                        displayedName="Potrdi geslo"/>
+                        displayedName="Potrdi geslo"
+                        fa-icon="fa-solid fa-key"
+                    />
 
                 </x-form>
             </div>
@@ -85,6 +100,7 @@
                 </p>
             </div>
         </div>
+        <script src="https://kit.fontawesome.com/f618edc45d.js" crossorigin="anonymous"></script>
         </div>
 
 @endsection
