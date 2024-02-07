@@ -1,6 +1,6 @@
 <div class="inputs">
     <div>
-        <i class="{{isset($faIcon) ?? $faIcon}}}}"></i>
+        <i class="{{isset($faIcon) ? $faIcon : ''}}}}"></i>
     </div>
         <input type="{{ $type }}"
                class="input {{ isset($errorMessaage) ? 'is-invalid' : ''}}"
