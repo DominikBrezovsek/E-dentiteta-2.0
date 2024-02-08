@@ -22,8 +22,8 @@ class NewPasswordValidator extends FormRequest
     public function rules(): array
     {
         return [
-            'password' => 'string|required|min:8|regex:/[a-z]//[A-Z]//\d//[!@#$%^&*(),.?":{}|<>]/',
-            'password2' => 'string|required|min:8|regex:/[a-z]//[A-Z]//\d//[!@#$%^&*(),.?":{}|<>]/',
+            'password' => 'string|required|min:8|regex:[a-z][A-Z]\d[!@#$%^&*(),.?":{}|<>]',
+            'password2' => 'string|required|min:8|regex:[a-z][A-Z]\d[!@#$%^&*(),.?":{}|<>]',
         ];
     }
 
