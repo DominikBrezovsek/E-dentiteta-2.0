@@ -5,9 +5,8 @@
 .progressBarToast{
     background: var(--text-50);
 }
-
-.popupToast {
-    backdrop-filter: var(--toast-blur);
+.swal2-success-fix, .swal2-success-circular-line-left, .swal2-success-circular-line-right {
+    background-color: transparent;
 }
 /*end of alert box styling*/
 

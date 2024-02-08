@@ -15,8 +15,9 @@ body {
         --text: #26243d;
         --text-50: #433e6b;
         --background: #f1f1f1;
-        --toast-background: rgba(255, 255, 255, 0.71);
+        --toast-background: rgb(255, 255, 255);
         --toast-blur: blur(20px);
+        --icon-color: #7ace5c;
         --primary: #4f43b6;
         --primary-50: rgba(240, 237, 255, 0.8);
         --secondary: #32248f;
@@ -31,7 +32,8 @@ body {
         --text: #c4c2db;
         --text-50: #b2b0c7;
         --background: #0f1010;
-        --toast-background: rgba(75, 52, 107, 0.7);
+        --icon-color: #599344;
+        --toast-background: rgb(85, 68, 168);
         --toast-blur: 20px;
         --primary: #5449bc;
         --primary-50: rgba(110, 104, 199, 0.7);

@@ -50,7 +50,8 @@
             background: "var(--toast-background)",
             customClass: {
                 timerProgressBar: 'progressBarToast',
-                popup: 'popupToast'
+                popup: 'popupToast',
+                icon: 'popupIcon'
             },
             timerProgressBar: true,
             didOpen: (toast) => {
@@ -62,6 +63,7 @@
             /*title: "{{isset($errors->get('title')[0]) ? $errors->get('title')[0] : ''}}",*/
             text: "{{session('message')}}",
             icon: "success",
+            iconColor: "var(--icon-color)"
         })
         </script>
 @endif
