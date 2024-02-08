@@ -1,3 +1,4 @@
+<div>
  @extends('layout')
 
     @section('content')
@@ -12,13 +13,13 @@
                         submitButtonName="Shrani novo geslo">
                         <div>
                             <x-input
-                                type="text"
+                                type="password"
                                 name="password"
                                 displayed-name="Novo geslo"
                                 fa-icon="fa-regular fa-key"
                             />
                             <x-input
-                                type="text"
+                                type="password"
                                 name="password2"
                                 displayed-name="Ponovi geslo"
                                 fa-icon="fa-regular fa-key"
