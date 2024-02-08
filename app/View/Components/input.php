@@ -17,7 +17,7 @@ class input extends Component
         public string $type = 'text',
         public string $value = '',
         public bool $readonly = false,
-        public string $faIcon = ''
+        public string $faIcon = '',
     ) {
         //
     }

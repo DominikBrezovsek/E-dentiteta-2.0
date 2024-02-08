@@ -1,5 +1,15 @@
 @import "base.css";
 
+/* alert box styling*/
+
+.progressBarToast{
+    background: var(--text-50);
+}
+
+.popupToast {
+    backdrop-filter: var(--toast-blur);
+}
+/*end of alert box styling*/
 
 /*navbar styling*/
 .navbar-custom {
@@ -87,8 +97,7 @@
     height: 3.2rem;
     display: flex;
     flex-direction: column;
-    background-color: var(--primary-50);
-    backdrop-filter: blur(20px);
+    background-color: transparent;
     border: none;
 }
 
@@ -112,6 +121,7 @@
     padding: 0.65rem;
     color: var(--text);
     width: 100%;
+    border-bottom-right-radius: 15px;
 
 }
 .input:focus{
@@ -141,7 +151,8 @@
     backdrop-filter: blur(20px);
     height: 3.2rem;
     align-items: center;
-    gap: 1rem
+    gap: 1rem;
+    padding-left: 1rem;
 }
 .btn-save {
     padding: 1.5rem 3rem;

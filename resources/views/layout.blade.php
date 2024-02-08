@@ -27,14 +27,11 @@
 @unless(Route::getCurrentRoute()->uri() == '/' || Route::getCurrentRoute()->uri() == 'register')
     @include('partials.header')
 @endunless
-        @if (session('message'))
-        <div class="alert alert-success auto-dismiss">
-            {{ session('message') }}
-        </div>
-    @endif
+
         @yield('content')
 
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 </html>

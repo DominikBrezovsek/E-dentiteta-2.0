@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\RegisterFormValidator;
 use App\Models\User;
+use App\View\Components\input;
 use Hash;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class RegisterController extends Controller
 {
@@ -15,18 +19,10 @@ class RegisterController extends Controller
             'existingData' => (object) [],
         ]);
     }
-    public function postRegister(Request $request)
+    public function postRegister(RegisterFormValidator $request): RedirectResponse
     {
 
-        $credentials = $request->validate([
-            'username' => ['required', 'max:255', 'unique:users'],
-            'password' => ['required', 'max:255'],
-            'password2' => ['required', 'max:255'],
-            'email' => ['required', 'max:255', 'unique:users'],
-            'name' => ['required', 'max:255'],
-            'surname' => ['required', 'max:255'],
-            'emso' => ['required', 'max:13', 'min:13', 'unique:users'],
-        ]);
+        $credentials = $request->validated();
 
         function isValidPassword($password)
         {
@@ -40,7 +36,6 @@ class RegisterController extends Controller
         }
 
         if (!isValidPassword($credentials['password'])) {
-
             return back()->withErrors([
                 'password' => 'Geslo mora vsebovati vsaj 8 znakov, eno veliko črko, eno malo črko, eno številko in en poseben znak.',
             ])->onlyInput('username', 'email', 'name', 'surname', 'emso');

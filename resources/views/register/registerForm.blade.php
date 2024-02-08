@@ -101,6 +101,9 @@
             </div>
         </div>
         <script src="https://kit.fontawesome.com/f618edc45d.js" crossorigin="anonymous"></script>
-        </div>
+        @if(isset($message))
+
+        @endif
+         </div>
 
 @endsection

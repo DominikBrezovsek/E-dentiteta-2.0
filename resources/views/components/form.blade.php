@@ -25,6 +25,5 @@
 
     <div class="form-buttons">
         <button type="submit" class="btn btn-save">{{ $submitButtonName ?? 'Shrani' }}</button>
-
     </div>
  </form>

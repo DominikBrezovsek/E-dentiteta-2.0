@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\LoginFormValidator;
 use Auth;
 use http\Env\Response;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class LoginController extends Controller
 {
@@ -13,16 +15,13 @@ class LoginController extends Controller
     {
         return view('login.loginForm', [
             'title' => 'Prijava',
-            'existingData' => (object) [],
+            'existingData' => (object)[],
         ]);
     }
 
-    public function postLogin(Request $request)
+    public function postLogin(LoginFormValidator $request): RedirectResponse
     {
-        $credentials = $request->validate([
-            'username' => ['required'],
-            'password' => ['required'],
-        ]);
+        $credentials = $request->validated();
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
@@ -31,16 +30,15 @@ class LoginController extends Controller
                 return redirect()->route('admin.profile');
             } else if (Auth::user()->role == 'USR') {
                 return redirect()->route('user.profile');
-            }
-            else if (Auth::user()->role == 'ORG') {
+            } else if (Auth::user()->role == 'ORG') {
                 return redirect()->route('organisation.profile');
             }
-        }
-        else {
+        } else {
             return back()->withErrors([
                 'username' => 'Napačno uporabniško ime ali geslo.',
             ])->onlyInput('username');
         }
+        return redirect()->back();
     }
 
 }
