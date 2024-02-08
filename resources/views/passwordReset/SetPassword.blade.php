@@ -8,7 +8,7 @@
                 <div class="form-body">
                     <x-form
                         :existingData="$existingData"
-                        submitRouteName="password-reset/set-new"
+                        submitRouteName="set-new-password"
                         submitButtonName="Shrani novo geslo">
                         <div>
                             <x-input
