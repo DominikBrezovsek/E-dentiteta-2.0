@@ -4,6 +4,7 @@ use App\Http\Controllers\AddOrganisationController;
 use App\Http\Controllers\CheckCardController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogoutController;
+use App\Http\Controllers\PasswordResetController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\QRCodeController;
 use App\Http\Controllers\RegisterController;
@@ -43,6 +44,13 @@ Route::group(['middleware' => 'register'], function () {
     Route::get('/register', [RegisterController::class, 'getRegister'])->name('register');
     Route::post('/register', [RegisterController::class, 'postRegister'])->name('register.create');
 });
+
+/**
+ *Password reset route
+ */
+Route::get('/password-reset', [PasswordResetController::class, 'getForm'])->name('password-reset');
+Route::post('/password-reset', [PasswordResetController::class, 'resetPassword'])->name('password-reset.create');
+
 /**
  * Routes for admin
  */

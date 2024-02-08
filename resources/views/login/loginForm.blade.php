@@ -51,6 +51,14 @@
                     </div>
                 </a>
             </div>
+            <div class="pwd-reset">
+                <a href="{{route('password-reset')}}">
+                    <div class="btn-pwd-reset">
+                        Pozabljeno geslo?
+                    </div>
+                </a>
+
+            </div>
         </div>
         <div class="landing-text">
             <div class="card">

@@ -5,9 +5,6 @@
 .progressBarToast{
     background: var(--text-50);
 }
-.swal2-success-fix, .swal2-success-circular-line-left, .swal2-success-circular-line-right {
-    background-color: transparent;
-}
 /*end of alert box styling*/
 
 /*navbar styling*/
@@ -47,7 +44,7 @@
 
 /*login page styling*/
 
-.login-page, .register-page{
+.login-page, .register-page, .reset-page{
     width: 100vw;
     height: 100vh;
     display: grid;
@@ -56,7 +53,7 @@
     align-items: center;
 }
 
-.login-form, .register-form{
+.login-form, .register-form, .reset-form{
     height: 70%;
     width:60%;
     display: flex;
@@ -64,7 +61,6 @@
     justify-content: center;
     align-items: center;
     gap: 0.7rem;
-
 }
 
 .form-title {
@@ -126,7 +122,9 @@
 .input:focus{
     color: var(--text-50);
     outline: none;
-    border-bottom: 2px solid var(--primary);
+}
+.input:focus{
+
 }
 
 .input::placeholder {
@@ -196,6 +194,16 @@
     font-weight: 500;
 }
 
+.pwd-reset {
+    margin-top: 1rem;
+}
+
+.pwd-reset a {
+    color: var(--text);
+    text-decoration: none;
+    font-weight: 500;
+}
+
 .landing-text {
     width: 100%;
     height: 100%;
@@ -227,4 +235,5 @@
 }
 
 /*end of login page styling*/
+
 

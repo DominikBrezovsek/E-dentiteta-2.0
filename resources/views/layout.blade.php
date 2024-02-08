@@ -24,7 +24,7 @@
 
 <body>
 
-@unless(Route::getCurrentRoute()->uri() == '/' || Route::getCurrentRoute()->uri() == 'register')
+@unless(Route::getCurrentRoute()->uri() == '/' || Route::getCurrentRoute()->uri() == 'register' ||Route::getCurrentRoute()->uri() == 'password-reset')
     @include('partials.header')
 @endunless
 
