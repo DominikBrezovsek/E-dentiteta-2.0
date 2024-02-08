@@ -56,7 +56,9 @@ class PasswordResetController extends Controller
             $checkURL = PasswordResets::whereIdUser($uid)->where('chk', '=', $chk)->count();
 
             if ($checkURL) {
-                return view('passwordReset.SetPassword');
+                return view('passwordReset.SetPassword', [
+                    'existingData' => (object) []
+                ]);
             } else {
                 return redirect()->route('home')->withErrors([
                     'username' => 'Povezava je potekla ali pa je že bila uporabljena'
