@@ -31,6 +31,7 @@ class PasswordResetLinkMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
+            from: (new Address('e-dentiteta@usdd.company', 'E-dentiteta Team')),
             subject: 'Zahteva za ponastavitev gesla',
         );
     }

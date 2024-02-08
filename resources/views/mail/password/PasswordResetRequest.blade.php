@@ -9,11 +9,7 @@
             </p>
         </div>
         <div>
-            <a href="{{$url}}">
-                <div class="btn-reset" style="padding: 1rem 2rem; background: rgba(110, 104, 199, 0.7); color: white; border-radius: 15px; text-decoration: none;">
-                    Ponastavi geslo
-                </div>
-            </a>
+            <a href="{{$url}}">{{$url}}</a>
         </div>
         <div class="footer" style="margin-top: 5vh; padding: 1.5rem 2rem; display: flex; flex-direction: column; justify-content: center; align-items: center; background: rgb(168, 160, 215); color: #c0c0c0; text-align: center;">
             <div>
