@@ -50,7 +50,7 @@ Route::group(['middleware' => 'register'], function () {
  */
 Route::get('/password-reset', [PasswordResetController::class, 'getForm'])->name('password-reset');
 Route::post('/password-reset', [PasswordResetController::class, 'resetPassword'])->name('password-reset.create');
-Route::get('/password-reset/set-new/', [PasswordResetController::class, 'getNewPasswordForm'])->name('set-new-password');
+Route::get('/password-reset/set-new', [PasswordResetController::class, 'getNewPasswordForm'])->name('set-new-password');
 Route::post('/password-reset/post-new/', [PasswordResetController::class, 'setNewPassword'])->name('set-new-password.create');
 
 

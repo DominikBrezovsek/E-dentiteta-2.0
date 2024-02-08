@@ -33,8 +33,8 @@ class PasswordResetController extends Controller
         $checkUser = User::whereUsername($user)->orWhere('email', '=',$user )->first();
 
         if ($checkUser) {
-            $unique = Str::orderedUuid();
-            $passwordResetURL = route('set-new-password', ['chk'=>$unique, 'uid' => $checkUser->id]);
+            $unique = uuid_create(0);
+            $passwordResetURL = route('set-new-password', ['uid' => $checkUser->id, 'chk' => $unique]);
             PasswordResets::create([
                 'id_user' => $checkUser->id,
                 'requested_at' => time(),
