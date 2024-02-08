@@ -92,8 +92,15 @@ class PasswordResetController extends Controller
                         'password' => 'Novo gelso ne sme biti enako kot staro geslo!'
                     ]);
                 } else {
-                    User::whereId('uid')->update(['password' => Hash::make($new_password)]);
-                    PasswordResets::whereIdUser($uid)->delete();
+                    try {
+                        User::whereId('uid')->update(['password' => Hash::make($new_password)]);
+                        PasswordResets::whereIdUser($uid)->delete();
+                        return redirect()->route('home')->with('message', 'Geslo je bilo uspešno ponastavljeno.');
+                    } catch (\Exception $e) {
+                        return back()->withErrors([
+                            'password' => $e
+                        ]);
+                    }
                 }
             } else {
                 return back()->withErrors([
