@@ -22,8 +22,8 @@ class NewPasswordValidator extends FormRequest
     public function rules(): array
     {
         return [
-            'password' => 'string|required|min:8|regex:[a-z][A-Z]\d[!@#$%^&*(),.?":{}|<>]',
-            'password2' => 'string|required|min:8|regex:[a-z][A-Z]\d[!@#$%^&*(),.?":{}|<>]',
+            'password' => 'string|required|min:8',
+            'password2' => 'string|required|min:8'
         ];
     }
 
@@ -32,7 +32,6 @@ class NewPasswordValidator extends FormRequest
         return [
             'password.required' => 'Geslo je obvezen podatek!',
             'password.min' => 'Geslo mora vsebovati vsaj 8 znakov',
-            'password.regex' =>'Geslo mora vsebovati vsaj 1 veliko črko, 1 števiklo in 1 poseben znak!',
             'password2.required' => 'Ponovno vnesite geslo!',
         ];
     }

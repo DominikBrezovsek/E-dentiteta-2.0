@@ -69,22 +69,37 @@ class PasswordResetController extends Controller
             'username' => 'Neveljavna povezava.'
         ]);
     }
+    function isValidPassword($password)
+    {
+        $hasUppercase = preg_match('/[A-Z]/', $password);
+        $hasLowercase = preg_match('/[a-z]/', $password);
+        $hasNumber = preg_match('/\d/', $password);
+        $hasSpecialCharacter = preg_match('/[!@#$%^&*(),.?":{}|<>]/', $password);
+        $hasMinimumLength = strlen($password) >= 8;
+
+        return $hasUppercase && $hasLowercase && $hasNumber && $hasSpecialCharacter && $hasMinimumLength;
+    }
     public function setNewPassword(NewPasswordValidator $request)
     {
         $uid = $request->input('uid');
         $passwords = $request->validated();
-
-        if ($passwords['password'] == $passwords['password2']){
-            $new_password = $passwords['password'];
-            $checkPass = User::whereId($uid)->first();
-            if (Hash::check($new_password, $checkPass)){
-                return back()->withErrors([
-                    'password' => 'Novo gelso ne sme biti enako kot staro geslo!'
+        if ($this->isValidPassword($passwords['password'])) {
+            if ($passwords['password'] == $passwords['password2']){
+                $new_password = $passwords['password'];
+                $checkPass = User::whereId($uid)->first();
+                if (Hash::check($new_password, $checkPass)){
+                    return back()->withErrors([
+                        'password' => 'Novo gelso ne sme biti enako kot staro geslo!'
                     ]);
-            } else {
-                User::whereId('uid')->update(['password' => Hash::make($new_password)]);
-                PasswordResets::whereIdUser($uid)->delete();
+                } else {
+                    User::whereId('uid')->update(['password' => Hash::make($new_password)]);
+                    PasswordResets::whereIdUser($uid)->delete();
+                }
             }
+        } else {
+            return back()->withErrors([
+                'password' => "Geslo mora vsebovati vsaj 1 veliko črko, 1 številko in 1 poseben znak!"
+            ]);
         }
         return back()->withErrors([
             'password' => "Gesli se ne ujemata!"
