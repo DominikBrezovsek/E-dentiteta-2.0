@@ -95,14 +95,15 @@ class PasswordResetController extends Controller
                     User::whereId('uid')->update(['password' => Hash::make($new_password)]);
                     PasswordResets::whereIdUser($uid)->delete();
                 }
+            } else {
+                return back()->withErrors([
+                    'password' => "Gesli se ne ujemata!"
+                ]);
             }
         } else {
             return back()->withErrors([
                 'password' => "Geslo mora vsebovati vsaj 1 veliko črko, 1 številko in 1 poseben znak!"
             ]);
         }
-        return back()->withErrors([
-            'password' => "Gesli se ne ujemata!"
-        ]);
     }
 }
