@@ -16,13 +16,15 @@
                                 type="password"
                                 name="password"
                                 displayed-name="Novo geslo"
-                                fa-icon="fa-regular fa-key"
+                                fa-icon="fa-solid fa-lock"
                             />
+                        </div>
+                        <div>
                             <x-input
                                 type="password"
                                 name="password2"
                                 displayed-name="Ponovi geslo"
-                                fa-icon="fa-regular fa-key"
+                                fa-icon="fa-solid fa-lock"
                             />
                         </div>
                     </x-form>
