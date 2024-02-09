@@ -93,7 +93,7 @@ class PasswordResetController extends Controller
                     ]);
                 } else {
                     try {
-                        User::whereId('uid')->update(['password' => Hash::make($new_password)]);
+                        dd(User::whereId('uid')->update(['password' => Hash::make($new_password)]));
                         PasswordResets::whereIdUser($uid)->delete();
                         return redirect()->route('home')->with('message', 'Geslo je bilo uspešno ponastavljeno.');
                     } catch (\Exception $e) {
