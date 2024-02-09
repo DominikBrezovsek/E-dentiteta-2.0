@@ -27,6 +27,7 @@
                         </div>
                     </x-form>
                 </div>
+            </div>
             <div class="landing-text">
                 <div class="card">
                     <p>
