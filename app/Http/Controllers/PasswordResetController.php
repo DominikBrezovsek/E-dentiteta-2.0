@@ -53,6 +53,8 @@ class PasswordResetController extends Controller
             $chk = $request->input('chk');
             $uid = $request->input('uid');
 
+            session()->put('uid', $uid);
+
             $checkURL = PasswordResets::whereIdUser($uid)->where('chk', '=', $chk)->count();
 
             if ($checkURL) {
@@ -81,7 +83,7 @@ class PasswordResetController extends Controller
     }
     public function setNewPassword(NewPasswordValidator $request)
     {
-        $uid = $request->input('uid');
+        $uid = session('uid');
         $passwords = $request->validated();
         if ($this->isValidPassword($passwords['password'])) {
             if ($passwords['password'] == $passwords['password2']){
@@ -93,7 +95,7 @@ class PasswordResetController extends Controller
                     ]);
                 } else {
                     try {
-                        dd(User::whereId('uid')->update(['password' => Hash::make($new_password)]));
+                        User::whereId('uid')->update(['password' => Hash::make($new_password)]);
                         PasswordResets::whereIdUser($uid)->delete();
                         return redirect()->route('home')->with('message', 'Geslo je bilo uspešno ponastavljeno.');
                     } catch (\Exception $e) {
