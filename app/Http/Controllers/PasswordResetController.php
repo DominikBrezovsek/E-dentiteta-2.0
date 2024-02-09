@@ -83,7 +83,7 @@ class PasswordResetController extends Controller
     }
     public function setNewPassword(NewPasswordValidator $request)
     {
-        $uid = session('uid');
+        dd($uid = session('uid'));
         $passwords = $request->validated();
         if ($this->isValidPassword($passwords['password'])) {
             if ($passwords['password'] == $passwords['password2']){
