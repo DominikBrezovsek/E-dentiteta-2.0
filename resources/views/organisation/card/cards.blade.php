@@ -1,17 +1,25 @@
 @extends('layout')
 
 @section('content')
-    <div class="card">
-        <div class="card-header">
-            <h1>Podatki o karticah</h1>
+    <div class="cards-about">
+        <div class="cards-header">
+            <div>
+                <h1>Seznam kartic organizacije</h1>
+            </div>
+            <div>
+                <a href="{{ route('organisation.card.add')}}">
+                    <div class="btn-add-card">
+                        Dodaj kartico
+                    </div>
+                </a>
+            </div>
         </div>
-        <a href="{{ route('organisation.card.add')}}"
-                class="btn btn-primary">Dodaj kartico</a>
-        <div class="col-md-12 table-responsive card-body">
-            <table class="table table-striped">
+        <div class="cards-table">
+            <table class="table">
                 <tr>
                     <th>Ime kartice</th>
-                    <th colspan="2">Upravljanje s kartico</th>
+                    <th>Upravljanje s kartico</th>
+                    <th>Dejanja</th>
                 </tr>
 
                 @if (!$data->isEmpty())
@@ -21,17 +29,17 @@
                             <tr>
                                 <td>{{ $row?->name }}</td>
                                 <td><a href="{{ route('organisation.card', ['cardId' => $row?->id]) }}"
-                                    class="btn btn-primary">Uredi</a></td>
+                                       class="btn-edit">Uredi</a></td>
                                 <td>
                                     <form
                                         action="{{ route('organisation.card.delete', ['cardId' => $row?->id]) }}"
-                                        method="POST">
+                                        method="POST"
+                                        id="delete-form">
                                         @method('DELETE')
                                         @csrf
-                                        <div class="d-flex gap-2">
-                                            
-                                            <button type="submit" class="btn btn-outline-danger btn-sm"
-                                                onclick="return confirm('Ali ste prepričani, da želite izbrisati to kartico?');">
+                                        <div class="delete-button">
+                                            <button type="submit" class="btn-delete" id="btn-delete"
+                                                    onclick="confirmDelete(event)">
                                                 Izbriši
                                             </button>
                                         </div>
@@ -42,10 +50,29 @@
                     @endif
                 @else
                     <tr>
-                        <td colspan="4" class="text-center">Ni podatkov o karticah</td>
+                        <td colspan="4" class=".text-center">Ni podatkov o karticah</td>
                     </tr>
                 @endif
             </table>
         </div>
     </div>
+    <script>
+        function confirmDelete() {
+            event.preventDefault()
+            const confirm = document.querySelector("#btn-delete");
+            const form = document.querySelector('#delete-form');
+            Swal.fire({
+                title: "Izbris kartice?",
+                text: "Ste prepričani, da želite izbrisati to kartico? Dejanja ni mogoče razveljaviti.",
+                icon: "warning",
+                showCancelButton: "true",
+                confirmButtonText: "Izbriši kartico",
+                cancelButtonText: "Prekliči izbris",
+            }).then(result => {
+                if (result.isConfirmed) {
+                    form.requestSubmit(confirm)
+                }
+            })
+        }
+    </script>
 @endsection

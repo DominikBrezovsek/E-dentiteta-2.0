@@ -18,6 +18,7 @@ class input extends Component
         public string $value = '',
         public bool $readonly = false,
         public string $faIcon = '',
+        public string $title = '',
     ) {
         //
     }
