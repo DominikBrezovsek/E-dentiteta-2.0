@@ -9,7 +9,7 @@
                placeholder="{{ $displayedName }}"
                value="{{ old($name, $value ?? '') }}"
                autocomplete="off"
-               title="{{$title}}"
+               title="{{isset($title) ? $title: ''}}"
             {{ isset($readonly) && $readonly ? 'readonly' : '' }} >
 </div>
 
