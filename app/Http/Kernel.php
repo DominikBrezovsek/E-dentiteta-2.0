@@ -2,6 +2,7 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\CronMiddleware;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -42,6 +43,7 @@ class Kernel extends HttpKernel
             // \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
             \Illuminate\Routing\Middleware\ThrottleRequests::class.':api',
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
+
         ],
         'ADM' => [
             \App\Http\Middleware\AdminMiddleware::class,
@@ -58,6 +60,9 @@ class Kernel extends HttpKernel
         'register' => [
             \App\Http\Middleware\RegisterMiddleware::class,
         ],
+        'cron' => [
+            CronMiddleware::class,
+        ]
     ];
 
     /**
