@@ -29,8 +29,35 @@
 @endunless
 
         @yield('content')
-
-
+@if(session('message'))
+    <script type="module">
+        const Toast = Swal.mixin({
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false,
+            showCloseButton: true,
+            timer: 3000,
+            color: "var(--text)",
+            background: "var(--toast-background)",
+            customClass: {
+                timerProgressBar: 'progressBarToast',
+                popup: 'popupToast',
+                icon: 'popupIcon'
+            },
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.onmouseenter = Swal.stopTimer;
+                toast.onmouseleave = Swal.resumeTimer;
+            }
+        });
+        Toast.fire({
+            /*title: "{{isset($errors->get('title')[0]) ? $errors->get('title')[0] : ''}}",*/
+            text: "{{session('message')}}",
+            icon: "success",
+            iconColor: "var(--icon-color)"
+        })
+    </script>
+@endif
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://kit.fontawesome.com/f618edc45d.js" crossorigin="anonymous"></script>
