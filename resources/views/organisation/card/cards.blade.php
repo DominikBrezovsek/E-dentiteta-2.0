@@ -31,15 +31,13 @@
                                 <td><a href="{{ route('organisation.card', ['cardId' => $row?->id]) }}"
                                        class="btn-edit">Uredi</a></td>
                                 <td>
-                                    <form
-                                        action="{{ route('organisation.card.delete', ['cardId' => $row?->id]) }}"
-                                        method="POST"
-                                        id="delete-form">
+                                    <form action="{{ route('organisation.card.delete', ['cardId' => $row?->id]) }}"
+                                          method="POST" class="delete-form">
                                         @method('DELETE')
                                         @csrf
                                         <div class="delete-button">
-                                            <button type="submit" class="btn-delete" id="btn-delete"
-                                                    onclick="confirmDelete(event)">
+                                            <button type="button" class="btn-delete"
+                                                    onclick="confirmDelete(event, this.parentNode.parentNode)">
                                                 Izbriši
                                             </button>
                                         </div>
@@ -57,22 +55,20 @@
         </div>
     </div>
     <script>
-        function confirmDelete() {
-            event.preventDefault()
-            const confirm = document.querySelector("#btn-delete");
-            const form = document.querySelector('#delete-form');
+        function confirmDelete(event, form) {
+            event.preventDefault();
             Swal.fire({
                 title: "Izbris kartice?",
                 text: "Ste prepričani, da želite izbrisati to kartico? Dejanja ni mogoče razveljaviti.",
                 icon: "warning",
-                showCancelButton: "true",
+                showCancelButton: true,
                 confirmButtonText: "Izbriši kartico",
                 cancelButtonText: "Prekliči izbris",
             }).then(result => {
                 if (result.isConfirmed) {
-                    form.requestSubmit(confirm)
+                    form.submit();
                 }
-            })
+            });
         }
     </script>
 @endsection
