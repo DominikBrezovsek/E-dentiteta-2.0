@@ -13,9 +13,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
-        $schedule->call(function () {
-            DB::table('card_verifications')->where('expires', '<', time())->delete();
-        })->everyMinute();
+        /*$schedule->call(function () {
+        })->everyMinute();*/
     }
 
     /**
