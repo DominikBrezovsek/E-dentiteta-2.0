@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AddCardValidator;
 use App\Models\OrganisationUser;
 use App\Models\UserCard;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Models\Card;
 use App\Models\Organisation;
@@ -42,13 +44,9 @@ class OrganisationCardsController extends Controller
             ]);
     }
 
-    public function postCard(Request $request, Card $cardId)
+    public function postCard(AddCardValidator $request, Card $cardId) : RedirectResponse
     {
-        $validated = $request->validate([
-            'name' => ['required', 'max:255'],
-            'description' => ['max:255'],
-            'auto_join' => ['required', 'in:Y,N'],
-        ]);
+        $validated = $request->validated();
 
         $cardId->update([
             'name' => $validated['name'],
@@ -67,7 +65,7 @@ class OrganisationCardsController extends Controller
             ]);
     }
 
-    public function postAddCard(Request $request, Card $cardId)
+    public function postAddCard(AddCardValidator $request, Card $cardId): RedirectResponse
     {
         $userId = session('user')->id;
 
@@ -77,11 +75,7 @@ class OrganisationCardsController extends Controller
             ->first();
 
 
-        $validated = $request->validate([
-            'name' => ['required', 'max:255'],
-            'description' => ['max:255'],
-            'auto_join' => ['required', 'in:Y,N'],
-        ]);
+        $validated = $request->validated();
 
         $card = new Card([
             'name' => $validated['name'],
