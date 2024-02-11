@@ -31,12 +31,12 @@
 }
 .nav-item, .nav-item a{
     text-decoration: none;
-    color: var(--text);
+    color: var(--text-white);
     font-size: 1.35rem;
 }
 
 .nav-item a:hover {
-    color: var(--background);
+    color: var(--accent);
     transition: all ease-in-out 0.15s;
 }
 
@@ -333,18 +333,26 @@
     justify-content: flex-start;
     align-items: flex-start;
     padding: 5rem 5rem;
-    gap: 2rem;
 }
 
+.cards-about .cards-content{
+    width: 75%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
 .cards-about .cards-header {
     display: flex;
     flex-direction: row;
-    gap: 2rem;
     align-items: center;
+    justify-content: space-between;
+    color: var(--text);
+    width: 100%;
+
 }
 
 .cards-about .cards-table {
-    width: 60vw;
+    width: 100%;
 }
 
 .cards-about .cards-table table {
@@ -371,18 +379,11 @@
     color: var(--text);
 }
 
-.cards-about .cards-table a {
-    color: var(--text);
-    text-decoration: none;
-}
 
-.cards-about .cards-table a:hover{
-    color: var(--accent);
-    text-decoration: none;
-}
 
 .cards-about .cards-table .btn-delete {
     background-color: transparent;
+    color: var(--text);
     border: 2px solid var(--alert);
     border-radius: 10px;
     padding: 0.5rem 2rem;
@@ -412,6 +413,36 @@
     text-decoration: none;
     font-weight: 500;
     font-size: 1.1rem;
+}
+
+.cards-about table .options {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+}
+
+
+.cards-about table .options .btn-edit  {
+    background-color: transparent;
+    border: 2px solid var(--primary);
+    border-radius: 10px;
+    padding: 0.5rem 2rem;
+    font-weight: 500;
+    font-size: 1.1rem;
+    color: var(--text);
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.cards-about table .options .btn-edit:hover{
+    background-color: var(--primary);
+    color: var(--text-white);
+}
+
+.cards-about table .options .btn-edit  {
+    text-decoration: none;
+    font-weight: 500;
 }
 
 

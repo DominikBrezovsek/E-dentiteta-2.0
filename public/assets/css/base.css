@@ -22,7 +22,7 @@ body {
         --primary-50: rgb(165, 158, 231);
         --secondary: #32248f;
         --secondary-50: rgba(110, 104, 199, 0.8);
-        --accent: #be2764;
+        --accent: #a8a0d7;
         --shadow-input: -2px 17px 34px -3px rgba(0,0,0,0.1);
         --gradient-primary: linear-gradient(to left top, #5038ed, #624cf0, #735ef2, #8270f3, #9181f4);
         --text-white: #fff;
@@ -41,9 +41,34 @@ body {
         --primary-50: rgba(110, 104, 199);
         --secondary: #7e70db;
         --secondary-50: rgba(145, 129, 204, 0.94);
-        --accent: #d8417d;
+        --accent: rgb(168, 160, 215);
         --shadow-input: -2px 17px 34px -3px rgba(126, 112, 219, 0.15);
         --gradient-primary: linear-gradient(to left top, #5038ed, #624cf0, #735ef2, #8270f3, #9181f4);
-        --text-white: #fff
+        --text-white: #fff;
+        --alert: #be3a3a
     }
+}
+
+.pagination {
+    display: flex;
+    flex-direction: row;
+    color: var(--text);
+    gap: 0.5rem;
+    font-size: 1.3rem;
+    font-weight: 500;
+    align-items: center;
+}
+
+.pagination a {
+    text-decoration: none;
+    color: var(--text);
+}
+
+.pagination a.active {
+    color: var(--primary-50);
+}
+
+.result-num {
+    font-size: 1.1rem;
+    margin-left: 0.7rem;
 }

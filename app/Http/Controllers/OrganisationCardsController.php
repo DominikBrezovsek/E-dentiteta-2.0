@@ -22,7 +22,7 @@ class OrganisationCardsController extends Controller
             ->unique();
 
 
-        $cards = Card::whereIn('id_organisation', $organisationIds)->get();
+        $cards = Card::whereIn('id_organisation', $organisationIds)->paginate(5);
 
         return view(
             'organisation.card.cards',
