@@ -38,7 +38,7 @@ body {
         --toast-background: rgb(85, 68, 168);
         --toast-blur: 20px;
         --primary: #5449bc;
-        --primary-50: rgba(110, 104, 199, 0.7);
+        --primary-50: rgba(110, 104, 199);
         --secondary: #7e70db;
         --secondary-50: rgba(145, 129, 204, 0.94);
         --accent: #d8417d;
