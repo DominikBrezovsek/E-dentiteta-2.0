@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ProfileValidator;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Redis;
@@ -34,11 +35,8 @@ class ProfileController extends Controller
         $userId = session('user')->id;
         return Redis::get('user_'.$userId);
     }
-    public function postProfileAdmin(Request $request){
-        $request->validate([
-            'name' => ['required', 'max:255'],
-            'surname' => ['required', 'max:255'],
-        ]);
+    public function postProfileAdmin(ProfileValidator $request){
+        $request->validated();
         User::where('id', session('user')->id)->update([
             'name' => $request->input('name'),
             'surname' => $request->input('surname'),
@@ -47,11 +45,8 @@ class ProfileController extends Controller
         return redirect()->route('admin.profile')->with('message', 'Profil je bil posodobljen!');
     }
     //TODO: CHANGE THIIS
-    public function postProfileOrganisation(Request $request){
-        $request->validate([
-            'name' => ['required', 'max:255'],
-            'surname' => ['required', 'max:255'],
-        ]);
+    public function postProfileOrganisation(ProfileValidator $request){
+        $request->validated();
         User::where('id', session('user')->id)->update([
             'name' => $request->input('name'),
             'surname' => $request->input('surname'),
@@ -60,11 +55,8 @@ class ProfileController extends Controller
         return redirect()->route('organisation.profile')->with('message', 'Profil je bil posodobljen!');
     }
         //TODO: CHANGE THIIS
-        public function postProfileUser(Request $request){
-            $request->validate([
-                'name' => ['required', 'max:255'],
-                'surname' => ['required', 'max:255'],
-            ]);
+        public function postProfileUser(ProfileValidator $request){
+            $request->validated();
             User::where('id', session('user')->id)->update([
                 'name' => $request->input('name'),
                 'surname' => $request->input('surname'),
