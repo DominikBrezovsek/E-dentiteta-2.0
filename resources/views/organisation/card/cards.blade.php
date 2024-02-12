@@ -56,7 +56,7 @@
                 </table>
             </div>
             <div>
-                {{$data->onEachSide(5)->links('vendor.pagination.default')}}
+                {{$data->links('vendor.pagination.default')}}
             </div>
         </div>
 

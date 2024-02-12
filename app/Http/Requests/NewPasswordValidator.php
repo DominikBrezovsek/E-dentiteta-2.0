@@ -9,6 +9,7 @@ class NewPasswordValidator extends FormRequest
     /**
      * Determine if the user is authorized to make this request.
      */
+    protected $stopOnFirstFailure = true;
     public function authorize(): bool
     {
         return true;
@@ -23,7 +24,7 @@ class NewPasswordValidator extends FormRequest
     {
         return [
             'password' => 'string|required|min:8',
-            'password2' => 'string|required|min:8'
+            'password2' => 'string|required'
         ];
     }
 
