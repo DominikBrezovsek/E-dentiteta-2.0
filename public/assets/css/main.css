@@ -137,14 +137,12 @@
     color: var(--text);
     width: 100%;
     border-bottom-right-radius: 15px;
+    font-size: 1.1rem;
 
 }
 .input:focus{
     color: var(--text-50);
     outline: none;
-}
-.input:focus{
-
 }
 
 .input::placeholder {
