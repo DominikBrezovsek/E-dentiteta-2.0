@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\OrganisationEmployees;
+use App\Models\OrganisationUser;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Organisation;
@@ -12,7 +13,7 @@ class AddUserOrganisationController extends Controller
     {
         return view('organisation.user.users',
             [
-                'data' => OrganisationEmployees::where('id_organisation', '=', Organisation::where('id_user', session('user')->id)->first()->id)->join('users', 'organisation_employees.id_user', '=', 'users.id')->get(),
+                'data' => OrganisationUser::where('id_organisation', '=', Organisation::where('id_user', session('user')->id)->first()->id)->join('users', 'organisaton_users.id_user', '=', 'users.id')->paginate(5),
                 'title' => 'Uporbaniki organizacije'
             ]
         );
@@ -22,10 +23,10 @@ class AddUserOrganisationController extends Controller
     {
         return view('organisation.user.userAdd',
             [
-                'data' => User::where('role', 'ORG')->whereNot('id', session('user')->id)->whereNotIn('id', OrganisationEmployees::select('id_user')
+                'data' => User::where('role', 'USR')->whereNot('id', session('user')->id)->whereNotIn('id', OrganisationEmployees::select('id_user')
                     ->where('id_organisation', Organisation::where('id_user', session('user')->id)->first()->id)
                 )
-                ->get(),
+                ->paginate(5),
                 'title' => 'Dodaj uporabnika'
             ]
         );
@@ -33,7 +34,7 @@ class AddUserOrganisationController extends Controller
 
     public function postAddUser(Request $request, User $userId)
     {
-        OrganisationEmployees::create([
+        OrganisationUser::create([
             'id_organisation' => Organisation::where('id_user', session('user')->id)->first()->id,
             'id_user' => $userId->id
         ]);
@@ -42,7 +43,7 @@ class AddUserOrganisationController extends Controller
 
     public function deleteUser(Request $request, User $userId)
     {
-        OrganisationEmployees::where('id_user', $userId->id)->delete();
+        OrganisationUser::where('id_user', $userId->id)->delete();
         return redirect()->route('organisation.users')->with('message', 'Uporabnik uspešno odstranjen!');
     }
 }

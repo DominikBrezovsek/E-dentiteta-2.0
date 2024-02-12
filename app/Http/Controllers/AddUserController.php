@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UserCreateValidator;
 use App\Models\OrganisationUser;
 use Illuminate\Http\Request;
 use App\Models\User;
@@ -23,7 +24,7 @@ class AddUserController extends Controller
     }
 
     public function getUser(Request $request, User $userId)
-    {
+    {;
         return view(
             'admin.users.user',
             [
@@ -32,18 +33,14 @@ class AddUserController extends Controller
                 'cardInfo' => Card::all(),
                 'userCards' => UserCard::where('id_user', $userId->id)->select('id_card')->get(),
                 'existingData' => $userId,
-                'roles' => User::distinct('role')->pluck('role'),
+                'roles' => ['USR', 'ORG', 'ADM']
             ]
         );
     }
 
-    public function postUser(Request $request, User $userId)
+    public function postUser(UserCreateValidator $request, User $userId)
     {
-        $validated = $request->validate([
-            'name' => ['required', 'max:255'],
-            'surname' => ['required', 'max:255'],
-            'role' => ['required', 'in:USR,ORG,ADM'],
-        ]);
+        $validated = $request->validated();
         if ($request->username != $userId->username) {
             $validatedUsername = $request->validate([
                 'username' => ['required', 'max:255', 'unique:users'],
@@ -51,6 +48,7 @@ class AddUserController extends Controller
             $userId->update([
                 'username' => $validatedUsername['username'],
             ]);
+
         }
         if ($request->email != $userId->email) {
             $validatedEmail = $request->validate([
@@ -64,7 +62,6 @@ class AddUserController extends Controller
             'name' => $validated['name'],
             'surname' => $validated['surname'],
             'role' => $validated['role'],
-
         ]);
         $selectedCards = $request->input('cards', []);
         $userCards = UserCard::where('id_user', $userId->id)->get();
@@ -111,6 +108,7 @@ class AddUserController extends Controller
                 $userCard->save();
             }
         }
+        $userId->saveOrFail();
         return redirect()->route('admin.users')->with('message', 'Podatki o uporabniku so bili posodobljeni!');
     }
 

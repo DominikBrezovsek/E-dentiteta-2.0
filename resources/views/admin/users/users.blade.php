@@ -18,7 +18,7 @@
                 } else {
                     tr[i].style.display = "none";
                 }
-            }       
+            }
         }
     }
 
@@ -40,7 +40,7 @@
         </div>
         <a href="{{ route('admin.user.add')}}"
                 class="btn btn-primary">Dodaj uporabnika</a>
-                
+
         <div class="col-md-12 table-responsive card-body">
             <div class="mb-3">
                 <input type="text" class="form-control" id="searchInput" onkeyup="searchFunction()" placeholder="Poišči uporabnika po emšu ali po mailu ali po uporabniškem imenu">
@@ -70,7 +70,7 @@
                                         @method('DELETE')
                                         @csrf
                                         <div class="d-flex gap-2">
-                                            
+
                                             <button type="submit" class="btn btn-outline-danger btn-sm"
                                                 onclick="return confirm('Ali ste prepričani, da želite izbrisati tega uporabnika?');">
                                                 Izbriši

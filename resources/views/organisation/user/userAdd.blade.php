@@ -34,53 +34,61 @@
             return false;
         }
     </script>
-
-    <div class="card">
-        <div class="card-header">
-            <h1>Podatki o uporabnikih</h1>
-        </div>
-        <div class="col-md-12 table-responsive card-body">
-            <div class="mb-3">
-                <input type="text" class="form-control" id="searchInput" onkeyup="searchFunction()"
-                    placeholder="Poišči uporabnika po emšu ali po mailu ali po uporabniškem imenu">
+    <div class="organisation-users">
+        <div class="cards-content">
+            <div class="card-header">
+                <h1>Podatki o uporabnikih</h1>
             </div>
-            <table class="table table-striped" id="userTable">
-                <tr>
-                    <th>Podatki uporabnika</th>
-                    <th>Uporabniško ime</th>
-                    <th>EMŠO</th>
-                    <th colspan="2">Upravljanje z uporabnikom</th>
-                </tr>
-
-                @if (!$data->isEmpty())
-
-                    @if (count($data) > 0)
-                        @foreach ($data as $row)
-                            <tr>
-                                <td>{{ $row?->email }}</td>
-                                <td>{{ $row?->username }}</td>
-                                <td>{{ $row?->emso }}</td>
-                                <td>
-                                    <form action="{{ route('organisation.user.add.create', ['userId' => $row?->id]) }}"
-                                        method="POST">
-                                        @csrf
-                                        <div class="d-flex gap-2">
-                                            <button type="submit" class="btn btn-primary"
-                                                onclick="return confirm('Ali ste prepričani, da želite dodati tega uporabnika?');">
-                                                Dodaj
-                                            </button>
-                                        </div>
-                                    </form>
-                                </td>
-                            </tr>
-                        @endforeach
-                    @endif
-                @else
+            <div class="search-bar">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" class="form-control" id="searchInput" onkeyup="searchFunction()"
+                       placeholder="Poišči uporabnika po emšu ali po mailu ali po uporabniškem imenu">
+            </div>
+            <div class="cards-table">
+                <table class="table" id="userTable">
                     <tr>
-                        <td colspan="9" class="text-center">Ni podatkov o uporabnikih organizacije</td>
+                        <th>Podatki uporabnika</th>
+                        <th>Uporabniško ime</th>
+                        <th>EMŠO</th>
+                        <th>Upravljanje z uporabnikom</th>
                     </tr>
-                @endif
-            </table>
+
+                    @if (!$data->isEmpty())
+
+                        @if (count($data) > 0)
+                            @foreach ($data as $row)
+                                <tr>
+                                    <td>{{ $row?->email }}</td>
+                                    <td>{{ $row?->username }}</td>
+                                    <td>{{ $row?->emso }}</td>
+                                    <td>
+                                        <form
+                                            action="{{ route('organisation.user.add.create', ['userId' => $row?->id]) }}"
+                                            method="POST">
+                                            @csrf
+                                            <div>
+                                                <button type="submit" class="btn-sign-on"
+                                                        onclick="return confirm('Ali ste prepričani, da želite dodati tega uporabnika?');">
+                                                    Dodaj
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        @endif
+                    @else
+                        <tr>
+                            <td>Ni podatkov o uporabnikih organizacije</td>
+                            <td>/</td>
+                            <td>/</td>
+                            <td>/</td>
+                        </tr>
+                    @endif
+                </table>
+            </div>
         </div>
+        {{$data->links('vendor.pagination.default')}}
     </div>
+
 @endsection
