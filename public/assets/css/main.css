@@ -525,8 +525,18 @@
 .card-body .form-buttons .btn-save {
     margin-top: 1rem;
 }
+/* approve cards styling*/
 
 
+.userData{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.userData div {
+    display: flex;
+}
 
 
 
