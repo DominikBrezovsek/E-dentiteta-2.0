@@ -528,6 +528,100 @@
 /* approve cards styling*/
 
 
+.card-approve {
+    height: 70vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding: 5rem 5rem;
+}
+
+.card-approve .cards-content{
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+.card-approve .cards-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    color: var(--text);
+    width: 100%;
+}
+
+.card-approve .cards-table {
+    width: 100%;
+}
+
+.card-approve .cards-table table {
+    border-radius: 15px;
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.card-approve .cards-table th {
+    text-align: left;
+    height: 4rem;
+    background-color: var(--primary-50);
+    padding: 1rem 2rem;
+    font-size: 1.3rem;
+    color: var(--text);
+}
+
+.card-approve .cards-table td {
+    text-align: left;
+    padding: 1rem 2rem;
+    background-color: var(--secondary-50);
+    font-weight: 500;
+    font-size: 1.2rem;
+    color: var(--text);
+}
+
+.card-approve .cards-header a{
+    color: var(--text-white);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1.1rem;
+}
+
+.card-approve table .options {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+}
+
+.card-approve .btn-approve {
+    background-color: transparent;
+    padding: 0.5rem 2rem;
+    color: var(--text);
+    border: 2px solid var(--primary);
+    border-radius: 10px;
+    font-weight: 500;
+}
+.card-approve .btn-approve:hover{
+    color: var(--text-white);
+    background-color: var(--primary);
+}
+
+.card-approve .btn-reject {
+    background-color: transparent;
+    padding: 0.5rem 2rem;
+    color: var(--text);
+    border: 2px solid var(--alert);
+    border-radius: 10px;
+    font-weight: 500;
+}
+.card-approve .btn-reject:hover{
+    color: var(--text-white);
+    background-color: var(--alert);
+}
+
+
+
 .userData{
     display: flex;
     flex-direction: column;

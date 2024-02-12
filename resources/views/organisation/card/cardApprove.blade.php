@@ -2,67 +2,74 @@
 
 @section('content')
     <div class="card-approve">
-        <div class="card-header">{{ __('Zahtevki za dodelitev kartice') }}</div>
-        <div class="card-body">
-            <table class="table">
-                <tr>
-                    <th>Ime kartice</th>
-                    <th>Podatki uporabnika</th>
-                    <th colspan="2">Možnosti</th>
-                </tr>
+        <div class="cards-content">
+            <div class="card-header"><h1>{{ __('Zahtevki za dodelitev kartice') }}</h1></div>
+            <div class="card-body">
+                <div class="cards-table">
+                    <table class="table">
+                        <tr>
+                            <th>Ime kartice</th>
+                            <th>Podatki uporabnika</th>
+                            <th colspan="2">Možnosti</th>
+                        </tr>
 
-                @if (count($data) > 0)
+                        @if (count($data) > 0)
 
-                    @if (!$data->isEmpty())
-                        @foreach ($data as $row)
-                            <tr>
-                                <td>{{ $row?->card_name }}</td>
-                                <td>
-                                    <div onclick="showUserInfo()" data-bs-toggle="popover"
-                                       title="Informacije o uporabniku">
-                                        {{ $row?->name }} {{ $row?->surname }}
-                                    </div>
-                                </td>
+                            @if (!$data->isEmpty())
+                                @foreach ($data as $row)
+                                    <tr>
+                                        <td>{{ $row?->card_name }}</td>
+                                        <td>
+                                            <div onclick="showUserInfo()" data-bs-toggle="popover"
+                                                 title="Informacije o uporabniku">
+                                                {{ $row?->name }} {{ $row?->surname }}
+                                            </div>
+                                        </td>
+                                        <div>
+                                            <td class="options">
+                                                <form
+                                                    action="{{ route('organisation.card.approve.card', ['requestId' => $row?->id_request_card]) }}"
+                                                    method="POST">
+                                                    @csrf
+                                                    <div>
 
-                                <td><form
-                                    action="{{ route('organisation.card.approve.card', ['requestId' => $row?->id_request_card]) }}"
-                                    method="POST">
-                                    @csrf
-                                    <div class="d-flex gap-2">
-
-                                        <button type="button" class="btn btn-primary"
-                                            onclick="approveCard(event, this.parentNode.parentNode)">
-                                            Odobri
-                                        </button>
-                                    </div>
-                                </form></td>
-                                <td>
-                                    <form
-                                        action="{{ route('organisation.card.decline.card', ['requestId' => $row?->id_request_card]) }}"
-                                        method="POST">
-                                        @csrf
-                                        <div class="btn-reject">
-                                            <button type="button" class="btn btn-outline-danger btn-sm"
-                                                onclick="rejectCard(event, this.parentNode.parentNode)">
-                                                Zavrni
-                                            </button>
+                                                        <button type="button" class="btn-approve"
+                                                                onclick="approveCard(event, this.parentNode.parentNode)">
+                                                            Odobri
+                                                        </button>
+                                                    </div>
+                                                </form>
+                                                <form
+                                                    action="{{ route('organisation.card.decline.card', ['requestId' => $row?->id_request_card]) }}"
+                                                    method="POST">
+                                                    @csrf
+                                                    <div class=>
+                                                        <button type="button" class="btn-reject"
+                                                                onclick="rejectCard(event, this.parentNode.parentNode)">
+                                                            Zavrni
+                                                        </button>
+                                                    </div>
+                                                </form>
+                                            </td>
                                         </div>
-                                    </form>
-                                </td>
+                                    </tr>
+                                @endforeach
+                            @endif
+                        @else
+                            <tr>
+                                <td>Ni podatkov o zahtevah za kartico</td>
+                                <td>/</td>
+                                <td>/</td>
                             </tr>
-                        @endforeach
-                    @endif
-                @else
-                    <tr>
-                        <td colspan="4" class="text-center">Ni podatkov o zahtevah za kartico</td>
-                    </tr>
-                @endif
-            </table>
+                        @endif
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
     <script>
 
-        function showUserInfo(){
+        function showUserInfo() {
             Swal.fire({
                 title: "Podatki o uporabniku",
                 @isset($row)
@@ -76,7 +83,8 @@
                 confirmButtonText: 'Zapri',
             })
         }
-        function rejectCard(event, form){
+
+        function rejectCard(event, form) {
             event.preventDefault();
             @isset($row)
             Swal.fire({
@@ -87,13 +95,14 @@
                 confirmButtonText: 'Nazaj',
                 icon: 'warning',
             }).then((result) => {
-                if(result.isDenied){
+                if (result.isDenied) {
                     form.submit();
                 }
             })
             @endisset
         }
-        function approveCard(event, form){
+
+        function approveCard(event, form) {
             event.preventDefault();
             @isset($row)
             Swal.fire({
@@ -104,12 +113,12 @@
                 confirmButtonText: 'Nazaj',
                 icon: 'warning',
             }).then((result) => {
-                if(result.isDenied){
+                if (result.isDenied) {
                     form.submit();
                 }
             });
             @endisset
         }
 
-        </script>
+    </script>
 @endsection
