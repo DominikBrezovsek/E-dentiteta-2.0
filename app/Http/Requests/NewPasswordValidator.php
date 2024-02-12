@@ -23,8 +23,8 @@ class NewPasswordValidator extends FormRequest
     public function rules(): array
     {
         return [
-            'password' => 'string|required|min:8',
-            'password2' => 'string|required'
+            'password' => 'required|min:8',
+            'password2' => 'required'
         ];
     }
 
