@@ -1,0 +1,780 @@
+@import "base.css";
+
+/* alert box styling*/
+
+.progressBarToast{
+    background: var(--text-50);
+}
+/*end of alert box styling*/
+
+/*navbar styling*/
+.navbar-custom {
+    width: 100vw;
+    height: 15vh;
+    padding: 1vh 2vw;
+    background-image: linear-gradient(90deg, var(--primary) 0%, var(--secondary) 100%);
+    display: flex;
+
+}
+.nav-items {
+    width: 100%;
+    display: flex;
+    align-self: center;
+    flex-direction: row;
+    justify-content: left;
+    align-items: center;
+    gap: 2rem;
+}
+
+.nav-item {
+    padding: 0 3%;
+}
+.nav-item, .nav-item a{
+    text-decoration: none;
+    color: var(--text-white);
+    font-size: 1.35rem;
+}
+
+.nav-item a:hover {
+    color: var(--accent);
+    transition: all ease-in-out 0.15s;
+}
+
+.controls {
+    margin-right: 0;
+    margin-left: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 3rem;
+    padding-right: 2rem;
+}
+
+
+.logout a{
+    font-size: 2rem;
+}
+
+.user a {
+    font-size: 2rem;
+}
+/*end of navigation styles*/
+
+
+/*login page styling*/
+
+.login-page, .register-page, .reset-page{
+    width: 100vw;
+    height: 100vh;
+    display: grid;
+    grid-template-columns: 50% 50%;
+    justify-items: center;
+    align-items: center;
+}
+
+.login-form, .register-form, .reset-form{
+    height: 70%;
+    width:60%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0.7rem;
+}
+
+.form-title {
+    align-self: center;
+    font-size: 2.6rem;
+    font-weight: 600;
+    color: var(--text);
+}
+
+.form-subtitle {
+    color: var(--text-50);
+    margin-bottom: 1.5rem;
+    font-weight: 500;
+}
+
+.form-main{
+    width: 100%;
+}
+.form-body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.form-body input {
+    height: 3.2rem;
+    display: flex;
+    flex-direction: column;
+    background-color: transparent;
+    border: none;
+}
+
+.form-body form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.form-inputs {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    justify-items: center;
+    width: 70%;
+    gap: 1.2rem;
+    align-self: center;
+}
+
+.input {
+    padding: 0.65rem;
+    color: var(--text);
+    width: 100%;
+    border-bottom-right-radius: 15px;
+    font-size: 1.1rem;
+
+}
+.input:focus{
+    color: var(--text-50);
+    outline: none;
+}
+
+.input::placeholder {
+    color: var(--text-50);
+    font-size: 1.2rem;
+}
+
+.form-buttons {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    margin-top: 1rem;
+}
+.inputs {
+    display: flex;
+    flex-direction: row;
+    background-color:var(--primary-50);
+    border-radius: 15px;
+    backdrop-filter: blur(20px);
+    height: 3.2rem;
+    align-items: center;
+    gap: 1rem;
+    padding-left: 1rem;
+}
+.btn-save {
+    padding: 1.5rem 3rem;
+    border-radius: 20px;
+    border: none;
+    box-shadow: var(--shadow-input);
+    background: var(--gradient-primary) ;
+    color: var(--text-white);
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.create-account {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 15em;
+    height: 5rem;
+    gap: 1rem;
+}
+.create-account svg{
+    width: 100%;
+    stroke: var(--primary);
+    stroke-width: 3;
+}
+
+.create-account .text {
+    text-align: center;
+    color: var(--text);
+}
+.btn-register {
+    padding: 1rem  4rem;
+    border: 2px solid var(--primary);
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.register a {
+    color: var(--text);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.pwd-reset {
+    margin-top: 1rem;
+}
+
+.pwd-reset a {
+    color: var(--text);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.landing-text {
+    width: 100%;
+    height: 100%;
+    background: var(--gradient-primary);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.landing-text .card {
+    width: 80%;
+    height: 70%;
+    border: 1px solid var(--text-white);
+    border-radius: 25px;
+    padding: 0 1.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(20px);
+    background-color: rgba(255, 255, 255, 0.15);
+    box-shadow: var(--shadow-input);
+}
+
+.landing-text p{
+    font-size: 2.1rem;
+    font-weight: 500;
+    text-align: left;
+    color: var(--text-white);
+}
+
+/*end of login, register and reset page styling*/
+
+/* profile page styling*/
+
+.profile-card{
+    height: 80vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+}
+
+.profile-card .card-header {
+    color: var(--text);
+    font-size: 2rem;
+    font-weight: 500;
+}
+
+.profile-card .card-body {
+    width: 60%;
+}
+
+.profile-card .card-body .form-inputs {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+}
+
+.profile-card .inputs {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 1.5rem;
+    width: 80%;
+}
+
+.profile-card .inputs input {
+    border: none;
+    border-radius: 0;
+    outline: none;
+    background-color: var(--primary-50);
+    width: 90%;
+}
+
+.profile-card .inputs input:focus {
+    border-bottom: 2px solid var(--primary);
+    outline: none;
+    background-color: var(--primary-50);
+    color: var(--text);
+}
+
+.inputs input[readonly]{
+    cursor: not-allowed;;
+}
+.inputs input[readonly]:focus{
+    cursor: not-allowed;
+    border: none;
+}
+
+.card-body .form-buttons .btn-save {
+    margin-top: 1rem;
+}
+
+/* cards table styling */
+
+.cards-about {
+    height: 70vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding: 5rem 5rem;
+}
+
+.cards-about .cards-content{
+    width: 75%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+.cards-about .cards-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    color: var(--text);
+    width: 100%;
+
+}
+
+.cards-about .cards-table {
+    width: 100%;
+}
+
+.cards-about .cards-table table {
+    border-radius: 15px;
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.cards-about .cards-table th {
+    text-align: left;
+    height: 4rem;
+    background-color: var(--primary-50);
+    padding: 1rem 2rem;
+    font-size: 1.3rem;
+    color: var(--text);
+}
+
+.cards-about .cards-table td {
+    text-align: left;
+    padding: 1rem 2rem;
+    background-color: var(--secondary-50);
+    font-weight: 500;
+    font-size: 1.2rem;
+    color: var(--text);
+}
+
+
+
+.cards-about .cards-table .btn-delete {
+    background-color: transparent;
+    color: var(--text);
+    border: 2px solid var(--alert);
+    border-radius: 10px;
+    padding: 0.5rem 2rem;
+    font-weight: 500;
+    font-size: 1.1rem;
+}
+
+.cards-about .cards-table .btn-delete:hover {
+    background-color: var(--alert);
+    border: 2px solid var(--alert);
+    border-radius: 10px;
+    padding: 0.5rem 2rem;
+    color: var(--text-white);
+}
+
+.cards-about .cards-header .btn-add-card{
+    text-align: center;
+    background: var(--gradient-primary);
+    padding: 1rem 2rem;
+    border-radius: 10px;
+    margin-left: auto;
+    margin-right: 1rem;
+}
+
+.cards-about .cards-header a{
+    color: var(--text-white);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1.1rem;
+}
+
+.cards-about table .options {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+}
+
+
+.cards-about table .options .btn-edit  {
+    background-color: transparent;
+    border: 2px solid var(--primary);
+    border-radius: 10px;
+    padding: 0.5rem 2rem;
+    font-weight: 500;
+    font-size: 1.1rem;
+    color: var(--text);
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.cards-about table .options .btn-edit:hover{
+    background-color: var(--primary);
+    color: var(--text-white);
+}
+
+.cards-about table .options .btn-edit  {
+    text-decoration: none;
+    font-weight: 500;
+}
+/* end of cards table styling*/
+
+/*add card styling */
+
+
+.card-create{
+    height: 80vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+}
+
+.card-create .card-header {
+    color: var(--text);
+    font-size: 2rem;
+    font-weight: 500;
+}
+
+.card-create .card-body {
+    width: 40%;
+}
+
+.card-create .card-body .form-inputs {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 1.2rem;
+    width: 100%;
+}
+
+.card-create .inputs {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 1.5rem;
+    width: 80%;
+}
+
+.card-create .inputs input {
+    border: none;
+    border-radius: 0;
+    outline: none;
+    background-color: var(--primary-50);
+    width: 90%;
+}
+
+.card-create .inputs input:focus {
+    border-bottom: 2px solid var(--primary);
+    outline: none;
+    background-color: var(--primary-50);
+    color: var(--text);
+}
+
+.card-create .card-join-dropdown {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    color: var(--text);
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+.card-create .card-join-dropdown select{
+    width: 6rem;
+    height: 2rem;
+    background-color: var(--primary-50);
+    color: var(--text);
+    font-weight: 600;
+    border-radius: 10px;
+    padding-right: 0.5rem;
+    padding-left: 0.5rem;
+}
+
+.card-body .form-buttons .btn-save {
+    margin-top: 1rem;
+}
+/* approve cards styling*/
+
+
+.card-approve {
+    height: 70vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding: 5rem 5rem;
+}
+
+.card-approve .cards-content{
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+.card-approve .card-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    color: var(--text);
+    width: 100%;
+}
+
+.card-approve .cards-table {
+    width: 100%;
+}
+
+.card-approve .cards-table table {
+    border-radius: 15px;
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.card-approve .cards-table th {
+    text-align: left;
+    height: 4rem;
+    background-color: var(--primary-50);
+    padding: 1rem 2rem;
+    font-size: 1.3rem;
+    color: var(--text);
+}
+
+.card-approve .cards-table td {
+    text-align: left;
+    padding: 1rem 2rem;
+    background-color: var(--secondary-50);
+    font-weight: 500;
+    font-size: 1.2rem;
+    color: var(--text);
+}
+
+.card-approve .cards-header{
+    color: var(--text-white);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1.1rem;
+}
+
+.card-approve table .options {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+}
+
+.card-approve .btn-approve {
+    background-color: transparent;
+    padding: 0.5rem 2rem;
+    color: var(--text);
+    border: 2px solid var(--primary);
+    border-radius: 10px;
+    font-weight: 500;
+}
+.card-approve .btn-approve:hover{
+    color: var(--text-white);
+    background-color: var(--primary);
+}
+
+.card-approve .btn-reject {
+    background-color: transparent;
+    padding: 0.5rem 2rem;
+    color: var(--text);
+    border: 2px solid var(--alert);
+    border-radius: 10px;
+    font-weight: 500;
+}
+.card-approve .btn-reject:hover{
+    color: var(--text-white);
+    background-color: var(--alert);
+}
+
+
+
+.userData{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.userData div {
+    display: flex;
+}
+
+/*organisation users styling*/
+
+
+.organisation-users {
+    height: 70vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding: 5rem 5rem;
+}
+
+.organisation-users .cards-content{
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+.organisation-users .card-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    color: var(--text);
+    width: 100%;
+}
+
+.organisation-users .search-bar {
+    width: 100%;
+    height: 3rem;
+    background-color: var(--secondary-50);
+    border-radius: 10px;
+    padding: 0.5rem 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.organisation-users .search-bar i {
+    color: var(--text);
+}
+
+.organisation-users .search-bar input {
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+    color: var(--text);
+    font-weight: 500;
+    border: none;
+}
+.organisation-users .search-bar input::placeholder{
+    color: var(--text);
+    font-weight: 500;
+}
+
+.organisation-users .search-bar input:focus {
+    outline: none;
+    border: none;
+}
+
+
+.organisation-users .cards-table {
+    width: 100%;
+}
+
+.organisation-users .cards-table table {
+    border-radius: 15px;
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.organisation-users .cards-table th {
+    text-align: left;
+    height: 4rem;
+    background-color: var(--primary-50);
+    padding: 1rem 2rem;
+    font-size: 1.3rem;
+    color: var(--text);
+}
+
+.organisation-users .cards-table td {
+    text-align: left;
+    padding: 1rem 2rem;
+    background-color: var(--secondary-50);
+    font-weight: 500;
+    font-size: 1.2rem;
+    color: var(--text);
+}
+
+.organisation-users .cards-header{
+    color: var(--text-white);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1.1rem;
+}
+
+.organisation-users table .options {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+}
+
+.organisation-users .card-header .btn-add-user{
+    text-align: center;
+    background: var(--gradient-primary);
+    padding: 1rem 2rem;
+    border-radius: 10px;
+    margin-left: auto;
+    margin-right: 1rem;
+}
+
+.organisation-users .card-header a{
+    color: var(--text-white);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1.1rem;
+}
+
+.organisation-users .btn-delete {
+    background-color: transparent;
+    padding: 0.5rem 2rem;
+    color: var(--text);
+    border: 2px solid var(--alert);
+    border-radius: 10px;
+    font-weight: 500;
+}
+.organisation-users .btn-delete:hover{
+    color: var(--text-white);
+    background-color: var(--alert);
+}
+
+.organisation-users .btn-sign-on {
+    background-color: transparent;
+    padding: 0.5rem 2rem;
+    color: var(--text);
+    border: 2px solid var(--primary);
+    border-radius: 10px;
+    font-weight: 500;
+}
+
+.organisation-users .btn-sign-on:hover{
+    color: var(--text-white);
+    background-color: var(--primary);
+}
+
+
+

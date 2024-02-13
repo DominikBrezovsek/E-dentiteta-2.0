@@ -1,51 +1,81 @@
 @extends('layout')
 
 @section('content')
-    <div class="card">
-        <div class="card-header">
-            <h1>Podatki o karticah</h1>
-        </div>
-        <a href="{{ route('organisation.card.add')}}"
-                class="btn btn-primary">Dodaj kartico</a>
-        <div class="col-md-12 table-responsive card-body">
-            <table class="table table-striped">
-                <tr>
-                    <th>Ime kartice</th>
-                    <th colspan="2">Upravljanje s kartico</th>
-                </tr>
-
-                @if (!$data->isEmpty())
-
-                    @if (count($data) > 0)
-                        @foreach ($data as $row)
-                            <tr>
-                                <td>{{ $row?->name }}</td>
-                                <td><a href="{{ route('organisation.card', ['cardId' => $row?->id]) }}"
-                                    class="btn btn-primary">Uredi</a></td>
-                                <td>
-                                    <form
-                                        action="{{ route('organisation.card.delete', ['cardId' => $row?->id]) }}"
-                                        method="POST">
-                                        @method('DELETE')
-                                        @csrf
-                                        <div class="d-flex gap-2">
-                                            
-                                            <button type="submit" class="btn btn-outline-danger btn-sm"
-                                                onclick="return confirm('Ali ste prepričani, da želite izbrisati to kartico?');">
-                                                Izbriši
-                                            </button>
-                                        </div>
-                                    </form>
-                                </td>
-                            </tr>
-                        @endforeach
-                    @endif
-                @else
+    <div class="cards-about">
+        <div class="cards-content">
+            <div class="cards-header">
+                <div>
+                    <h1>Seznam kartic organizacije</h1>
+                </div>
+                <div>
+                    <a href="{{ route('organisation.card.add')}}">
+                        <div class="btn-add-card">
+                            Dodaj kartico
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="cards-table">
+                <table class="table">
                     <tr>
-                        <td colspan="4" class="text-center">Ni podatkov o karticah</td>
+                        <th>Ime kartice</th>
+                        <th>Opis kartice</th>
+                        <th>Možnosti</th>
                     </tr>
-                @endif
-            </table>
+
+                    @if (!$data->isEmpty())
+
+                        @if (count($data) > 0)
+                            @foreach ($data as $row)
+                                <tr>
+                                    <td>{{ $row?->name }}</td>
+                                    <td>{{$row->description != null ? $row->description : 'Kartica nima opisa.'}}</td>
+                                    <td class="options">
+                                        <form action="{{ route('organisation.card.delete', ['cardId' => $row?->id]) }}"
+                                              method="POST" class="delete-form">
+                                            @method('DELETE')
+                                            @csrf
+                                            <div class="delete-button">
+                                                <button type="button" class="btn-delete"
+                                                        onclick="confirmDelete(event, this.parentNode.parentNode)">
+                                                    Izbriši
+                                                </button>
+                                            </div>
+                                        </form>
+                                        <a href="{{ route('organisation.card', ['cardId' => $row?->id]) }}"
+                                           class="btn-edit"><i class="fa-solid fa-pen"></i>Uredi</a>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        @endif
+                    @else
+                        <tr>
+                            <td colspan="4" class=".text-center">Ni podatkov o karticah</td>
+                        </tr>
+                    @endif
+                </table>
+            </div>
+            <div>
+                {{$data->links('vendor.pagination.default')}}
+            </div>
         </div>
+
     </div>
+    <script>
+        function confirmDelete(event, form) {
+            event.preventDefault();
+            Swal.fire({
+                title: "Izbris kartice?",
+                text: "Ste prepričani, da želite izbrisati to kartico? Dejanja ni mogoče razveljaviti.",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonText: "Izbriši kartico",
+                cancelButtonText: "Prekliči izbris",
+            }).then(result => {
+                if (result.isConfirmed) {
+                    form.submit();
+                }
+            });
+        }
+    </script>
 @endsection

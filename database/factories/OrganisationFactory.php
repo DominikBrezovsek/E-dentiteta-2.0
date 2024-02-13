@@ -18,9 +18,8 @@ class OrganisationFactory extends Factory
     {
         return [
             'name' => fake()->company(),
+            'description' => fake()->text(),
             'verified' => random_int(0, 1) ? 'Y' : 'N',
-            'checkking_all_cards' => random_int(0, 1) ? 'Y' : 'N',
-            'id_user' => \App\Models\User::where('role', 'ADM')->inRandomOrder()->first()->id,
         ];
     }
 }

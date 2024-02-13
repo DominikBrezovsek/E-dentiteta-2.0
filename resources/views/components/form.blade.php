@@ -1,5 +1,4 @@
-<div class="container">
-    <form class="form-horizontal"
+ <form class="form-main"
     action="{{ isset($existingData->id)
         ? route(
             $submitRouteName . '.update',
@@ -14,24 +13,17 @@
                 $optionalVariableName ?? null => $optionalId ?? null,
             ]),
         ) }}"
-    method="POST" enctype="multipart/form-data">
+    method="POST" enctype="multipart/form-data" autocomplete="off">
     @csrf
     @if (isset($existingData->id))
         @method('PUT')
     @endif
 
-    <div class="form-group">
+    <div class="form-inputs">
         {{ $slot }}
     </div>
 
-    <div class="form-group">
-        <button type="submit" class="btn btn-primary">{{ $submitButtonName ?? 'Shrani' }}</button>
-        <a href="{{ isset($optionalVariableName)
-            ? route($backRouteName, [$optionalVariableName => $optionalId])
-            : route($backRouteName) }}"
-            class="btn btn-secondary" style="margin-left: 10px">{{ $backButtonName ?? 'Nazaj' }}</a>
+    <div class="form-buttons">
+        <button type="submit" class="btn btn-save">{{ $submitButtonName ?? 'Shrani' }}</button>
     </div>
-
-</form>
-</div>
-</div>
+ </form>

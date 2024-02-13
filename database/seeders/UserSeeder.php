@@ -23,7 +23,7 @@ class UserSeeder extends Seeder
             'email' => 'zan.skorja@gmail.com',
             'username' => 'zskorja',
             'password' => Hash::make('Default00'),
-            'role' => 'ADM',
+            'role' => 'SAD',
             'emso' => '0409005500058',
             'created_at' => \Carbon\Carbon::now(),
             'updated_at' => \Carbon\Carbon::now(),
@@ -35,7 +35,7 @@ class UserSeeder extends Seeder
             'email' => 'dominikbe25@gmail.com',
             'username' => 'dbreza',
             'password' => Hash::make('Default00'),
-            'role' => 'ORG',
+            'role' => 'OAD',
             'emso' => '0209005500058',
             'created_at' => \Carbon\Carbon::now(),
             'updated_at' => \Carbon\Carbon::now(),
@@ -47,12 +47,12 @@ class UserSeeder extends Seeder
             'email' => 'mejaknik@gmail.com',
             'username' => 'nmejacina',
             'password' => Hash::make('Default00'),
-            'role' => 'USR',
+            'role' => 'STU',
             'emso' => '0604005500058',
             'created_at' => \Carbon\Carbon::now(),
             'updated_at' => \Carbon\Carbon::now(),
-        ]); 
-        
+        ]);
+
         User::factory()->count(97)->create();
 
     }

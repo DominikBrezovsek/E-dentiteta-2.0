@@ -5,7 +5,7 @@
         <div class="card-header">{{ __('Podatki o uporabniku') }}</div>
         <div class="card-body">
             <x-form :existingDataa="$existingDataa" submitRouteName="admin.user" backRouteName="admin.users"
-                submitButtonName="Shrani uporabnika" backButtonName="Nazaj" :cardInfo="$cardInfo" variableName="userId" :roles="$roles" :existingData="$existingData" :userCards="$userCards"> 
+                submitButtonName="Shrani uporabnika" backButtonName="Nazaj" :cardInfo="$cardInfo" variableName="userId" :roles="$roles" :existingData="$existingData" :userCards="$userCards">
 
                 <x-input type="text" name="name" displayedName="Ime" placeholder="Vnesite ime"
                     :value="$existingDataa[0]->name ?? ''" />
@@ -24,17 +24,16 @@
 
                 <x-input type="text" name="emso" displayedName="EMŠO" placeholder="Vnesite EMŠO"
                     :value="$existingDataa[0]->emso ?? ''" readonly/>
-
                 <label for="role">Vloga</label>
                 <select name="role" id="role" class="form-control">
                     @foreach($roles as $role)
-                        <option value="{{ $role }}" {{ isset($existingData[0]->role) && $existingData[0]->role == $role ? 'selected' : '' }}>{{ $role }}</option>
+                        <option value="{{$role}}" {{($existingData->role == $role) ? 'selected' : ''}}>{{ $role }}</option>
                     @endforeach
                 </select>
 
                 <label for="email_verified_at">E-pošta preverjena ob</label>
                 <input type="datetime" class="form-control" name="email_verified_at" id="email_verified_at"
-                    value="{{ $existingData[0]->email_verified_at ?? '' }}" readonly/>
+                    value="{{ $existingData->email_verified_at ?? '' }}" readonly/>
 
 
                 <label for="card-filter">Poišči kartico</label>
@@ -48,14 +47,14 @@
                                 <label class="form-check-label" for="card-{{ $card->id }}">
                                     {{ $card->name }}
                                 </label>
-                            
+
                             @else
                             <input class="form-check-input" type="checkbox" name="cards[]" id="card-{{ $card->id }}" value="{{ $card->id }}" {{ in_array($card->id, ($userCards->pluck('id_card')->toArray()) ?? []) ? 'checked' : '' }}>
                             <label class="form-check-label" for="card-{{ $card->id }}">
                                 {{ $card->name }}
                             </label>
                             @endif
-   
+
                         </div>
                     @endforeach
                 </div>

@@ -1,7 +1,7 @@
 @extends('layout')
 
 @section('content')
-    <div class="card">
+    <div class="card-create">
         <div class="card-header">{{ __('Ustvari kartico') }}</div>
         <div class="card-body">
             <x-form :existingData="$existingData" submitRouteName="organisation.card" backRouteName="organisation.cards"
@@ -11,12 +11,14 @@
 
                 <x-input type="text" name="description" displayedName="Opis kartice"
                     placeholder="Vnesite kratek opis kartice"/>
-
+                <div class="card-join-dropdown">
                     <label for="auto_join">Odprt pristop k kartici</label>
                     <select class="form-control" name="auto_join" id="auto_join">
                         <option value="Y">Da</option>
                         <option value="N">Ne</option>
                     </select>
+                </div>
+
             </x-form>
         </div>
     </div>

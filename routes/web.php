@@ -4,6 +4,7 @@ use App\Http\Controllers\AddOrganisationController;
 use App\Http\Controllers\CheckCardController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogoutController;
+use App\Http\Controllers\PasswordResetController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\QRCodeController;
 use App\Http\Controllers\RegisterController;
@@ -25,9 +26,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('layout');
-})->name('home');
+Route::get('/',[LoginController::class, 'getLogin'])->name('home');
 /**
  * Route for logout
  */
@@ -36,7 +35,6 @@ Route::get('/logout', [LogoutController::class, 'logout'])->name('logout');
  * Routes for login
  */
 Route::group(['middleware' => 'login'], function () {
-    Route::get('/login', [LoginController::class, 'getLogin'])->name('login');
     Route::post('/login', [LoginController::class, 'postLogin'])->name('login.create');
 });
 /**
@@ -46,6 +44,16 @@ Route::group(['middleware' => 'register'], function () {
     Route::get('/register', [RegisterController::class, 'getRegister'])->name('register');
     Route::post('/register', [RegisterController::class, 'postRegister'])->name('register.create');
 });
+
+/**
+ *Password reset route
+ */
+Route::get('/password-reset', [PasswordResetController::class, 'getForm'])->name('password-reset');
+Route::post('/password-reset', [PasswordResetController::class, 'resetPassword'])->name('password-reset.create');
+Route::get('/password-reset/set-new/', [PasswordResetController::class, 'getNewPasswordForm'])->name('set-new-password');
+Route::post('/password-reset/post-new/', [PasswordResetController::class, 'setNewPassword'])->name('set-new-password.create');
+
+
 /**
  * Routes for admin
  */
@@ -142,6 +150,7 @@ Route::group(['middleware' => 'USR'], function () {
          * Routes for user profile
          */
         Route::prefix('/profile')->group(function (){
+            Route::get('/redis', [ProfileController::class, 'redisGetProfile'])->name('user.redis');
             Route::get('/edit', [ProfileController::class, 'getProfileUser'])->name('user.profile');
             Route::post('/edit', [ProfileController::class, 'postProfileUser'])->name('user.profile.update');
             Route::put('/edit', [ProfileController::class, 'postProfileUser'])->name('user.profile.update');

@@ -12,17 +12,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('request_card', function (Blueprint $table) {
-            $table->uuid('id_request_card')->primary();
+            $table->uuid('id')->primary();
             $table->uuid('id_user');
             $table->uuid('id_card');
-            $table->uuid('id_organisation');
             $table->string('status')->default('pending');
 
             $table->timestamps();
 
             $table->foreign('id_user')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('id_card')->references('id')->on('cards')->onUpdate('cascade')->onDelete('cascade');
-            $table->foreign('id_organisation')->references('id')->on('organisations')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 

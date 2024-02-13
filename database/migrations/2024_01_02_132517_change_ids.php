@@ -20,9 +20,7 @@ return new class extends Migration
         Schema::table('cards', function (Blueprint $table) {
             $table->renameColumn('id_card', 'id');
         });
-        Schema::table('organisaton_users', function (Blueprint $table) {
-            $table->renameColumn('id_organisation_users', 'id');
-        });
+
         Schema::table('user_cards', function (Blueprint $table) {
             $table->renameColumn('id_user_card', 'id');
         });

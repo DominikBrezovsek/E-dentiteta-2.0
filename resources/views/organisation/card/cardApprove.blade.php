@@ -1,85 +1,124 @@
 @extends('layout')
 
 @section('content')
-<link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.0/css/bootstrap.min.css" rel="stylesheet">
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.0/js/bootstrap.bundle.min.js"></script>
-    <div class="card">
-        <div class="card-header">{{ __('Ustvari kartico') }}</div>
-        <div class="card-body">
-            <table class="table table-striped">
-                <tr>
-                    <th>Ime kartice</th>
-                    <th>Podatki uporabnika</th>
-                    <th colspan="2">Upravljanje s kartico</th>
-                </tr>
+    <div class="card-approve">
+        <div class="cards-content">
+            <div class="card-header"><h1>{{ __('Zahtevki za dodelitev kartice') }}</h1></div>
+            <div class="card-body">
+                <div class="cards-table">
+                    <table class="table">
+                        <tr>
+                            <th>Ime kartice</th>
+                            <th>Podatki uporabnika</th>
+                            <th colspan="2">Možnosti</th>
+                        </tr>
 
-                @if (count($data) > 0)
+                        @if (count($data) > 0)
 
-                    @if (!$data->isEmpty())
-                        @foreach ($data as $row)
-                            <tr>
-                                <td>{{ $row?->card_name }}</td>
-                                <td>
-                                    <a href="#" data-bs-toggle="popover" data-bs-html="true" style="color: black" data-bs-trigger="hover focus"
-                                       title="User Information"
-                                       data-bs-content="
-                                           <div class='text-start'>
-                                               Name: {{ $row?->name }}<br>
-                                               Surname: {{ $row?->surname }}<br>
-                                               Email: {{ $row?->email }}<br>
-                                               Username: {{ $row?->username }}<br>
-                                               EMŠO: {{ $row?->emso }}<br>
-                                           </div>">
-                                        {{ $row?->name }} {{ $row?->surname }}
-                                    </a>
-                                </td>
-                                
-                                <td><form
-                                    action="{{ route('organisation.card.approve.card', ['requestId' => $row?->id_request_card]) }}"
-                                    method="POST">
-                                    @csrf
-                                    <div class="d-flex gap-2">
-                                        
-                                        <button type="submit" class="btn btn-primary"
-                                            onclick="return confirm('Ali želite odobriti kartico uporabniku?');">
-                                            Odobri
-                                        </button>
-                                    </div>
-                                </form></td>
-                                <td>
-                                    <form
-                                        action="{{ route('organisation.card.decline.card', ['requestId' => $row?->id_request_card]) }}"
-                                        method="POST">
-                                        @csrf
-                                        <div class="d-flex gap-2">
-                                            
-                                            <button type="submit" class="btn btn-outline-danger btn-sm"
-                                                onclick="return confirm('Ali želite zavrniti kartico uporabniku?');">
-                                                Zavrni
-                                            </button>
+                            @if (!$data->isEmpty())
+                                @foreach ($data as $row)
+                                    <tr>
+                                        <td>{{ $row?->card_name }}</td>
+                                        <td>
+                                            <div onclick="showUserInfo()" data-bs-toggle="popover"
+                                                 title="Informacije o uporabniku">
+                                                {{ $row?->name }} {{ $row?->surname }}
+                                            </div>
+                                        </td>
+                                        <div>
+                                            <td class="options">
+                                                <form
+                                                    action="{{ route('organisation.card.approve.card', ['requestId' => $row?->id_request_card]) }}"
+                                                    method="POST">
+                                                    @csrf
+                                                    <div>
+
+                                                        <button type="button" class="btn-approve"
+                                                                onclick="approveCard(event, this.parentNode.parentNode)">
+                                                            Odobri
+                                                        </button>
+                                                    </div>
+                                                </form>
+                                                <form
+                                                    action="{{ route('organisation.card.decline.card', ['requestId' => $row?->id_request_card]) }}"
+                                                    method="POST">
+                                                    @csrf
+                                                    <div class=>
+                                                        <button type="button" class="btn-reject"
+                                                                onclick="rejectCard(event, this.parentNode.parentNode)">
+                                                            Zavrni
+                                                        </button>
+                                                    </div>
+                                                </form>
+                                            </td>
                                         </div>
-                                    </form>
-                                </td>
+                                    </tr>
+                                @endforeach
+                            @endif
+                        @else
+                            <tr>
+                                <td>Ni podatkov o zahtevah za kartico</td>
+                                <td>/</td>
+                                <td>/</td>
                             </tr>
-                        @endforeach
-                    @endif
-                @else
-                    <tr>
-                        <td colspan="4" class="text-center">Ni podatkov o zahtevah za kartico</td>
-                    </tr>
-                @endif
-            </table>
+                        @endif
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
     <script>
-        $(function () {
-            $('[data-bs-toggle="popover"]').popover({
-                container: 'body',
-                html: true, // if you want to show HTML content
-                placement: 'top',
-                trigger: 'hover'
+
+        function showUserInfo() {
+            Swal.fire({
+                title: "Podatki o uporabniku",
+                @isset($row)
+                html: "<div class='userData'>" +
+                    "<div><p>Ime</p>: {{$row->name}}</div>" +
+                    "<div><p>Priimek</p>: {{$row?->surname}}</div>" +
+                    "<div><p>E-poštni naslov</p>: {{$row?->email}}</div>" +
+                    "<div><p>EMŠO<p>: {{$row?->emso}}</div>" +
+                    "</div>",
+                @endisset
+                confirmButtonText: 'Zapri',
             })
-        });
-        </script>
+        }
+
+        function rejectCard(event, form) {
+            event.preventDefault();
+            @isset($row)
+            Swal.fire({
+                title: 'Potrditev dejanja',
+                text: 'Želite uporabniku {{$row->name}} {{$row->surname}} zarvrniti prošjno za kartico {{$row->card_name}}',
+                showDenyButton: true,
+                denyButtonText: 'Zavrni prošnjo',
+                confirmButtonText: 'Nazaj',
+                icon: 'warning',
+            }).then((result) => {
+                if (result.isDenied) {
+                    form.submit();
+                }
+            })
+            @endisset
+        }
+
+        function approveCard(event, form) {
+            event.preventDefault();
+            @isset($row)
+            Swal.fire({
+                title: 'Potrditev dejanja',
+                text: 'Želite uporabniku {{$row->name}} {{$row->surname}} odobriti prošjno za kartico {{$row->card_name}}',
+                showDenyButton: true,
+                denyButtonText: 'Odobri kartico',
+                confirmButtonText: 'Nazaj',
+                icon: 'warning',
+            }).then((result) => {
+                if (result.isDenied) {
+                    form.submit();
+                }
+            });
+            @endisset
+        }
+
+    </script>
 @endsection
