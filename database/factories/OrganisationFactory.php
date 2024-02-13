@@ -20,7 +20,7 @@ class OrganisationFactory extends Factory
             'name' => fake()->company(),
             'verified' => random_int(0, 1) ? 'Y' : 'N',
             'checkking_all_cards' => random_int(0, 1) ? 'Y' : 'N',
-            'id_user' => \App\Models\User::where('role', 'ADM')->inRandomOrder()->first()->id,
+            'id_user' => \App\Models\User::where('role', 'SAD')->inRandomOrder()->first()->id,
         ];
     }
 }
