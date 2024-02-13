@@ -11,16 +11,21 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('request_card', function (Blueprint $table) {
+        Schema::create('vendors', function (Blueprint $table) {
             $table->uuid('id')->primary();
+            $table->string('name')->index();
+            $table->string('address_line_1');
+            $table->string('address_line_2');
+            $table->string('postal_code');
+            $table->string('city');
+            $table->string('country');
             $table->uuid('id_user');
-            $table->uuid('id_card');
-            $table->string('status')->default('pending');
-
+            $table->uuid('verified_by');
             $table->timestamps();
 
             $table->foreign('id_user')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
-            $table->foreign('id_card')->references('id')->on('cards')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('verified_by')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
+
         });
     }
 
@@ -29,6 +34,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('request_card');
+        Schema::dropIfExists('vendors');
     }
 };

@@ -19,8 +19,6 @@ class Organisation extends Model
         'name',
         'description',
         'verified',
-        'checking_all_cards',
-        'id_user'
     ];
 
     // Relationships
@@ -28,13 +26,7 @@ class Organisation extends Model
     {
         return $this->hasMany(Card::class, 'id_organisation');
     }
-    
-    // Organisation belongs to many Users
-    public function users()
-    {
-        return $this->belongsToMany(User::class, 'organisation_users', 'id_organisation', 'id_user');
-    }
-    
+
     // Organisation has many RequestCards
     public function requestCards()
     {

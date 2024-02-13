@@ -11,14 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('organisation_employees', function (Blueprint $table) {
+        Schema::create('students', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->uuid('id_user');
             $table->uuid('id_organisation');
+            $table->uuid('id_class');
+            $table->uuid('verified_by');
             $table->timestamps();
 
-            $table->foreign('id_user')->references('id')->on('users');
-            $table->foreign('id_organisation')->references('id')->on('organisations');
+            $table->foreign('id_user')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('id_organisation')->references('id')->on('organisations')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 
@@ -27,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('organisation_employees');
+        Schema::dropIfExists('students');
     }
 };

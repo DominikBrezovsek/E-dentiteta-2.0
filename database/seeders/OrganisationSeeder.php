@@ -25,28 +25,22 @@ class OrganisationSeeder extends Seeder
             'id' => Str::uuid(),
             'name' => 'Srednja šola za kemijo, elektrotehniko in računalništvo',
             'verified' => 'Y',
-            'checkking_all_cards' => 'Y',
             'created_at' => \Carbon\Carbon::now(),
             'updated_at' => \Carbon\Carbon::now(),
-            'id_user' => $user1->id,
         ]);
         DB::table('organisations')->insert([
             'id' => Str::uuid(),
             'name' => 'Srednja šola za strojništvo',
             'verified' => 'Y',
-            'checkking_all_cards' => 'N',
             'created_at' => \Carbon\Carbon::now(),
             'updated_at' => \Carbon\Carbon::now(),
-            'id_user' => $user2->id,
         ]);
         DB::table('organisations')->insert([
             'id' => Str::uuid(),
             'name' => 'Srednja šola za medijske poklice',
             'verified' => 'N',
-            'checkking_all_cards' => 'N',
             'created_at' => \Carbon\Carbon::now(),
             'updated_at' => \Carbon\Carbon::now(),
-            'id_user' => $user3->id,
         ]);
         Organisation::factory()->count(7)->create();
     }

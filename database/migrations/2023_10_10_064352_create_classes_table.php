@@ -11,15 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('organisaton_users', function (Blueprint $table) {
-            $table->uuid('id_organisation_users')->primary();
+        Schema::create('classes', function (Blueprint $table) {
+            $table->uuid('id')->primary();
+            $table->string('name')->index();
+            $table->uuid('id_teacher');
+            $table->uuid('id_card');
             $table->uuid('id_organisation');
-            $table->uuid('id_user');
-
             $table->timestamps();
 
+            $table->foreign('id_teacher')->references('id')->on('teachers')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('id_card')->references('id_card')->on('cards')->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('id_organisation')->references('id_organisation')->on('organisations')->onUpdate('cascade')->onDelete('cascade');
-            $table->foreign('id_user')->references('id_user')->on('users')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 
@@ -28,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('organisaton_users');
+        Schema::dropIfExists('classes');
     }
 };
