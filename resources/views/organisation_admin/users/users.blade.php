@@ -38,7 +38,7 @@
         <div class="card-header">
             <h1>Podatki o uporabnikih</h1>
         </div>
-        <a href="{{ route('admin.user.add')}}"
+        <a href="{{ route('organisation_admin.student.add')}}"
                 class="btn btn-primary">Dodaj uporabnika</a>
 
         <div class="col-md-12 table-responsive card-body">
@@ -54,18 +54,17 @@
                 </tr>
 
                 @if (!$data->isEmpty())
-
                     @if (count($data) > 0)
                         @foreach ($data as $row)
                             <tr>
                                 <td>{{ $row?->email }}</td>
                                 <td>{{ $row?->username }}</td>
                                 <td>{{ $row?->emso }}</td>
-                                <td><a href="{{ route('admin.user', ['userId' => $row?->id]) }}"
+                                <td><a href="{{ route('organisation_admin.student', ['userId' => $row?->id]) }}"
                                     class="btn btn-primary">Uredi</a></td>
                                 <td>
                                     <form
-                                        action="{{ route('admin.user.delete', ['userId' => $row?->id]) }}"
+                                        action="{{ route('organisation_admin.student.delete', ['userId' => $row?->id]) }}"
                                         method="POST">
                                         @method('DELETE')
                                         @csrf

@@ -2,12 +2,12 @@
 
 namespace App\Http\Middleware;
 
+use Auth;
 use Closure;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
-class UserMiddleware
+class OrganisationAdminMiddleware
 {
     /**
      * Handle an incoming request.
@@ -18,7 +18,7 @@ class UserMiddleware
     {
         $user = Auth::user();
 
-        if ($user && $user->role == 'USR') {
+        if ($user && $user->role == 'OAD') {
             return $next($request);
         }
 

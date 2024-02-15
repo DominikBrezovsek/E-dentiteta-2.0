@@ -45,11 +45,20 @@ class Kernel extends HttpKernel
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
 
         ],
-        'ADM' => [
-            \App\Http\Middleware\AdminMiddleware::class,
+        'SAD' => [
+            \App\Http\Middleware\SystemAdminMiddleware::class,
         ],
-        'ORG' => [
-            \App\Http\Middleware\OrganisationMiddleware::class,
+        'OAD' => [
+            \App\Http\Middleware\OrganisationAdminMiddleware::class,
+        ],
+        'PRF' => [
+            \App\Http\Middleware\ProfessorMiddleware::class,
+        ],
+        'STU' => [
+            \App\Http\Middleware\StudentMiddleware::class,
+        ],
+        'VEN' => [
+            \App\Http\Middleware\VendorMiddleware::class,
         ],
         'USR' => [
             \App\Http\Middleware\UserMiddleware::class,

@@ -16,7 +16,7 @@ class AddUserCardController extends Controller
             'user.card.cards',
             [
                 'title' => 'Seznam kartic',
-                'data' => UserCard::join('cards', 'cards.id', '=', 'user_cards.id_card')->where('id_user', session('user')->id)->get(),
+                'data' => UserCard::join('cards', 'cards.id', '=', 'user_cards.id_card')->where('id_user', session('student')->id)->get(),
             ]
         );
     }
@@ -34,12 +34,12 @@ class AddUserCardController extends Controller
 
     public function postCard(Request $request, Card $cardId)
     {
-        // Logic for handling the "user.card.update" route (POST and PUT methods)
+        // Logic for handling the "student.card.update" route (POST and PUT methods)
     }
 
     public function getAddCard()
     {
-        $userId = session('user')->id;
+        $userId = session('student')->id;
         //TODO: You can make join with pivot points
 
         $cards = Card::whereDoesntHave('userCards', function ($query) use ($userId) {
@@ -61,7 +61,7 @@ class AddUserCardController extends Controller
 
     public function postAddCard(Request $request, Card $cardId)
     {
-        $userId = session('user')->id;
+        $userId = session('student')->id;
         $selectedOrganisationId = $cardId->id_organisation;
 
         $isNotMember = !OrganisationUser::where('id_user', $userId)
@@ -78,20 +78,20 @@ class AddUserCardController extends Controller
                     'id_organisation' => $selectedOrganisationId,
                 ]);
             }
-            return redirect()->route('user.card.join')->with('message', 'Kartica je bila dodana!');
+            return redirect()->route('student.card.join')->with('message', 'Kartica je bila dodana!');
         } else {
             RequestCard::create([
                 'id_user' => $userId,
                 'id_card' => $cardId->id,
                 'id_organisation' => $selectedOrganisationId,
             ]);
-            return redirect()->route('user.card.join')->with('message', 'Kartica je bila zahtevana!');
+            return redirect()->route('student.card.join')->with('message', 'Kartica je bila zahtevana!');
         }
     }
 
     public function deleteCard(Request $request, Card $cardId)
     {
-        $userId = session('user')->id;
+        $userId = session('student')->id;
         $userOrganisationId = UserCard::where('id_user', $userId)->where('id_card', $cardId->id)->first()->join('cards', 'cards.id', '=', 'user_cards.id_card')->first()->id_organisation;
         UserCard::where('id_user', $userId)->where('id_card', $cardId->id)->delete();
         if (
@@ -106,6 +106,6 @@ class AddUserCardController extends Controller
             $organisationUser = OrganisationUser::where('id_user', $userId)->where('id_organisation', $userOrganisationId)->first();
             $organisationUser->delete();
         }
-        return redirect()->route('user.cards')->with('message', 'Kartica je izbrisan!');
+        return redirect()->route('student.cards')->with('message', 'Kartica je izbrisan!');
     }
 }

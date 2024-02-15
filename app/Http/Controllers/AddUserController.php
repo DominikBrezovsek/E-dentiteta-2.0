@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UserCreateValidator;
+use App\Models\OrganisationAdmin;
 use App\Models\OrganisationUser;
+use App\Models\Students;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Card;
@@ -14,11 +16,12 @@ class AddUserController extends Controller
 {
     public function getUsers()
     {
+        $organisationId = OrganisationAdmin::whereIdUser(session('user')['id'])->first();
         return view(
-            'admin.users.users',
+            'organisation_admin.users.users',
             [
                 'title' => 'Uporabniki',
-                'data' => User::all()
+                'data' => Students::where('students.id_organisation', '=', $organisationId->id_organisation)->join('users', 'users.id', '=', 'students.id_user')->get()
             ]
         );
     }
@@ -26,14 +29,14 @@ class AddUserController extends Controller
     public function getUser(Request $request, User $userId)
     {;
         return view(
-            'admin.users.user',
+            'organisation_admin.users.user',
             [
                 'title' => 'Uporabnik',
-                'existingDataa' => (object) User::select('users.*', 'id_user', 'id_card', 'user_cards.id')->leftJoin('user_cards', 'users.id', '=', 'user_cards.id_user')->where('users.id', '=', $userId->id)->get(),
+                'existingDataa' => (object) Students::whereIdUser($userId->id)->join('users', 'users.id', '=', 'students.id_user')->get(),
                 'cardInfo' => Card::all(),
                 'userCards' => UserCard::where('id_user', $userId->id)->select('id_card')->get(),
                 'existingData' => $userId,
-                'roles' => ['USR', 'ORG', 'ADM']
+                'roles' => ['STU', 'PRF']
             ]
         );
     }
@@ -80,8 +83,8 @@ class AddUserController extends Controller
                         ->count() == 1
                 ) {
 
-                    $organisationUser = OrganisationUser::where('id_user', $userId->id)->where('id_organisation', Card::where('id', $userCard->id_card)->first()->id_organisation)->first();
-                    $organisationUser->delete();
+                    $student = Students::where('id_user', $userId->id)->where('id_organisation', Card::where('id', $userCard->id_card)->first()->id_organisation)->first();
+                    $student->delete();
                 }
                 $userCard->delete();
             }
@@ -95,11 +98,11 @@ class AddUserController extends Controller
                 $userIds = $userId->id;
                 $selectedCardId = Card::where('id', $selectedCard)->first()->id_organisation;
 
-                $isNotMember = OrganisationUser::where('id_user', $userIds)
+                $isNotMember = Students::where('id_user', $userIds)
                     ->where('id_organisation', $selectedCardId)
                     ->exists();
                 if (!$isNotMember) {
-                    $organisationUser = new OrganisationUser([
+                    $organisationUser = new Students([
                         'id_user' => $userId->id,
                         'id_organisation' => Card::where('id', $selectedCard)->first()->id_organisation,
                     ]);
@@ -109,7 +112,7 @@ class AddUserController extends Controller
             }
         }
         $userId->saveOrFail();
-        return redirect()->route('admin.users')->with('message', 'Podatki o uporabniku so bili posodobljeni!');
+        return redirect()->route('organisation_admin.users')->with('message', 'Podatki o uporabniku so bili posodobljeni!');
     }
 
     public function getAddUser(Request $request, User $userId)
@@ -161,7 +164,7 @@ class AddUserController extends Controller
                 $organisationUser->save();
             }
         }
-        return redirect()->route('admin.users')->with('message', 'Uporabnik ustvarjen!');
+        return redirect()->route('organisation_admin.users')->with('message', 'Uporabnik ustvarjen!');
     }
 
     public function deleteUser(Request $request, User $userId)
@@ -169,7 +172,7 @@ class AddUserController extends Controller
         UserCard::where('id_user', $userId->id)->delete();
         OrganisationUser::where('id_user', $userId->id)->delete();
         $userId->delete();
-        return redirect()->route('admin.users')->with('message', 'Uporabnik je izbrisan!');
+        return redirect()->route('organisation_admin.users')->with('message', 'Uporabnik je izbrisan!');
     }
 
 }

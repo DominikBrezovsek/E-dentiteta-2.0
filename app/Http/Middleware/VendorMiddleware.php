@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
-class UserMiddleware
+class VendorMiddleware
 {
     /**
      * Handle an incoming request.
@@ -18,10 +18,12 @@ class UserMiddleware
     {
         $user = Auth::user();
 
-        if ($user && $user->role == 'USR') {
+        if ($user && $user->role == 'VEN') {
             return $next($request);
+        } else {
+            return redirect()->route('home');
         }
 
-        return redirect()->route('home');
+
     }
 }

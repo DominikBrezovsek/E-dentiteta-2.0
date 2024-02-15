@@ -7,21 +7,22 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
-class UserMiddleware
+class ProfessorMiddleware
 {
     /**
      * Handle an incoming request.
      *
-     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
+     * @param \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response) $next
      */
     public function handle(Request $request, Closure $next): Response
     {
         $user = Auth::user();
 
-        if ($user && $user->role == 'USR') {
+        if ($user && $user->role == 'PRF') {
             return $next($request);
+        } else {
+            return redirect()->route('home');
         }
 
-        return redirect()->route('home');
     }
 }

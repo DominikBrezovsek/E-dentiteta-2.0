@@ -7,7 +7,7 @@ use Illuminate\Foundation\Http\FormRequest;
 class NewPasswordValidator extends FormRequest
 {
     /**
-     * Determine if the user is authorized to make this request.
+     * Determine if the student is authorized to make this request.
      */
     protected $stopOnFirstFailure = true;
     public function authorize(): bool

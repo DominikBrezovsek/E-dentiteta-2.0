@@ -12,7 +12,7 @@ class User extends Model implements Authenticatable
     use HasFactory;
     use HasUuids;
 
-    
+
     protected $primaryKey = 'id';
     public $incrementing = false;
     protected $keyType = 'string';
@@ -55,7 +55,7 @@ class User extends Model implements Authenticatable
         'username',
         'password',
         'emso',
-        'role'
+        'role',
     ];
 
     // Relationships
@@ -63,17 +63,12 @@ class User extends Model implements Authenticatable
     {
         return $this->hasMany(UserCard::class, 'id_user');
     }
-    
+
 
     public function requestCards()
     {
         return $this->hasMany(RequestCard::class, 'id_user');
     }
-    
 
-    public function organisations()
-    {
-        return $this->belongsToMany(Organisation::class, 'organisation_users', 'id_user', 'id_organisation');
-    }
 }
 

@@ -10,7 +10,7 @@ class AddCardController extends Controller
 {
     public function getCards()
     {
-        return view('admin.cards.cards',
+        return view('organisation_admin.cards.cards',
             [
                 'title' => 'Kartice',
                 'data' => Card::all()
@@ -19,7 +19,7 @@ class AddCardController extends Controller
     }
     public function getCard(Request $request, Card $cardId)
     {
-        return view('admin.cards.card',
+        return view('organisation_admin.cards.card',
             [
                 'title' => 'Kartica',
                 'existingData' => $cardId,
@@ -31,21 +31,21 @@ class AddCardController extends Controller
         $validated = $request->validate([
             'name' => ['required', 'max:255'],
             'description' => ['max:255'],
-            'organisation' => ['required'],
+            'professor' => ['required'],
             'auto_join' => ['required', 'in:Y,N'],
         ]);
 
         $cardId->update([
             'name' => $validated['name'],
             'description' => $validated['description'],
-            'id_organisation' => $validated['organisation'],
+            'id_organisation' => $validated['professor'],
             'auto_join' => $validated['auto_join'],
         ]);
-        return redirect()->route('admin.cards')->with('message', 'Podatki o kartici so bili posodobljeni!');
+        return redirect()->route('organisation_admin.cards')->with('message', 'Podatki o kartici so bili posodobljeni!');
     }
     public function getAddCard(Request $request, Card $cardId)
     {
-        return view('admin.cards.cardAdd',
+        return view('organisation_admin.cards.cardAdd',
             [
                 'title' => 'Dodaj kartico',
                 'existingData' => $cardId,
@@ -57,22 +57,22 @@ class AddCardController extends Controller
         $validated = $request->validate([
             'name' => ['required', 'max:255'],
             'description' => ['max:255'],
-            'organisation' => ['required'],
+            'professor' => ['required'],
             'auto_join' => ['required', 'in:Y,N'],
         ]);
 
         $card = new Card([
             'name' => $validated['name'],
             'description' => $validated['description'],
-            'id_organisation' => $validated['organisation'],
+            'id_organisation' => $validated['professor'],
             'auto_join' => $validated['auto_join'],
         ]);
         $card->save();
-        return redirect()->route('admin.cards')->with('message', 'Katrica ustvarjena!');
+        return redirect()->route('organisation_admin.cards')->with('message', 'Katrica ustvarjena!');
     }
     public function deleteCard(Request $request, Card $cardId)
     {
         $cardId->delete();
-        return redirect()->route('admin.cards')->with('message', 'Kartica je izbrisana!');
+        return redirect()->route('organisation_admin.cards')->with('message', 'Kartica je izbrisana!');
     }
 }

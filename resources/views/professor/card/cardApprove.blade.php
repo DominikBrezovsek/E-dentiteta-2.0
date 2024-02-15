@@ -28,7 +28,7 @@
                                         <div>
                                             <td class="options">
                                                 <form
-                                                    action="{{ route('organisation.card.approve.card', ['requestId' => $row?->id_request_card]) }}"
+                                                    action="{{ route('professor.card.approve.card', ['requestId' => $row?->id_request_card]) }}"
                                                     method="POST">
                                                     @csrf
                                                     <div>
@@ -40,7 +40,7 @@
                                                     </div>
                                                 </form>
                                                 <form
-                                                    action="{{ route('organisation.card.decline.card', ['requestId' => $row?->id_request_card]) }}"
+                                                    action="{{ route('professor.card.decline.card', ['requestId' => $row?->id_request_card]) }}"
                                                     method="POST">
                                                     @csrf
                                                     <div class=>

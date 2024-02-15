@@ -22,23 +22,29 @@ class LoginController extends Controller
     public function postLogin(LoginFormValidator $request): RedirectResponse
     {
         $credentials = $request->validated();
-
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
             $request->session()->put('user', Auth::user());
-            if (Auth::user()->role == 'ADM') {
-                return redirect()->route('admin.profile');
+            if (Auth::user()->role == 'SAD') {
+                return redirect()->route('sad.profile');
             } else if (Auth::user()->role == 'USR') {
                 return redirect()->route('user.profile');
-            } else if (Auth::user()->role == 'ORG') {
-                return redirect()->route('organisation.profile');
+            } else if (Auth::user()->role == 'STU') {
+                return redirect()->route('student.profile');
+            } else if (Auth::user()->role == 'OAD') {
+                return redirect()->route('organisation_admin.profile');
+            } else if (Auth::user()->role == 'PRF') {
+                return redirect()->route('student.profile');
+            } else if (Auth::user()->role == 'VEN') {
+                return redirect()->route('vendor.profile.profile');
             }
         } else {
             return back()->withErrors([
                 'username' => 'Napačno uporabniško ime ali geslo.',
             ])->onlyInput('username');
         }
-        return redirect()->back();
+        return back()->withErrors([
+            'username' => 'Napačno uporabniško ime ali geslo.',
+        ])->onlyInput('username');
     }
-
 }

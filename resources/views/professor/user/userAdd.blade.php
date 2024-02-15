@@ -63,7 +63,7 @@
                                     <td>{{ $row?->emso }}</td>
                                     <td>
                                         <form
-                                            action="{{ route('organisation.user.add.create', ['userId' => $row?->id]) }}"
+                                            action="{{ route('professor.student.add.create', ['userId' => $row?->id]) }}"
                                             method="POST">
                                             @csrf
                                             <div>
@@ -88,7 +88,7 @@
                 </table>
             </div>
         </div>
-        {{$data->links('vendor.pagination.default')}}
+        {{$data->links('custom_vendor.pagination.default')}}
     </div>
 
 @endsection

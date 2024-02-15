@@ -17,9 +17,6 @@ class OrganisationSeeder extends Seeder
      */
     public function run(): void
     {
-        $user1 = User::where('username', '=', 'zskorja')->select('id')->first();
-        $user2 = User::where('username', '=', 'nmejacina')->select('id')->first();
-        $user3 = User::where('username', '=', 'dbreza')->select('id')->first();
 
         DB::table('organisations')->insert([
             'id' => Str::uuid(),

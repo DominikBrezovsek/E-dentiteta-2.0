@@ -7,7 +7,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class OrganisationMiddleware
+class StudentMiddleware
 {
     /**
      * Handle an incoming request.
@@ -18,7 +18,7 @@ class OrganisationMiddleware
     {
         $user = Auth::user();
 
-        if ($user && $user->role === 'ORG') {
+        if ($user && $user->role === 'STU') {
             return $next($request);
         }
 

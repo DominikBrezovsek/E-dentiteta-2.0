@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('username', 50)->unique();
             $table->string('password');
             $table->string('emso', 13)->unique();
-            $table->enum('role', ['USR', 'STU', 'PRF', 'OAD', 'SAD'])->default('USR');
+            $table->enum('role', ['USR', 'STU', 'PRF', 'OAD', 'SAD', 'VEN'])->default('USR');
             $table->timestamps();
         });
     }

@@ -16,7 +16,7 @@ class OrganisationCardsController extends Controller
 {
     public function getCards()
     {
-        $userId = session('user')->id;
+        $userId = session('student')->id;
 
         $organisationIds = Organisation::where('id_user', $userId)
             ->pluck('id')
@@ -53,7 +53,7 @@ class OrganisationCardsController extends Controller
             'description' => $validated['description'],
             'auto_join' => $validated['auto_join'],
         ]);
-        return redirect()->route('organisation.cards')->with('message', 'Podatki o kartici so bili posodobljeni!');
+        return redirect()->route('professor.cards')->with('message', 'Podatki o kartici so bili posodobljeni!');
     }
 
     public function getAddCard()
@@ -67,7 +67,7 @@ class OrganisationCardsController extends Controller
 
     public function postAddCard(AddCardValidator $request, Card $cardId): RedirectResponse
     {
-        $userId = session('user')->id;
+        $userId = session('student')->id;
 
         $organisationIds = Organisation::where('id_user', $userId)
             ->pluck('id')
@@ -84,12 +84,12 @@ class OrganisationCardsController extends Controller
             'auto_join' => $validated['auto_join'],
         ]);
         $card->save();
-        return redirect()->route('organisation.cards')->with('message', 'Kartica ustvarjena!');
+        return redirect()->route('professor.cards')->with('message', 'Kartica ustvarjena!');
     }
 
     public function getApproveCards()
     {
-        $userId = session('user')->id;
+        $userId = session('student')->id;
 
         $organisationIds = Organisation::where('id_user', $userId)
             ->pluck('id')
@@ -128,7 +128,7 @@ class OrganisationCardsController extends Controller
         ]);
         $userCard->save();
         if(OrganisationUser::where('id_organisation', $idOrganisation)->where('id_user', $idUser)->exists()){
-            return redirect()->route('organisation.card.approve')->with('message', 'Kartica je bila potrjena!');
+            return redirect()->route('professor.card.approve')->with('message', 'Kartica je bila potrjena!');
         }
         else{
             $organisationUser = new OrganisationUser([
@@ -136,14 +136,14 @@ class OrganisationCardsController extends Controller
                 'id_user' => $idUser,
             ]);
             $organisationUser->save();
-            return redirect()->route('organisation.card.approve')->with('message', 'Kartica je bila potrjena!');
+            return redirect()->route('professor.card.approve')->with('message', 'Kartica je bila potrjena!');
         }
 
     }
     public function getDeclineCard(Request $request, RequestCard $requestId)
     {
         $requestId->delete();
-        return redirect()->route('organisation.card.approve')->with('message', 'Kartica je bila zavrnjena!');
+        return redirect()->route('professor.card.approve')->with('message', 'Kartica je bila zavrnjena!');
     }
 
     public function deleteCard(Request $requst, Card $cardId)
@@ -155,6 +155,6 @@ class OrganisationCardsController extends Controller
             OrganisationUser::where('id_organisation', $cardId->id_organisation)->delete();
         }
         $cardId->delete();
-        return redirect()->route('organisation.cards')->with('message', 'Kartica je bila izbrisana!');
+        return redirect()->route('professor.cards')->with('message', 'Kartica je bila izbrisana!');
     }
 }

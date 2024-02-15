@@ -37,7 +37,7 @@
         <div class="cards-content">
             <div class="card-header">
                 <h1>Podatki o uporabnikih</h1>
-                <a href="{{ route('organisation.user.add')}}"
+                <a href="{{ route('professor.student.add')}}"
                    class="btn-add-user">Dodaj uporabnika k organizaciji</a>
             </div>
             <div class="search-bar">
@@ -61,7 +61,7 @@
                                         <td>{{ $row?->username }}</td>
                                         <td class="options">
                                             <form
-                                                action="{{ route('organisation.user.delete', ['userId' => $row?->id]) }}"
+                                                action="{{ route('professor.student.delete', ['userId' => $row?->id]) }}"
                                                 method="POST">
                                                 @method('DELETE')
                                                 @csrf

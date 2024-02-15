@@ -10,10 +10,12 @@ class LogoutController extends Controller
 {
     public function logout(Request $request)
     {
-        Redis::del('user_'.session('user')->id);
+        if ((session('user')['id'])){
+            Redis::del('user_'.session('user')['id']);
+        }
         Auth::logout();
         $request->session()->invalidate();
 
-        return redirect()->route('home');
+        return redirect()->route('home')->with('message', 'Uporabnik uspešno odjavljen.');
     }
 }

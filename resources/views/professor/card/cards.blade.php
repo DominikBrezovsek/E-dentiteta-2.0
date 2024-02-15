@@ -8,7 +8,7 @@
                     <h1>Seznam kartic organizacije</h1>
                 </div>
                 <div>
-                    <a href="{{ route('organisation.card.add')}}">
+                    <a href="{{ route('professor.card.add')}}">
                         <div class="btn-add-card">
                             Dodaj kartico
                         </div>
@@ -31,7 +31,7 @@
                                     <td>{{ $row?->name }}</td>
                                     <td>{{$row->description != null ? $row->description : 'Kartica nima opisa.'}}</td>
                                     <td class="options">
-                                        <form action="{{ route('organisation.card.delete', ['cardId' => $row?->id]) }}"
+                                        <form action="{{ route('professor.card.delete', ['cardId' => $row?->id]) }}"
                                               method="POST" class="delete-form">
                                             @method('DELETE')
                                             @csrf
@@ -42,7 +42,7 @@
                                                 </button>
                                             </div>
                                         </form>
-                                        <a href="{{ route('organisation.card', ['cardId' => $row?->id]) }}"
+                                        <a href="{{ route('professor.card', ['cardId' => $row?->id]) }}"
                                            class="btn-edit"><i class="fa-solid fa-pen"></i>Uredi</a>
                                     </td>
                                 </tr>
@@ -56,7 +56,7 @@
                 </table>
             </div>
             <div>
-                {{$data->links('vendor.pagination.default')}}
+                {{$data->links('custom_vendor.pagination.default')}}
             </div>
         </div>
 

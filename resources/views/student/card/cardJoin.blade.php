@@ -21,13 +21,13 @@
                                 <td>{{ $row?->name }}</td>
                                 <td>{{ $row?->description }}</td>
                                 @if ($row?->auto_join == 'Y')
-                                    <td>                                        
-                                        <form action="{{ route('user.card.create', ['cardId' => $row->id]) }}" method="POST">
+                                    <td>
+                                        <form action="{{ route('student.card.create', ['cardId' => $row->id]) }}" method="POST">
                                             @csrf
                                             <button type="submit" class="btn btn-primary">Pridruži se kartici</button>
                                         </form></td>
-                                @else   
-                                    <td><form action="{{ route('user.card.create', ['cardId' => $row->id]) }}" method="POST">
+                                @else
+                                    <td><form action="{{ route('student.card.create', ['cardId' => $row->id]) }}" method="POST">
                                         @csrf
                                         <button type="submit" class="btn btn-primary">Zaprosi za kartico</button>
                                     </form>

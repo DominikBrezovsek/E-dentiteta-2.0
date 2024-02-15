@@ -8,7 +8,7 @@
         <p>Current payload: <br> {{$payload}}</p>
     </div>
     <div>
-        <a href="{{route('user.cards')}}" class="btn btn-secondary">Nazaj</a>
+        <a href="{{route('student.cards')}}" class="btn btn-secondary">Nazaj</a>
     </div>
 </div>
 
