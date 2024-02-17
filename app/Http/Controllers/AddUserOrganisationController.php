@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\OrganisationEmployees;
 use App\Models\OrganisationUser;
+use App\Models\Students;
+use App\Models\Teacher;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Organisation;
@@ -11,9 +13,10 @@ class AddUserOrganisationController extends Controller
 {
     public function getUsers()
     {
-        return view('organisation.student.users',
+        $classId = Teacher::whereIdUser(session('user')['id'])->join('classes', 'teachers.id', '=', 'classes.id_teacher')->first();
+        return view('professor.user.users',
             [
-                'data' => OrganisationUser::where('id_organisation', '=', Organisation::where('id_user', session('student')->id)->first()->id)->join('users', 'organisaton_users.id_user', '=', 'users.id')->paginate(5),
+                'data' => Students::where('id_class', '=', $classId->id)->join('users', 'users.id', '=', 'students.id_user')->get(),
                 'title' => 'Uporbaniki organizacije'
             ]
         );

@@ -24,11 +24,11 @@
                     <a class="nav-link" href="{{ route('organisation_admin.cards') }}">Kartice</a>
                 </div>
                 <div class="nav-item">
-                    <a class="nav-link" href="{{ route('organisation_admin.cards') }}">Zahteve za kartico</a>
+                    <a class="nav-link" href="{{ route('organisation_admin.cards.approve') }}">Zahteve za kartico</a>
                 </div>
                 @if (OrganisationAdmin::where('id_user','=', session('user')->id)->exists())
                     <div class="nav-item">
-                        <a class="nav-link" href="{{ route('organisation_admin.users') }}">Uporabniki organizacije</a>
+                        <a class="nav-link" href="{{ route('organisation_admin.students') }}">Dijaki</a>
                     </div>
                 @endif
                 <div class="controls">
@@ -60,14 +60,14 @@
 @elseif(Auth::user() && Auth::user()->role == 'PRF')
     <div class="nav-items">
         <div class="nav-item">
-            <a class="nav-link" href="{{ route('professor.cards') }}">Uporabniki</a>
+            <a class="nav-link" href="{{ route('professor.users') }}">Uporabniki</a>
         </div>
         <div class="nav-item">
-            <a class="nav-link" href="{{ route('professor.card.approve') }}">Razredne kartice</a>
+            <a class="nav-link" href="{{ route('professor.card.approve') }}">Zahteve za kartico</a>
         </div>
-        @if (OrganisationAdmin::where('id_user', session('user')->id)->exists())
+        @if (\App\Models\Teacher::where('id_user', session('user')['id'])->exists())
             <div class="nav-item">
-                <a class="nav-link" href="{{ route('professor.users') }}">Razred</a>
+                <a class="nav-link" href="{{ route('professor.class') }}">Razred</a>
             </div>
         @endif
         <div class="controls">

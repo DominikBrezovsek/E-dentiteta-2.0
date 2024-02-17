@@ -27,7 +27,7 @@ class CheckCardController extends Controller
         $cardId = $request->input('cid');
         if ($verificationId != null && $userId != null && $cardId != null){
             if(CardVerification::whereIdVerify($verificationId)->count('*') > 0){
-                if (Auth::user() && Auth::user()->role == 'ADM' || Auth::user() && Auth::user()->role == 'ORG')  {
+                if (Auth::user() && Auth::user()->role == 'OAD' || Auth::user() && Auth::user()->role == 'SAD' || Auth::user() && Auth::user()->role == 'PRF')  {
                     $data = UserCard::select(['users.*', 'cards.name AS cardName'])->whereIdUser($userId)->join('users', 'users.id', '=', 'user_cards.id_user')->join('cards', 'cards.id', '=', 'user_cards.id_card')->first();
                     $userData = [
                         'ime' => $data->name,

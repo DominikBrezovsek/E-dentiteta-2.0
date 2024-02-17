@@ -4,14 +4,16 @@ use App\Http\Controllers\AddOrganisationController;
 use App\Http\Controllers\CheckCardController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogoutController;
+use App\Http\Controllers\OrganisationAdminCardsController;
 use App\Http\Controllers\PasswordResetController;
+use App\Http\Controllers\ProfesorClassController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\QRCodeController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\AddCardController;
-use App\Http\Controllers\AddUserController;
+use App\Http\Controllers\AddStudentController;
 use App\Http\Controllers\AddUserCardController;
-use App\Http\Controllers\OrganisationCardsController;
+use App\Http\Controllers\ProfessorCardsController;
 use App\Http\Controllers\AddUserOrganisationController;
 use Illuminate\Support\Facades\Route;
 
@@ -104,16 +106,22 @@ Route::group(['middleware' => 'OAD'], function () {
             Route::post('/add', [AddCardController::class, 'postAddCard'])->name('organisation_admin.card.create');
             Route::put('/add', [AddCardController::class, 'postAddCard'])->name('organisation_admin.card.create');
             Route::delete('/delete/{cardId}', [AddCardController::class, 'deleteCard'])->name('organisation_admin.card.delete');
+
+            Route::get('/approve', [OrganisationAdminCardsController::class, 'getApproveCards'])->name('organisation_admin.cards.approve');
+            Route::post('/approve/{requestId}', [OrganisationAdminCardsController::class, 'getApproveCard'])->name('organisation_admin.cards.approve.card');
+            Route::put('/approve/{requestId}', [OrganisationAdminCardsController::class, 'getApproveCard'])->name('organisation_admin.cards.approve.card');
+            Route::post('/decline/{requestId}', [OrganisationAdminCardsController::class, 'getDeclineCard'])->name('organisation_admin.cards.decline.card');
+            Route::put('/decline/{requestId}', [OrganisationAdminCardsController::class, 'getDeclineCard'])->name('organisation_admin.cards.decline.card');
         });
-        Route::prefix('/users')->group(function (){
-            Route::get('/', [AddUserController::class, 'getUsers'])->name('organisation_admin.users');
-            Route::get('/edit/{userId}', [AddUserController::class, 'getUser'])->name('organisation_admin.student');
-            Route::post('/edit/{userId}', [AddUserController::class, 'postUser'])->name('organisation_admin.student.update');
-            Route::put('/edit/{userId}', [AddUserController::class, 'postUser'])->name('organisation_admin.student.update');
-            Route::get('/add', [AddUserController::class, 'getAddUser'])->name('organisation_admin.student.add');
-            Route::post('/add', [AddUserController::class, 'postAddUser'])->name('organisation_admin.student.create');
-            Route::put('/add', [AddUserController::class, 'postAddUser'])->name('organisation_admin.student.create');
-            Route::delete('/delete/{userId}', [AddUserController::class, 'deleteUser'])->name('organisation_admin.student.delete');
+        Route::prefix('/students')->group(function (){
+            Route::get('/', [AddStudentController::class, 'getUsers'])->name('organisation_admin.students');
+            Route::get('/edit/{userId}', [AddStudentController::class, 'getStudent'])->name('organisation_admin.student');
+            Route::post('/edit/{userId}', [AddStudentController::class, 'postUpdateStudent'])->name('organisation_admin.student.update');
+            Route::put('/edit/{userId}', [AddStudentController::class, 'postUpdateStudent'])->name('organisation_admin.student.update');
+            Route::get('/add', [AddStudentController::class, 'getAddStudent'])->name('organisation_admin.student.add');
+            Route::post('/add', [AddStudentController::class, 'postAddStudent'])->name('organisation_admin.student.create');
+            Route::put('/add', [AddStudentController::class, 'postAddStudent'])->name('organisation_admin.student.create');
+            Route::delete('/delete/{userId}', [AddStudentController::class, 'deleteUser'])->name('organisation_admin.user.delete');
         });
 
     });
@@ -134,26 +142,24 @@ Route::group(['middleware' => 'PRF'], function () {
         });
         //TODO: Add routes for cards check
         Route::prefix('/cards')->group(function(){
-            Route::get('/', [OrganisationCardsController::class, 'getCards'])->name('professor.cards');
-            Route::get('/edit/{cardId}', [OrganisationCardsController::class, 'getCard'])->name('professor.card');
-            Route::post('/edit/{cardId}', [OrganisationCardsController::class, 'postCard'])->name('professor.card.update');
-            Route::put('/edit/{cardId}', [OrganisationCardsController::class, 'postCard'])->name('professor.card.update');
-            Route::get('/add', [OrganisationCardsController::class, 'getAddCard'])->name('professor.card.add');
-            Route::post('/add', [OrganisationCardsController::class, 'postAddCard'])->name('professor.card.create');
-            Route::put('/add', [OrganisationCardsController::class, 'postAddCard'])->name('professor.card.create');
-            Route::get('/approve', [OrganisationCardsController::class, 'getApproveCards'])->name('professor.card.approve');
-            Route::post('/approve/{requestId}', [OrganisationCardsController::class, 'getApproveCard'])->name('professor.card.approve.card');
-            Route::put('/approve/{requestId}', [OrganisationCardsController::class, 'getApproveCard'])->name('professor.card.approve.card');
-            Route::post('/decline/{requestId}', [OrganisationCardsController::class, 'getDeclineCard'])->name('professor.card.decline.card');
-            Route::put('/decline/{requestId}', [OrganisationCardsController::class, 'getDeclineCard'])->name('professor.card.decline.card');
-            Route::delete('/delete/{cardId}', [OrganisationCardsController::class, 'deleteCard'])->name('professor.card.delete');
-        });
+            Route::get('/', [ProfessorCardsController::class, 'getCards'])->name('professor.cards');
+            Route::get('/edit/{cardId}', [ProfessorCardsController::class, 'getCard'])->name('professor.card');
+            Route::post('/edit/{cardId}', [ProfessorCardsController::class, 'postCard'])->name('professor.card.update');
+            Route::put('/edit/{cardId}', [ProfessorCardsController::class, 'postCard'])->name('professor.card.update');
+            Route::get('/approve', [ProfessorCardsController::class, 'getApproveCards'])->name('professor.card.approve');
+            Route::post('/approve/{requestId}', [ProfessorCardsController::class, 'getApproveCard'])->name('professor.card.approve.card');
+            Route::put('/approve/{requestId}', [ProfessorCardsController::class, 'getApproveCard'])->name('professor.card.approve.card');
+            Route::post('/decline/{requestId}', [ProfessorCardsController::class, 'getDeclineCard'])->name('professor.card.decline.card');
+            Route::put('/decline/{requestId}', [ProfessorCardsController::class, 'getDeclineCard'])->name('professor.card.decline.card');});
         Route::prefix('/users')->group(function (){
             Route::get('/', [AddUserOrganisationController::class, 'getUsers'])->name('professor.users');
             Route::get('/add', [AddUserOrganisationController::class, 'getAddUser'])->name('professor.student.add');;
             Route::post('/add/{userId}', [AddUserOrganisationController::class, 'postAddUser'])->name('professor.student.add.create');
             Route::put('/add/{userId}', [AddUserOrganisationController::class, 'postAddUser'])->name('professor.student.add.create');
             Route::delete('/delete/{userId}', [AddUserOrganisationController::class, 'deleteUser'])->name('professor.student.delete');
+        });
+        Route::prefix('/class')->group(function (){
+            Route::get('/', [ProfesorClassController::class, 'getClass'])->name('professor.class');
         });
     });
 });

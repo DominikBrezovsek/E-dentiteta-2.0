@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Students;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\Card;
 use App\Models\OrganisationUser;
@@ -13,10 +15,10 @@ class AddUserCardController extends Controller
     public function getCards()
     {
         return view(
-            'user.card.cards',
+            'student.card.cards',
             [
                 'title' => 'Seznam kartic',
-                'data' => UserCard::join('cards', 'cards.id', '=', 'user_cards.id_card')->where('id_user', session('student')->id)->get(),
+                'data' => UserCard::join('cards', 'cards.id', '=', 'user_cards.id_card')->where('id_user', session('user')['id'])->get(),
             ]
         );
     }
@@ -24,7 +26,7 @@ class AddUserCardController extends Controller
     public function getCard(Request $request, Card $cardId)
     {
         return view(
-            'user.card.card',
+            'student.card.card',
             [
                 'title' => 'Kartica ' . $cardId->name,
                 'card' => $cardId,
@@ -34,12 +36,13 @@ class AddUserCardController extends Controller
 
     public function postCard(Request $request, Card $cardId)
     {
-        // Logic for handling the "student.card.update" route (POST and PUT methods)
+        // Logic for handling the "user.card.update" route (POST and PUT methods)
     }
 
     public function getAddCard()
     {
-        $userId = session('student')->id;
+        $userId = session('user')['id'];
+        $organisationId = Students::whereIdUser($userId)->first()->id_organisation;
         //TODO: You can make join with pivot points
 
         $cards = Card::whereDoesntHave('userCards', function ($query) use ($userId) {
@@ -48,10 +51,11 @@ class AddUserCardController extends Controller
             ->whereDoesntHave('requestCards', function ($query) use ($userId) {
                 $query->where('id_user', $userId);
             })
+            ->where('id_organisation', '=', $organisationId)
             ->get();
 
         return view(
-            'user.card.cardJoin',
+            'student.card.cardJoin',
             [
                 'title' => 'Dodaj kartico',
                 'data' => $cards,
@@ -61,29 +65,21 @@ class AddUserCardController extends Controller
 
     public function postAddCard(Request $request, Card $cardId)
     {
-        $userId = session('student')->id;
-        $selectedOrganisationId = $cardId->id_organisation;
-
-        $isNotMember = !OrganisationUser::where('id_user', $userId)
-            ->where('id_organisation', $selectedOrganisationId)
-            ->exists();
+        $userId = session('user')['id'];
         if ($cardId->auto_join == 'Y') {
             UserCard::create([
                 'id_user' => $userId,
                 'id_card' => $cardId->id,
             ]);
-            if ($isNotMember) {
-                OrganisationUser::create([
-                    'id_user' => $userId,
-                    'id_organisation' => $selectedOrganisationId,
-                ]);
-            }
             return redirect()->route('student.card.join')->with('message', 'Kartica je bila dodana!');
         } else {
-            RequestCard::create([
+            RequestCard::insert([
+                'id' => \Str::uuid(),
                 'id_user' => $userId,
                 'id_card' => $cardId->id,
-                'id_organisation' => $selectedOrganisationId,
+                'status' => 'pending',
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
             ]);
             return redirect()->route('student.card.join')->with('message', 'Kartica je bila zahtevana!');
         }
@@ -91,21 +87,8 @@ class AddUserCardController extends Controller
 
     public function deleteCard(Request $request, Card $cardId)
     {
-        $userId = session('student')->id;
-        $userOrganisationId = UserCard::where('id_user', $userId)->where('id_card', $cardId->id)->first()->join('cards', 'cards.id', '=', 'user_cards.id_card')->first()->id_organisation;
+        $userId = session('user')['id'];
         UserCard::where('id_user', $userId)->where('id_card', $cardId->id)->delete();
-        if (
-            UserCard::where('id_user', $userId)
-                ->whereIn('id_card', function ($query) use ($userOrganisationId) {
-                    $query->select('id')
-                        ->from('cards')
-                        ->where('id_organisation', $userOrganisationId);
-                })
-                ->count() == 0
-        ) {
-            $organisationUser = OrganisationUser::where('id_user', $userId)->where('id_organisation', $userOrganisationId)->first();
-            $organisationUser->delete();
-        }
         return redirect()->route('student.cards')->with('message', 'Kartica je izbrisan!');
     }
 }

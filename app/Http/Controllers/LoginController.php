@@ -34,7 +34,7 @@ class LoginController extends Controller
             } else if (Auth::user()->role == 'OAD') {
                 return redirect()->route('organisation_admin.profile');
             } else if (Auth::user()->role == 'PRF') {
-                return redirect()->route('student.profile');
+                return redirect()->route('professor.profile');
             } else if (Auth::user()->role == 'VEN') {
                 return redirect()->route('vendor.profile.profile');
             }

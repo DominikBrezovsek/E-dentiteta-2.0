@@ -7,13 +7,6 @@
                 <div>
                     <h1>Seznam kartic organizacije</h1>
                 </div>
-                <div>
-                    <a href="{{ route('professor.card.add')}}">
-                        <div class="btn-add-card">
-                            Dodaj kartico
-                        </div>
-                    </a>
-                </div>
             </div>
             <div class="cards-table">
                 <table class="table">
@@ -31,17 +24,6 @@
                                     <td>{{ $row?->name }}</td>
                                     <td>{{$row->description != null ? $row->description : 'Kartica nima opisa.'}}</td>
                                     <td class="options">
-                                        <form action="{{ route('professor.card.delete', ['cardId' => $row?->id]) }}"
-                                              method="POST" class="delete-form">
-                                            @method('DELETE')
-                                            @csrf
-                                            <div class="delete-button">
-                                                <button type="button" class="btn-delete"
-                                                        onclick="confirmDelete(event, this.parentNode.parentNode)">
-                                                    Izbriši
-                                                </button>
-                                            </div>
-                                        </form>
                                         <a href="{{ route('professor.card', ['cardId' => $row?->id]) }}"
                                            class="btn-edit"><i class="fa-solid fa-pen"></i>Uredi</a>
                                     </td>

@@ -64,7 +64,7 @@
                                     class="btn btn-primary">Uredi</a></td>
                                 <td>
                                     <form
-                                        action="{{ route('organisation_admin.student.delete', ['userId' => $row?->id]) }}"
+                                        action="{{ route('organisation_admin.user.delete', ['userId' => $row?->id]) }}"
                                         method="POST">
                                         @method('DELETE')
                                         @csrf

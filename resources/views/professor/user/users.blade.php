@@ -38,7 +38,7 @@
             <div class="card-header">
                 <h1>Podatki o uporabnikih</h1>
                 <a href="{{ route('professor.student.add')}}"
-                   class="btn-add-user">Dodaj uporabnika k organizaciji</a>
+                   class="btn-add-user">Dodaj uporabnika v razred</a>
             </div>
             <div class="search-bar">
                 <i class="fa-solid fa-magnifying-glass"></i>

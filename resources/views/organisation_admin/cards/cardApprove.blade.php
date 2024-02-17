@@ -28,7 +28,7 @@
                                         <div>
                                             <td class="options">
                                                 <form
-                                                    action="{{ route('professor.card.approve.card', ['requestId' => $row?->rid]) }}"
+                                                    action="{{ route('organisation_admin.cards.approve.card', ['requestId' => $row?->rid]) }}"
                                                     method="POST">
                                                     @csrf
                                                     <div>
@@ -40,7 +40,7 @@
                                                     </div>
                                                 </form>
                                                 <form
-                                                    action="{{ route('professor.card.decline.card', ['requestId' => $row?->rid]) }}"
+                                                    action="{{ route('organisation_admin.cards.decline.card', ['requestId' => $row?->rid]) }}"
                                                     method="POST">
                                                     @csrf
                                                     <div class=>
@@ -74,10 +74,10 @@
                 title: "Podatki o uporabniku",
                 @isset($row)
                 html: "<div class='userData'>" +
-                    "<div><p>Ime</p>: {{$row->user_name}}</div>" +
-                    "<div><p>Priimek</p>: {{$row?->user_surname}}</div>" +
-                    "<div><p>E-poštni naslov</p>: {{$row?->user_email}}</div>" +
-                    "<div><p>EMŠO<p>: {{$row?->user_emso}}</div>" +
+                    "<div><p>Ime</p>: {{$row->name}}</div>" +
+                    "<div><p>Priimek</p>: {{$row?->surname}}</div>" +
+                    "<div><p>E-poštni naslov</p>: {{$row?->email}}</div>" +
+                    "<div><p>EMŠO<p>: {{$row?->emso}}</div>" +
                     "</div>",
                 @endisset
                 confirmButtonText: 'Zapri',
@@ -89,7 +89,7 @@
             @isset($row)
             Swal.fire({
                 title: 'Potrditev dejanja',
-                html: 'Želite uporabniku <b>{{$row->user_name}} {{$row->user_surname}}</b> zarvrniti prošjno za kartico <b>{{$row->card_name}}</b>?',
+                text: 'Želite uporabniku {{$row->name}} {{$row->surname}} zarvrniti prošjno za kartico {{$row->card_name}}',
                 showDenyButton: true,
                 denyButtonText: 'Zavrni prošnjo',
                 confirmButtonText: 'Nazaj',
@@ -107,7 +107,7 @@
             @isset($row)
             Swal.fire({
                 title: 'Potrditev dejanja',
-                html: 'Želite uporabniku <b>{{$row->user_name}} {{$row->user_surname}}</b> odobriti prošjno za kartico <b>{{$row->card_name}}</b>?',
+                text: 'Želite uporabniku {{$row->name}} {{$row->surname}} odobriti prošjno za kartico {{$row->card_name}}',
                 showDenyButton: true,
                 denyButtonText: 'Odobri kartico',
                 confirmButtonText: 'Nazaj',

@@ -31,14 +31,14 @@ class AddCardController extends Controller
         $validated = $request->validate([
             'name' => ['required', 'max:255'],
             'description' => ['max:255'],
-            'professor' => ['required'],
+            'organisation' => ['required'],
             'auto_join' => ['required', 'in:Y,N'],
         ]);
 
         $cardId->update([
             'name' => $validated['name'],
             'description' => $validated['description'],
-            'id_organisation' => $validated['professor'],
+            'id_organisation' => $validated['organisation'],
             'auto_join' => $validated['auto_join'],
         ]);
         return redirect()->route('organisation_admin.cards')->with('message', 'Podatki o kartici so bili posodobljeni!');
@@ -57,14 +57,14 @@ class AddCardController extends Controller
         $validated = $request->validate([
             'name' => ['required', 'max:255'],
             'description' => ['max:255'],
-            'professor' => ['required'],
+            'organisation' => ['required'],
             'auto_join' => ['required', 'in:Y,N'],
         ]);
 
         $card = new Card([
             'name' => $validated['name'],
             'description' => $validated['description'],
-            'id_organisation' => $validated['professor'],
+            'id_organisation' => $validated['organisation'],
             'auto_join' => $validated['auto_join'],
         ]);
         $card->save();

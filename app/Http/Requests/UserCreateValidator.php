@@ -25,7 +25,17 @@ class UserCreateValidator extends FormRequest
         return [
             'name' => 'required|max:225',
             'surname' => 'required|max:225',
-            'role' => 'required|in:USR,ORG,ADM',
+            'role' => 'required|in:STU, PRF, OAD, SAD, VEN ',
         ];
+    }
+
+    public function messages()
+    {
+        return [
+            'name.required' => 'Ime uporabnika je obvezno.',
+            'surname.required' => 'Priimek uporabnika je obvezno.',
+            'role.in' => 'Vloga uporabnika ni pravilna!'
+        ];
+
     }
 }

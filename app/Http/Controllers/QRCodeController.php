@@ -14,7 +14,7 @@ class QRCodeController extends Controller
     {
         $payload = $this->createCode();
         return view(
-            'user.qrcode.qrcode',
+            'student.qrcode.qrcode',
             [
                 'payload' => $payload,
                 'cardName' => $this->cardName
@@ -26,7 +26,7 @@ class QRCodeController extends Controller
     {
         $url = parse_url(URL::full(), PHP_URL_PATH);
         $cardId = explode('/', $url)[4];
-        $cardData = UserCard::where('id_card', '=', $cardId)->where('id_user', '=', session('student')['id'])->join('cards', 'id_card', '=', 'cards.id')->first();
+        $cardData = UserCard::where('id_card', '=', $cardId)->where('id_user', '=', session('user')['id'])->join('cards', 'id_card', '=', 'cards.id')->first();
         $this->cardName = $cardData->name;
         try {
             CardVerification::whereIdUser($cardData->id_user)->whereIdCard($cardData->id_card)->delete();

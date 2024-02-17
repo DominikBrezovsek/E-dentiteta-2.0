@@ -4,7 +4,7 @@
     <div class="card">
         <div class="card-header">{{ __('Podatki o uporabniku') }}</div>
         <div class="card-body">
-            <x-form :existingDataa="$existingDataa" submitRouteName="organisation_admin.student" backRouteName="organisation_admin.users"
+            <x-form :existingDataa="$existingDataa" submitRouteName="organisation_admin.user" backRouteName="organisation_admin.users"
                 submitButtonName="Shrani uporabnika" backButtonName="Nazaj" :cardInfo="$cardInfo" variableName="userId" :roles="$roles" :existingData="$existingData" :userCards="$userCards">
 
                 <x-input type="text" name="name" displayedName="Ime" placeholder="Vnesite ime"
