@@ -26,7 +26,7 @@
                 <div class="nav-item">
                     <a class="nav-link" href="{{ route('organisation_admin.cards.approve') }}">Zahteve za kartico</a>
                 </div>
-                @if (OrganisationAdmin::where('id_user','=', session('user')->id)->exists())
+                @if (OrganisationAdmin::where('id_user','=', session('user')['id'])->exists())
                     <div class="nav-item">
                         <a class="nav-link" href="{{ route('organisation_admin.students') }}">Dijaki</a>
                     </div>
@@ -65,11 +65,6 @@
         <div class="nav-item">
             <a class="nav-link" href="{{ route('professor.card.approve') }}">Zahteve za kartico</a>
         </div>
-        @if (\App\Models\Teacher::where('id_user', session('user')['id'])->exists())
-            <div class="nav-item">
-                <a class="nav-link" href="{{ route('professor.class') }}">Razred</a>
-            </div>
-        @endif
         <div class="controls">
             <div class="nav-item user">
                 <a class=nav-link" href="{{route('professor.profile')}}"><i class="fa-solid fa-user"></i></a>

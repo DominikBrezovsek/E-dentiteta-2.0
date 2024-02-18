@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Classes;
 use App\Models\OrganisationEmployees;
 use App\Models\OrganisationUser;
 use App\Models\Students;
@@ -24,12 +25,9 @@ class AddUserOrganisationController extends Controller
 
     public function getAddUser()
     {
-        return view('organisation.student.userAdd',
+        return view('professor.user.userAdd',
             [
-                'data' => User::where('role', 'USR')->whereNot('id', session('student')->id)->whereNotIn('id', OrganisationEmployees::select('id_user')
-                    ->where('id_organisation', Organisation::where('id_user', session('student')->id)->first()->id)
-                )
-                ->paginate(5),
+                'data' => User::where('role', '=', 'USR')->paginate(5),
                 'title' => 'Dodaj uporabnika'
             ]
         );
@@ -37,16 +35,22 @@ class AddUserOrganisationController extends Controller
 
     public function postAddUser(Request $request, User $userId)
     {
-        OrganisationUser::create([
-            'id_organisation' => Organisation::where('id_user', session('student')->id)->first()->id,
-            'id_user' => $userId->id
+        $teacher = Teacher::whereIdUser(session('user')['id'])->first();
+        $classId = Classes::whereIdTeacher($teacher->id)->first();
+        Students::create([
+            'id_organisation' => $teacher->id_organisation,
+            'id_user' => $userId->id,
+            'id_class' => $classId->id,
+            'verified_by' => $teacher->id,
         ]);
+        User::where('id', '=', $userId->id)->update(['role' => 'STU']);
         return redirect()->route('professor.users')->with('message', 'Uporabnik uspešno dodan!');
     }
 
     public function deleteUser(Request $request, User $userId)
     {
-        OrganisationUser::where('id_user', $userId->id)->delete();
+        Students::where('id_user','=', $userId->id)->delete();
+        User::where('id', '=', $userId->id)->update(['role' => 'USR']);
         return redirect()->route('professor.users')->with('message', 'Uporabnik uspešno odstranjen!');
     }
 }

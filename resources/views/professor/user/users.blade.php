@@ -66,7 +66,7 @@
                                                 @method('DELETE')
                                                 @csrf
                                                 <div>
-                                                    <button type="button" class="btn-delete"
+                                                    <button type="submit" class="btn-delete"
                                                             onclick="return confirm('Ali ste prepričani, da želite izbrisati tega uporabnika?');">
                                                         Izbriši
                                                     </button>
