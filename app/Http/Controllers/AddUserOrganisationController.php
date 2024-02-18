@@ -7,6 +7,7 @@ use App\Models\OrganisationEmployees;
 use App\Models\OrganisationUser;
 use App\Models\Students;
 use App\Models\Teacher;
+use App\Models\UserCard;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Organisation;
@@ -43,14 +44,20 @@ class AddUserOrganisationController extends Controller
             'id_class' => $classId->id,
             'verified_by' => $teacher->id,
         ]);
+
+        UserCard::create([
+            'id_user' => $userId->id,
+            'id_card' => $classId->id_card
+        ]);
         User::where('id', '=', $userId->id)->update(['role' => 'STU']);
         return redirect()->route('professor.users')->with('message', 'Uporabnik uspešno dodan!');
     }
 
     public function deleteUser(Request $request, User $userId)
     {
-        Students::where('id_user','=', $userId->id)->delete();
-        User::where('id', '=', $userId->id)->update(['role' => 'USR']);
+
+        Students::where('id_user','=', $userId->id)->delete();User::where('id', '=', $userId->id)->update(['role' => 'USR']);
+        UserCard::where('id_user', '=', $userId->id)->delete();
         return redirect()->route('professor.users')->with('message', 'Uporabnik uspešno odstranjen!');
     }
 }
