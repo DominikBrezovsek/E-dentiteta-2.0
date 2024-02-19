@@ -15,6 +15,7 @@ use App\Http\Controllers\AddStudentController;
 use App\Http\Controllers\AddUserCardController;
 use App\Http\Controllers\ProfessorCardsController;
 use App\Http\Controllers\AddUserOrganisationController;
+use App\Http\Controllers\UserOrganisationController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -200,6 +201,8 @@ Route::group(['middleware' => 'USR'], function () {
         Route::put('/edit', [ProfileController::class, 'postProfileStudent'])->name('user.profile.update');
 
         Route::prefix('/organisations')->group(function (){
+            Route::get('/', [UserOrganisationController::class, 'getOrganisations'])->name('user.organisations');
+            Route::post('/create/{organisationId}', [UserOrganisationController::class, 'postJoinOrganisation'])->name('user.organisations.add');
 
         });
     });
@@ -209,7 +212,7 @@ Route::group(['middleware' => 'VEN'], function () {
     Route::prefix('/vendor')->group(function () {
         Route::get('/edit', [ProfileController::class, 'getProfileUser'])->name('vendor.profile');
         Route::post('/edit', [ProfileController::class, 'postProfileStudent'])->name('vendor.profile.update');
-        Route::put('/edit', [ProfileController::class, 'postProfileStudent'])->name('vendor.profile.update');
+        Route::put('/edit', [ProfileController::class, 'postProfileStudent'])->name('vendor.profile.add');
 
         Route::prefix('/organisations')->group(function (){
 

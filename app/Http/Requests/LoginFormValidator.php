@@ -30,7 +30,7 @@ class LoginFormValidator extends FormRequest
     {
         return [
             'username' => 'required|string',
-            'password' => 'required'
+            'password' => 'required',
         ];
 
     }

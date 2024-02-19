@@ -17,10 +17,11 @@ return new class extends Migration
             $table->string('surname', 50);
             $table->string('email', 100)->unique();
             $table->time('email_verified_at')->nullable();
-            $table->string('username', 50)->unique();
-            $table->string('password');
+            $table->string('username', 50)->unique()->index('usernameIX');
+            $table->string('password')->index('passwordIX');
             $table->string('emso', 13)->unique();
             $table->enum('role', ['USR', 'STU', 'PRF', 'OAD', 'SAD', 'VEN'])->default('USR');
+            $table->string('remember_token', 100)->nullable();
             $table->timestamps();
         });
     }

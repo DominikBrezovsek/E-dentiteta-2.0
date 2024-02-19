@@ -56,7 +56,8 @@ class AddUserOrganisationController extends Controller
     public function deleteUser(Request $request, User $userId)
     {
 
-        Students::where('id_user','=', $userId->id)->delete();User::where('id', '=', $userId->id)->update(['role' => 'USR']);
+        Students::where('id_user','=', $userId->id)->delete();
+        User::where('id', '=', $userId->id)->update(['role' => 'USR']);
         UserCard::where('id_user', '=', $userId->id)->delete();
         return redirect()->route('professor.users')->with('message', 'Uporabnik uspešno odstranjen!');
     }

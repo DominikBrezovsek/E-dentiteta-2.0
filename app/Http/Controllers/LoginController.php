@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\LoginFormValidator;
+use App\Models\User;
 use Auth;
 use http\Env\Response;
 use Illuminate\Http\RedirectResponse;
@@ -13,6 +14,22 @@ class LoginController extends Controller
 {
     public function getLogin()
     {
+        if (isset(session('user')['id'])){
+            switch (session('user')['role']){
+                case('SAD'):
+                    return redirect()->route('sad.profile');
+                case('OAD'):
+                    return redirect()->route('organisation_admin.profile');
+                case('PRF'):
+                    return redirect()->route('professor.profile');
+                case('STU'):
+                    return redirect()->route('student.profile');
+                case('USR'):
+                    return redirect()->route('user.profile');
+                case('VEN'):
+                    return redirect()->route('vendor.profile');
+            }
+        }
         return view('login.loginForm', [
             'title' => 'Prijava',
             'existingData' => (object)[],

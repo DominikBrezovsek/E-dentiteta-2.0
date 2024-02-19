@@ -56,6 +56,7 @@ class User extends Model implements Authenticatable
         'password',
         'emso',
         'role',
+        'remember_token'
     ];
 
     // Relationships
