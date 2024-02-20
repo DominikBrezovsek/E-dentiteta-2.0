@@ -3,12 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Models\Students;
+use App\Models\Teacher;
+use App\Notifications\UserRequestedCardNotification;
 use Carbon\Carbon;
+use Couchbase\User;
 use Illuminate\Http\Request;
 use App\Models\Card;
 use App\Models\OrganisationUser;
 use App\Models\UserCard;
 use App\Models\RequestCard;
+use Illuminate\Support\Facades\Notification;
 
 class AddUserCardController extends Controller
 {
@@ -81,6 +85,8 @@ class AddUserCardController extends Controller
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ]);
+            $teacher = \App\Models\User::select(['users.*', 'teachers.id AS tid'])->whereRole('PRF')->join('teachers', 'teachers.id_user', '=', 'users.id')->where('teachers.id_organisation', '=', $cardId->id_organisation)->get();
+            Notification::send($teacher, new UserRequestedCardNotification(['cardId' => $cardId->id, 'userId' => $userId]));
             return redirect()->route('student.card.join')->with('message', 'Kartica je bila zahtevana!');
         }
     }
