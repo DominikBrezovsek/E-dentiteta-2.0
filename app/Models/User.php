@@ -6,11 +6,13 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
 class User extends Model implements Authenticatable
 {
     use HasFactory;
     use HasUuids;
+    use Notifiable;
 
 
     protected $primaryKey = 'id';

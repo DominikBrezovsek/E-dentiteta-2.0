@@ -4,6 +4,7 @@ use App\Http\Controllers\AddOrganisationController;
 use App\Http\Controllers\CheckCardController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogoutController;
+use App\Http\Controllers\NotificationsController;
 use App\Http\Controllers\OrganisationAdminCardsController;
 use App\Http\Controllers\PasswordResetController;
 use App\Http\Controllers\ProfesorClassController;
@@ -87,6 +88,8 @@ Route::group(['middleware' => 'OAD'], function () {
             Route::get('/edit', [ProfileController::class, 'getProfileAdmin'])->name('organisation_admin.profile');
             Route::post('/edit', [ProfileController::class, 'postProfileAdmin'])->name('organisation_admin.profile.update');
             Route::put('/edit', [ProfileController::class, 'postProfileAdmin'])->name('organisation_admin.profile.update');
+            Route::get('/notifications', [NotificationsController::class, 'getNotifications'])->name('organisation_admin.profile.notifications');
+            Route::post('/notifications/{notification}', [NotificationsController::class, 'markAsRead'])->name('organisation_admin.profile.notifications.markAsRead');
         });
         Route::prefix('/organisations')->group(function (){
             Route::get('/', [AddOrganisationController::class, 'getOrganisations'])->name('organisation_admin.organisations');
@@ -140,6 +143,8 @@ Route::group(['middleware' => 'PRF'], function () {
             Route::get('/edit', [ProfileController::class, 'getProfileProfessor'])->name('professor.profile');
             Route::post('/edit', [ProfileController::class, 'postProfileProfessor'])->name('professor.profile.update');
             Route::put('/edit', [ProfileController::class, 'postProfileProfessor'])->name('professor.profile.update');
+            Route::get('/notifications', [NotificationsController::class, 'getNotifications'])->name('professor.profile.notifications');
+            Route::post('/notifications/{notification}', [NotificationsController::class, 'markAsRead'])->name('professor.profile.notifications.markAsRead');
         });
         //TODO: Add routes for cards check
         Route::prefix('/cards')->group(function(){
