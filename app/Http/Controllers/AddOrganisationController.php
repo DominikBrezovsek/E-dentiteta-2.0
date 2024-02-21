@@ -12,10 +12,10 @@ class AddOrganisationController extends Controller
 {
     //Add professor
     public function getAddOrganisation(Request $request, Organisation $organisationId){
-        return view('admin.professor.organisationform',
+        return view('systemAdmin.organisation.organisationform',
         ['title' => 'Dodaj organizacijo',
         'existingData' => (object) [],
-        'adminInfo' => User::where('role', 'ADM')->get()]);
+        'adminInfo' => User::where('role', '=','SAD')->get()]);
     }
     public function postAddOrganisation(Request $request){
         $validatedData = $request->validate([
@@ -40,10 +40,10 @@ class AddOrganisationController extends Controller
     }
     //Edit professor
     public function getOrganisation(Request $request, Organisation $organisationId){
-        return view('admin.professor.organisationformedit',
+        return view('systemAdmin.organisation.organisationformedit',
         ['title' => 'Dodaj organizacijo',
         'existingData' => $organisationId,
-        'adminInfo' => User::where('role', 'ADM')->get()]);
+        'adminInfo' => User::where('role', '=','SAD')->get()]);
     }
     public function postOrganisation(Request $request, Organisation $organisationId){
         $validatedData = $request->validate([
@@ -64,9 +64,11 @@ class AddOrganisationController extends Controller
     }
     //All organisations
     public function getOrganisations(){
-        return view('admin.professor.organisations',
-        ['title' => 'Seznam organitacij',
-        'data' => Organisation::join('users', 'organisations.id_user', '=', 'users.id')->select('organisations.name AS name', 'verified', 'checkking_all_cards', 'username', 'organisations.id AS id_organisation')->get()]);
+        return view('systemAdmin.organisation.organisations',
+        [
+            'title' => 'Seznam organizacij',
+            'data' => Organisation::all()
+        ]);
     }
     public function deleteOrganisation(Request $request, Organisation $organisationId){
         $organisationId->delete();

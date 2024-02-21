@@ -49,6 +49,13 @@ class NotificationsController extends Controller
                 return view('professor.profile.notifications', [
                     'notification' => $notifications
                 ]);
+            case("SAD"):
+                $notifications['join'] = $this->getUserRequestedToJoin();
+                $notifications['card'] = $this->getStudentCardRequests();
+                return view('professor.profile.notifications', [
+                    'notification' => $notifications
+                ]);
+
         }
 
     }

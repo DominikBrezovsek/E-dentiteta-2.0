@@ -65,14 +65,28 @@ Route::post('/password-reset/post-new/', [PasswordResetController::class, 'setNe
 
 Route::group(['middleware' => 'SAD'], function () {
     Route::prefix('/user')->group(function () {
-        Route::get('/edit', [ProfileController::class, 'getProfileUser'])->name('sad.profile');
-        Route::post('/edit', [ProfileController::class, 'postProfileStudent'])->name('sad.profile.update');
-        Route::put('/edit', [ProfileController::class, 'postProfileStudent'])->name('sad.profile.update');
 
-        Route::prefix('/organisations')->group(function (){
-
-        });
     });
+    Route::prefix('/organisations')->group(function (){
+        Route::get('/', [AddOrganisationController::class, 'getOrganisations'])->name('sad.organisations');
+        Route::get('/edit/{organisationId}', [AddOrganisationController::class, 'getOrganisation'])->name('sad.organisation');
+        Route::post('/edit/{organisationId}', [AddOrganisationController::class, 'postOrganisation'])->name('sad.organisation.update');
+        Route::put('/edit/{organisationId}', [AddOrganisationController::class, 'postOrganisation'])->name('sad.organisation.update');
+        Route::delete('/delete/{organisationId}', [AddOrganisationController::class, 'deleteOrganisation'])->name('sad.organisation.delete');
+        Route::get('/add', [AddOrganisationController::class, 'getAddOrganisation'])->name('sad.add-organisation');
+        Route::post('/add', [AddOrganisationController::class, 'postAddOrganisation'])->name('sad.add-organisation.create');
+        Route::put('/add', [AddOrganisationController::class, 'postAddOrganisation'])->name('sad.add-organisation.create');
+
+
+    });
+    Route::prefix('/profile')->group(function () {
+        Route::get('/edit', [ProfileController::class, 'getProfileSystemAdmin'])->name('sad.profile');
+        Route::post('/edit', [ProfileController::class, 'postProfileSystemAdmin'])->name('sad.profile.update');
+        Route::put('/edit', [ProfileController::class, 'postProfileSystemAdmin'])->name('sad.profile.update');
+        Route::get('/notifications', [NotificationsController::class, 'getNotifications'])->name('sad.profile.notifications');
+        Route::post('/notifications/{notification}',[NotificationsController::class, 'markAsRead'])->name('sad.profile.notifications.markAsRead');
+    });
+
 });
 
 /**
@@ -90,16 +104,6 @@ Route::group(['middleware' => 'OAD'], function () {
             Route::put('/edit', [ProfileController::class, 'postProfileAdmin'])->name('organisation_admin.profile.update');
             Route::get('/notifications', [NotificationsController::class, 'getNotifications'])->name('organisation_admin.profile.notifications');
             Route::post('/notifications/{notification}', [NotificationsController::class, 'markAsRead'])->name('organisation_admin.profile.notifications.markAsRead');
-        });
-        Route::prefix('/organisations')->group(function (){
-            Route::get('/', [AddOrganisationController::class, 'getOrganisations'])->name('organisation_admin.organisations');
-            Route::get('/edit/{organisationId}', [AddOrganisationController::class, 'getOrganisation'])->name('organisation_admin.professor');
-            Route::post('/edit/{organisationId}', [AddOrganisationController::class, 'postOrganisation'])->name('organisation_admin.professor.update');
-            Route::put('/edit/{organisationId}', [AddOrganisationController::class, 'postOrganisation'])->name('organisation_admin.professor.update');
-            Route::get('/add', [AddOrganisationController::class, 'getAddOrganisation'])->name('organisation_admin.professor.add');
-            Route::post('/add', [AddOrganisationController::class, 'postAddOrganisation'])->name('organisation_admin.professor.create');
-            Route::put('/add', [AddOrganisationController::class, 'postAddOrganisation'])->name('organisation_admin.professor.create');
-            Route::delete('/delete/{organisationId}', [AddOrganisationController::class, 'deleteOrganisation'])->name('organisation_admin.professor.delete');
         });
         Route::prefix('/cards')->group(function (){
             Route::get('/', [AddCardController::class, 'getCards'])->name('organisation_admin.cards');

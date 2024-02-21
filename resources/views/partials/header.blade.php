@@ -4,14 +4,17 @@
         @if (Auth::user() && Auth::user()->role == 'SAD')
             <div class="nav-items">
                 <div class="nav-item">
-                    <a class="nav-link" href="{{ route('organisation_admin.organisations') }}">Organizacije</a>
+                    <a class="nav-link" href="{{ route('sad.organisations') }}">Organizacije</a>
                 </div>
                 <div class="nav-item">
-                    <a class="nav-link" href="{{ route('organisation_admin.users') }}">Partnerji</a>
+                    <a class="nav-link" href="{{ route('sad.profile') }}">Partnerji</a>
                 </div>
                 <div class="controls">
                     <div class="nav-item user">
-                        <a class=nav-link" href="{{  route('organisation_admin.profile') }}"><i class="fa-solid fa-user"></i></a>
+                        <a class="nav-link" href="{{route('sad.profile.notifications')}}"><i class="fa-solid fa-bell"></i></a>
+                    </div>
+                    <div class="nav-item user">
+                        <a class=nav-link" href="{{  route('sad.profile') }}"><i class="fa-solid fa-user"></i></a>
                     </div>
                     <div class="nav-item logout">
                         <a class=nav-link" href="{{route('logout')}}"><i class="fa-solid fa-right-from-bracket"></i></a>

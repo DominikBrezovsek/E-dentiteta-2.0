@@ -21,7 +21,6 @@ class LoginMiddleware
         if (!$user) {
             return $next($request);
         }
-
         return redirect()->route('home');
     }
 }

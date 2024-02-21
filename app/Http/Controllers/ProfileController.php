@@ -82,4 +82,25 @@ class ProfileController extends Controller
             'existingData' => User::where('id', session('user')['id'])->first(),
         ]);
     }
+
+    public function getProfileSystemAdmin()
+    {
+        $this->redisSetProfile(session('user')['id']);
+        return view('systemAdmin.profile.profileForm', [
+            'title' => 'Profil',
+            'existingData' => User::where('id', session('user')['id'])->first(),
+        ]);
+    }
+    public function postProfileSystemAdmin(ProfileValidator $request){
+        $request->validated();
+        User::where('id', session('user')['id'])->update([
+            'name' => $request->input('name'),
+            'surname' => $request->input('surname'),
+        ]);
+        $this->redisSetProfile(session('user')['id']);
+        return redirect()->route('sad.profile')->with('message', 'Profil je bil posodobljen!');
+    }
+
+
 }
+
