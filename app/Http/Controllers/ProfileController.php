@@ -101,6 +101,24 @@ class ProfileController extends Controller
         return redirect()->route('sad.profile')->with('message', 'Profil je bil posodobljen!');
     }
 
+    public function getProfileVendor()
+    {
+        $this->redisSetProfile(session('user')['id']);
+        return view('vendors.profile.profileForm', [
+            'title' => 'Profil',
+            'existingData' => User::where('id', session('user')['id'])->first(),
+        ]);
+    }
+    public function postProfileVendor(ProfileValidator $request){
+        $request->validated();
+        User::where('id', session('user')['id'])->update([
+            'name' => $request->input('name'),
+            'surname' => $request->input('surname'),
+        ]);
+        $this->redisSetProfile(session('user')['id']);
+        return redirect()->route('vendor.profile')->with('message', 'Profil je bil posodobljen!');
+    }
+
 
 }
 

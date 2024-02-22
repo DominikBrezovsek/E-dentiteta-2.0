@@ -168,9 +168,6 @@ Route::group(['middleware' => 'PRF'], function () {
             Route::put('/add/{userId}', [AddUserOrganisationController::class, 'postAddUser'])->name('professor.student.add.create');
             Route::delete('/delete/{userId}', [AddUserOrganisationController::class, 'deleteUser'])->name('professor.student.delete');
         });
-        Route::prefix('/class')->group(function (){
-            Route::get('/', [ProfesorClassController::class, 'getClass'])->name('professor.class');
-        });
     });
 });
 /**
@@ -219,11 +216,11 @@ Route::group(['middleware' => 'USR'], function () {
 
 Route::group(['middleware' => 'VEN'], function () {
     Route::prefix('/vendor')->group(function () {
-        Route::get('/edit', [ProfileController::class, 'getProfileUser'])->name('vendor.profile');
-        Route::post('/edit', [ProfileController::class, 'postProfileStudent'])->name('vendor.profile.update');
-        Route::put('/edit', [ProfileController::class, 'postProfileStudent'])->name('vendor.profile.add');
+        Route::get('/edit', [ProfileController::class, 'getProfileVendor'])->name('vendor.profile');
+        Route::post('/edit', [ProfileController::class, 'postProfileVendor'])->name('vendor.profile.update');
+        Route::put('/edit', [ProfileController::class, 'postProfileVendor'])->name('vendor.profile.update');
 
-        Route::prefix('/organisations')->group(function (){
+        Route::prefix('/verifications')->group(function (){
 
         });
     });

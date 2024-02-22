@@ -5,8 +5,8 @@
         <div class="card-header">{{ __('Urejanje profila') }}</div>
 
         <div class="card-body">
-            <x-form :existingData="$existingData" submitRouteName="organisation.profile"
-                    backRouteName="organisation.profile"
+            <x-form :existingData="$existingData" submitRouteName="vendor.profile"
+                    backRouteName="vendor.profile"
                     submitButtonName="Shrani spremembe" backButtonName="Nazaj">
 
                 <x-input type="text" name="username" displayedName="Uporabniško ime" readonly="true"

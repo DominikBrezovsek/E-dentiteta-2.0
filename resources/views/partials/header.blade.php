@@ -98,6 +98,17 @@
             </div>
         </div>
     </div>
+@elseif(Auth::user() && Auth::user()->role == 'VEN')
+    <div class="nav-items">
+        <div class="controls">
+            <div class="nav-item user">
+                <a class=nav-link" href="{{route('professor.profile')}}"><i class="fa-solid fa-user"></i></a>
+            </div>
+            <div class="nav-item logout">
+                <a class=nav-link" href="{{route('logout')}}"><i class="fa-solid fa-right-from-bracket"></i></a>
+            </div>
+        </div>
+    </div>
     @endif
     </div>
     </div>
