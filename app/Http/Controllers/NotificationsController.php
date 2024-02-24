@@ -10,26 +10,13 @@ use Illuminate\Support\Facades\Auth;
 
 class NotificationsController extends Controller
 {
-    public function getUserRequestedToJoin()
+    public function getUserNotifications()
     {
         $notifications = Auth::user()->unreadNotifications;
 
         $messageArray = [];
 
         foreach ($notifications as $notification) {
-            $user = User::whereId($notification->data['user'])->first();
-            $messageArray[] = $notification;
-        }
-        return $messageArray;
-    }
-
-    public function getStudentCardRequests()
-    {
-        $notifications = Auth::user()->unreadNotifications;
-        $messageArray = [];
-
-        foreach ($notifications as $notification) {
-            $user = User::whereId($notification->data['id_user'])->first();
             $messageArray[] = $notification;
         }
         return $messageArray;
@@ -40,19 +27,18 @@ class NotificationsController extends Controller
         $notifications = [];
         switch (Auth::user()->role){
             case ("OAD"):
-                $notifications['join'] =  $this->getUserRequestedToJoin();
+                $notifications[] =  $this->getUserNotifications();
                 return view('organisation_admin.profile.notifications', [
                     'notification' => $notifications
                 ]);
             case ("PRF"):
-                $notifications['card'] = $this->getStudentCardRequests();
+                $notifications[] = $this->getUserNotifications();
                 return view('professor.profile.notifications', [
                     'notification' => $notifications
                 ]);
             case("SAD"):
-                $notifications['join'] = $this->getUserRequestedToJoin();
-                $notifications['card'] = $this->getStudentCardRequests();
-                return view('professor.profile.notifications', [
+                $notifications[] = $this->getUserNotifications();
+                return view('systemAdmin.profile.notifications', [
                     'notification' => $notifications
                 ]);
 

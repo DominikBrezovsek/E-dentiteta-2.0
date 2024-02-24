@@ -85,8 +85,16 @@ class AddUserCardController extends Controller
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ]);
-            $teacher = \App\Models\User::select(['users.*', 'teachers.id AS tid'])->whereRole('PRF')->join('teachers', 'teachers.id_user', '=', 'users.id')->where('teachers.id_organisation', '=', $cardId->id_organisation)->get();
-            Notification::send($teacher, new UserRequestedCardNotification(['cardId' => $cardId->id, 'userId' => $userId]));
+            $teacher = \App\Models\User::select(['users.*', 'teachers.id AS tid',])->whereRole('PRF')->join('teachers', 'teachers.id_user', '=', 'users.id')->where('teachers.id_organisation', '=', $cardId->id_organisation)->get();
+            $oad = \App\Models\User::select(['users.*', 'OA.*',])->whereRole('OAD')->join('organisation_admins AS OA', 'OA.id_user', '=', 'users.id')->where('OA.id_organisation', '=', $cardId->id_organisation)->get();
+            $recipients = [];
+            foreach ($teacher as $t){
+                $recipients[] = $t;
+            }
+            foreach ($oad as $a){
+                $recipients[] = $a;
+            }
+            Notification::send($recipients, new UserRequestedCardNotification(['card' => $cardId->id, 'user' => $userId, 'message' => 'Uporabnik je zaprosil za dodelitev kartice.']));
             return redirect()->route('student.card.join')->with('message', 'Kartica je bila zahtevana!');
         }
     }

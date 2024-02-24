@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\OrganisationAdmin;
 use Illuminate\Http\Request;
 use App\Models\Card;
 use App\Models\Organisation;
@@ -10,10 +11,13 @@ class AddCardController extends Controller
 {
     public function getCards()
     {
+        $oid = OrganisationAdmin::whereIdUser(session('user')['id'])->first()->id_organisation;
+        session()->put('oid', $oid);
+       // session('user')->put('oid', $oid);
         return view('organisation_admin.cards.cards',
             [
                 'title' => 'Kartice',
-                'data' => Card::all()
+                'data' => Card::whereIdOrganisation($oid)->get()
             ]
         );
     }
@@ -23,7 +27,7 @@ class AddCardController extends Controller
             [
                 'title' => 'Kartica',
                 'existingData' => $cardId,
-                'orgInfo' => Organisation::all(),
+                'orgInfo' => Organisation::whereId(session('oid'))->get(),
             ]);
     }
     public function postCard(Request $request, Card $cardId)
@@ -49,7 +53,7 @@ class AddCardController extends Controller
             [
                 'title' => 'Dodaj kartico',
                 'existingData' => $cardId,
-                'orgInfo' => Organisation::all(),
+                'orgInfo' => Organisation::whereId(session('oid'))->get(),
             ]);
     }
     public function postAddCard(Request $request, Card $cardId)

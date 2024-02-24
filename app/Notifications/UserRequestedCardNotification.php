@@ -48,8 +48,9 @@ class UserRequestedCardNotification extends Notification
     public function toArray(object $notifiable): array
     {
         return [
-            'id_user' => $this->notificationData['userId'],
-            'id_card' => $this->notificationData['cardId'],
+            'user' => $this->notificationData['user'],
+            'card' => $this->notificationData['card'],
+            'message' => $this->notificationData['message'],
         ];
     }
 }

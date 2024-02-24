@@ -48,7 +48,8 @@ class UserRequestedToJoin extends Notification
     public function toArray(object $notifiable): array
     {
         return [
-            'user' => $this->notificationData['uid']
+            'user' => $this->notificationData['user'],
+            'message' => $this->notificationData['message']
         ];
     }
 

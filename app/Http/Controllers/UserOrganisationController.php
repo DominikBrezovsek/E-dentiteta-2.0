@@ -30,7 +30,7 @@ class UserOrganisationController extends Controller
                 'id_organisation' => $organisationId
             ]);
             $admin = User::whereRole('OAD')->get();
-            Notification::send($admin, new UserRequestedToJoin(['uid' => $user->id]));
+            Notification::send($admin, new UserRequestedToJoin(['user' => $user->id, 'message' => 'Uporabnik '.$user->name. ' '. $user->surname .' se želi pridružiti vaši organizaciji.']));
             return redirect()->route('user.organisations')->with('message', 'Zahteva za pridružitev je bila uspešno ustvarjena');
         }
         return redirect()->route('logout')->withErrors(['username' => 'Neavtorizirano dejanje!']);

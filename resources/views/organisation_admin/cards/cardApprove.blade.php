@@ -25,33 +25,34 @@
                                                 {{ $row?->user_name }} {{ $row?->user_surname }}
                                             </div>
                                         </td>
-                                        <div>
-                                            <td class="options">
-                                                <form
-                                                    action="{{ route('organisation_admin.cards.approve.card', ['requestId' => $row?->rid]) }}"
-                                                    method="POST">
-                                                    @csrf
-                                                    <div>
+                                            <td>
+                                                <div class="options">
+                                                    <form
+                                                        action="{{ route('organisation_admin.cards.approve.card', ['requestId' => $row?->rid]) }}"
+                                                        method="POST">
+                                                        @csrf
+                                                        <div>
 
-                                                        <button type="button" class="btn-approve"
-                                                                onclick="approveCard(event, this.parentNode.parentNode)">
-                                                            Odobri
-                                                        </button>
-                                                    </div>
-                                                </form>
-                                                <form
-                                                    action="{{ route('organisation_admin.cards.decline.card', ['requestId' => $row?->rid]) }}"
-                                                    method="POST">
-                                                    @csrf
-                                                    <div class=>
-                                                        <button type="button" class="btn-reject"
-                                                                onclick="rejectCard(event, this.parentNode.parentNode)">
-                                                            Zavrni
-                                                        </button>
-                                                    </div>
-                                                </form>
+                                                            <button type="button" class="btn-approve"
+                                                                    onclick="approveCard(event, this.parentNode.parentNode)">
+                                                                Odobri
+                                                            </button>
+                                                        </div>
+                                                    </form>
+                                                    <form
+                                                        action="{{ route('organisation_admin.cards.decline.card', ['requestId' => $row?->rid]) }}"
+                                                        method="POST">
+                                                        @csrf
+                                                        <div>
+                                                            <button type="button" class="btn-reject"
+                                                                    onclick="rejectCard(event, this.parentNode.parentNode)">
+                                                                Zavrni
+                                                            </button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+
                                             </td>
-                                        </div>
                                     </tr>
                                 @endforeach
                             @endif
