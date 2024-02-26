@@ -7,6 +7,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
 use App\Models\Card;
+use App\Models\Organisation as Organsiation;
 
 class CardSeeder extends Seeder
 {
@@ -17,7 +18,7 @@ class CardSeeder extends Seeder
     {
         DB::table('cards')->insert([
             'id' => Str::uuid(),
-            'id_organisation' => '55c8f13b-d2c6-41f8-adde-362093237725',
+            'id_organisation' => Organsiation::where('name', '=', 'Srednja šola za kemijo, elektrotehniko in računalništvo')->first()->id,
             'name' => 'Dijaška KER',
             'created_at' => \Carbon\Carbon::now(),
             'updated_at' => \Carbon\Carbon::now(),
@@ -25,7 +26,7 @@ class CardSeeder extends Seeder
         ]);
         DB::table('cards')->insert([
             'id' => Str::uuid(),
-            'id_organisation' => 'd2fddf70-58ad-40fe-9be3-8fee066f0250',
+            'id_organisation' => Organsiation::where('name', '=', 'Srednja šola za medijske poklice')->first()->id,
             'name' => 'Dijaška SMP',
             'created_at' => \Carbon\Carbon::now(),
             'updated_at' => \Carbon\Carbon::now(),

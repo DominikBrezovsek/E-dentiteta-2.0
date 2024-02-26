@@ -18,5 +18,11 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
+        $userSeeder = new UserSeeder();
+        $userSeeder->run();
+        $organisationSeeder = new OrganisationSeeder();
+        $organisationSeeder->run();
+        $cardSeeder = new CardSeeder();
+        $cardSeeder->run();
     }
 }

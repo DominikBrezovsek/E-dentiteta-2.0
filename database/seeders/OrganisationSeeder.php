@@ -6,6 +6,7 @@ use App\Models\Organisation;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
 
 
@@ -23,7 +24,7 @@ class OrganisationSeeder extends Seeder
             'checkking_all_cards' => 'Y',
             'created_at' => \Carbon\Carbon::now(),
             'updated_at' => \Carbon\Carbon::now(),
-            'id_user' => 'd6cfc288-fe9c-4131-a27e-c06c96cf899c',
+            'id_user' => User::where('username', '=', 'dbreza')->select('id')->first()->id,
         ]);
         DB::table('organisations')->insert([
             'id' => Str::uuid(),
@@ -32,7 +33,7 @@ class OrganisationSeeder extends Seeder
             'checkking_all_cards' => 'N',
             'created_at' => \Carbon\Carbon::now(),
             'updated_at' => \Carbon\Carbon::now(),
-            'id_user' => 'd6cfc288-fe9c-4131-a27e-c06c96cf899c',
+            'id_user' => User::where('username', '=', 'dbreza')->select('id')->first()->id,
         ]);
         DB::table('organisations')->insert([
             'id' => Str::uuid(),
@@ -41,7 +42,7 @@ class OrganisationSeeder extends Seeder
             'checkking_all_cards' => 'N',
             'created_at' => \Carbon\Carbon::now(),
             'updated_at' => \Carbon\Carbon::now(),
-            'id_user' => 'd6cfc288-fe9c-4131-a27e-c06c96cf899c',
+            'id_user' => User::where('username', '=', 'dbreza')->select('id')->first()->id,
         ]);
         Organisation::factory()->count(7)->create();
     }
