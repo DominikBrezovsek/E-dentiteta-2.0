@@ -242,3 +242,6 @@ Route::prefix('/verify')->group(function (){
     Route::get('/card/', [CheckCardController::class, 'verifyCard'])->name('card-check.verify-card');
 });
 
+Route::get('/verify-card', [QRCodeVerify::class, 'verifyCard']);
+Route::post('/verify-card', [QRCodeVerify::class, 'verifyCard']);
+

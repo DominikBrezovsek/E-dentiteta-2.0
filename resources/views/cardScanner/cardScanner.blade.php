@@ -1,6 +1,7 @@
 @extends('layout')
 @section('content')
     <script src="https://unpkg.com/html5-qrcode"></script>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <div class="cards-about">
         <div class="cards-header">
             <h1>Verifikacija črtnih kod</h1>
@@ -15,7 +16,9 @@
                     </th>
                 </tr>
                 <tr>
-                    <td><div id="qr-reader-results"></div></td>
+                    <td>
+                        <div id="qr-reader-results"></div>
+                    </td>
             </table>
         </div>
         <script>
@@ -27,6 +30,51 @@
                 } else {
                     document.addEventListener("DOMContentLoaded", fn);
                 }
+            }
+
+            function verifyCard() {
+                var decodedText = document.getElementById('verify-button').value;
+                var url = new URL(decodedText);
+                var cid = url.searchParams.get("cid");
+                var uid = url.searchParams.get("uid");
+                var verifyId = url.searchParams.get("verifyId");
+
+                fetch('/verify-card', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                        },
+                        body: JSON.stringify({
+                            cid: cid,
+                            uid: uid,
+                            verifyId: verifyId
+                        })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.data) {
+                            // Zapis obstaja
+                            Swal.fire({
+                                title: 'Uporabnik obstaja',
+                                text: 'Uporabnik z imenom ' + data.data.name + ', priimkom ' + data.data.surname +
+                                    ' in EMŠOM ' + data.data.emso + ' je bil uspešno preverjen.',
+                                icon: 'success',
+                            })
+                        } else {
+                            // Zapis ne obstaja
+                            console.log("Zapis ne obstaja.");
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Napaka:', error);
+                        // Display error message to the user
+                        Swal.fire({
+                            title: 'Napaka',
+                            text: 'Prišlo je do napake pri poizvedbi.' + error,
+                            icon: 'error',
+                        });
+                    });
             }
 
             docReady(function() {
@@ -42,7 +90,7 @@
 
                         if (cid && uid && verifyId) {
                             resultContainer.innerHTML =
-                                `CID: ${cid}, UID: ${uid}, VerifyID: ${verifyId} <a class="btn-add-card" href="/card-verify/${cid}/${uid}/${verifyId}">Preveri kartico</a>`;
+                                `CID: ${cid}, UID: ${uid}, VerifyID: ${verifyId} <button class="btn-add-card" onclick="verifyCard()" id="verify-button" value="${decodedText}">Preveri veljavnost kartice</button>`;
                         } else {
                             resultContainer.innerHTML = `Nepopolni ali neveljavni parametri.`;
                         }
