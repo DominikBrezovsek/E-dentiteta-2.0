@@ -1042,3 +1042,11 @@
     width: 100%;
     color: var(--text);
 }
+
+/*Qr code scanner*/
+.qr-reader{
+    margin: auto auto;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
