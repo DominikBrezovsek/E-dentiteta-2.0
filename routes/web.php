@@ -11,6 +11,8 @@ use App\Http\Controllers\PasswordResetController;
 use App\Http\Controllers\ProfesorClassController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\QRCodeController;
+use App\Http\Controllers\QRCodeScanner;
+use App\Http\Controllers\QRCodeVerify;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\AddCardController;
 use App\Http\Controllers\AddStudentController;
@@ -30,7 +32,13 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
+/**
+ * Route for scanner
+ */
+Route::get('/scanner', [QRCodeScanner::class, 'getScanner'])->name('scanner');
+/**
+ * Route for home
+ */
 Route::get('/',[LoginController::class, 'getLogin'])->name('home');
 /**
  * Route for logout
