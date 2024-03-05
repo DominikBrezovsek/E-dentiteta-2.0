@@ -42,7 +42,7 @@
 
                         if (cid && uid && verifyId) {
                             resultContainer.innerHTML =
-                                `CID: ${cid}, UID: ${uid}, VerifyID: ${verifyId} <a href="/card-verify/${cid}/${uid}/${verifyId}">Preveri kartico</a>`;
+                                `CID: ${cid}, UID: ${uid}, VerifyID: ${verifyId} <a class="btn-add-card" href="/card-verify/${cid}/${uid}/${verifyId}">Preveri kartico</a>`;
                         } else {
                             resultContainer.innerHTML = `Nepopolni ali neveljavni parametri.`;
                         }
