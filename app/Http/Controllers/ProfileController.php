@@ -33,7 +33,7 @@ class ProfileController extends Controller
                 case ('PRF'):
                     $user = User::select(['name', 'surname', 'username', 'email', 'emso', 'id_organisation'])
                         ->join('teachers', 'teachers.id_user', '=', 'users.id')
-                        ->whereId($userId)->first();
+                        ->where('users.id', $userId)->first();
                     $showCardRequests = Card::whereIdOrganisation($user->id_organisation)->where('auto_join', '=', 'N')->exists();
                     Redis::set('cardRequests_'.$user->id_organisation, $showCardRequests, "EX", 15*60);
                     break;
