@@ -143,6 +143,8 @@ Route::group(['middleware' => 'OAD'], function () {
 
         Route::prefix('/organisation')->group(function () {
             Route::get('/', [OrganisationController::class, 'getOrganisation'])->name('organisation_admin.organisation');
+            Route::post('/', [OrganisationController::class, 'postOrganisation'])->name('organisation_admin.organisation.update');
+            Route::put('/', [OrganisationController::class, 'postOrganisation'])->name('organisation_admin.organisation.update');
         });
 
     });

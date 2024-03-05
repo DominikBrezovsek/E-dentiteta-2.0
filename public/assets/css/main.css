@@ -1050,3 +1050,74 @@
     justify-content: space-around;
     align-items: center;
 }
+
+/*organisation tab*/
+.organisation-header {
+    color: var(--text);
+    font-size: 2.2rem;
+    font-weight: 500;
+    margin-bottom: 2rem;
+
+}
+
+.organisation-data {
+    display: flex;
+    flex-direction: row;
+    gap: 5rem;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.organisation-data .organisation-logo  img{
+    height: 20rem;
+    width: 20rem;
+    border-radius: 50%;
+    object-fit: contain;
+}
+
+.organisation-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    align-items: center;
+    justify-content: center;
+    width: 40%;
+}
+
+.organisation-info h5 {
+    color: var(--text);
+    font-size: 2rem;
+    font-weight: 500;
+    margin-right: auto;
+}
+
+.organisation-info .form-inputs {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+}
+
+.organisation-info .inputs {
+    width: 100%;
+
+}
+
+.organisation-info .inputs input {
+    border: none;
+    border-radius: 0;
+    outline: none;
+    background-color: var(--primary-50);
+    width: 88%;
+}
+
+.organisation-info .inputs input:focus {
+    border-bottom: 2px solid var(--primary);
+    outline: none;
+    background-color: var(--primary-50);
+    color: var(--text);
+}
+
