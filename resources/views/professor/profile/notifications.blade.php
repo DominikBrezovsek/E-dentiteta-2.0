@@ -1,7 +1,8 @@
 @extends('layout')
 
 @section('content')
-    @foreach($notification['card'] as $n)
+
+    @foreach($notification as $n)
         <div style="display: flex; flex-direction: row; gap: 2rem">
            <div>
                {{$n->data['id_user']}}

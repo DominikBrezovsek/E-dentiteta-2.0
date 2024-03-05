@@ -1,53 +1,46 @@
 @extends('layout')
 
 @section('content')
-    <div class="card">
-        <div class="card-header">
+    <div class="student-cards">
+        <div class="cards-header">
             <h1>Podatki o karticah</h1>
+            <a href="{{ route('student.card.join')}}"
+               class="btn btn-add-card">Dodaj kartico v svoj račun</a>
         </div>
-        <a href="{{ route('student.card.join')}}"
-                class="btn btn-primary">Dodaj kartico v svoj račun</a>
-        <div class="col-md-12 table-responsive card-body">
-            <table class="table table-striped">
-                <tr>
-                    <th>Ime kartice</th>
-                    <th>Verifikacijska koda</th>
-                    <th colspan="2">Upravljanje s kartico</th>
-                </tr>
 
+        <div class="cards">
                 @if (!$data->isEmpty())
-
                     @if (count($data) > 0)
                         @foreach ($data as $row)
-                            <tr>
-                                <td>{{ $row?->name }}</td>
-                                {{-- TODO make verification --}}
-                                <td><a href="{{ route('student.qrcode-generate', ['cardId' => $row->id_card])}}"
-                                       class="btn btn-primary">Verifikacija kartice</a></td>
-                                <td>
-                                    <form
-                                        action="{{ route('student.card.delete', ['cardId' => $row?->id_card]) }}"
-                                        method="POST">
-                                        @method('DELETE')
-                                        @csrf
-                                        <div class="d-flex gap-2">
-
-                                            <button type="submit" class="btn btn-outline-danger btn-sm"
-                                                onclick="return confirm('Ali ste prepričani, da želite izbrisati to kartico?');">
-                                                Izbriši
-                                            </button>
-                                        </div>
-                                    </form>
-                                </td>
-                            </tr>
+                            <div class="card">
+                                <div class="logo"><img src="{{Storage::url('images/'.$row->logo)}}" alt="KER logo">
+                                    <div>
+                                        <h4>{{$row->name}}</h4>
+                                    </div>
+                                </div>
+                                <div class="info">
+                                    <div class="user-info">
+                                        <h3>{{$row->user_name}} {{$row->user_surname}}</h3>
+                                    </div>
+                                    <div class="org-info">
+                                        <h3>Veljavno od: {{$row->created_at}}</h3>
+                                        <h3>Izdal: {{$row->o_name}}</h3>
+                                    </div>
+                                </div>
+                                <div class="btn-verify">
+                                    <h3>Verifikacija veljavnosti</h3>
+                                </div>
+                                <div class="card-id">
+                                    <p>Št. izkaznice: 642a-hf12-54as-09if</p>
+                                </div>
+                            </div>
                         @endforeach
                     @endif
                 @else
-                    <tr>
-                        <td colspan="4" class="text-center">Ni podatkov o karticah</td>
-                    </tr>
+                    <div class="no-data">
+                        <h1>Ni dodeljenih kartic</h1>
+                    </div>
                 @endif
-            </table>
         </div>
     </div>
 @endsection

@@ -19,6 +19,7 @@ class Organisation extends Model
         'name',
         'description',
         'verified',
+        'logo'
     ];
 
     // Relationships

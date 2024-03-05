@@ -6,6 +6,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\NotificationsController;
 use App\Http\Controllers\OrganisationAdminCardsController;
+use App\Http\Controllers\OrganisationController;
 use App\Http\Controllers\PasswordResetController;
 use App\Http\Controllers\ProfesorClassController;
 use App\Http\Controllers\ProfileController;
@@ -130,6 +131,10 @@ Route::group(['middleware' => 'OAD'], function () {
             Route::post('/add', [AddStudentController::class, 'postAddStudent'])->name('organisation_admin.student.create');
             Route::put('/add', [AddStudentController::class, 'postAddStudent'])->name('organisation_admin.student.create');
             Route::delete('/delete/{userId}', [AddStudentController::class, 'deleteUser'])->name('organisation_admin.user.delete');
+        });
+
+        Route::prefix('/organisation')->group(function () {
+            Route::get('/', [OrganisationController::class, 'getOrganisation'])->name('organisation_admin.organisation');
         });
 
     });

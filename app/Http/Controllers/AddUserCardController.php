@@ -22,7 +22,7 @@ class AddUserCardController extends Controller
             'student.card.cards',
             [
                 'title' => 'Seznam kartic',
-                'data' => UserCard::join('cards', 'cards.id', '=', 'user_cards.id_card')->where('id_user', session('user')['id'])->get(),
+                'data' => UserCard::select(['cards.*', 'users.name AS user_name', 'users.surname AS user_surname', 'user_cards.id AS ucId', 'organisations.name AS o_name', 'organisations.logo as logo'])->join('cards', 'cards.id', '=', 'user_cards.id_card')->join('organisations', 'organisations.id', '=', 'cards.id_organisation')->join('users', 'users.id', '=', 'user_cards.id_user')->where('id_user', session('user')['id'])->get(),
             ]
         );
     }

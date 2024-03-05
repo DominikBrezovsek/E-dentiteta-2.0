@@ -34,6 +34,9 @@
                         <a class="nav-link" href="{{ route('organisation_admin.students') }}">Dijaki</a>
                     </div>
                 @endif
+                <div class="nav-item">
+                    <a class="nav-link" href="{{ route('organisation_admin.organisation') }}">Organizacija</a>
+                </div>
                 <div class="controls">
                     <div class="nav-item user">
                         <a class="nav-link" href="{{route('organisation_admin.profile.notifications')}}"><i class="fa-solid fa-bell"></i></a>

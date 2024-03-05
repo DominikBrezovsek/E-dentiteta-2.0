@@ -12,6 +12,7 @@
                              fa-icon="fa-solid fa-user"
                              :value="$existingDataa[0]->name ?? ''"/>
 
+
                     <x-input type="text" name="surname" displayedName="Priimek" placeholder="Vnesite priimek"
                              fa-icon="fa-solid fa-user"
                              :value="$existingDataa[0]->surname ?? ''"/>
@@ -74,23 +75,22 @@
                     </div>
 
                 </div>
-
+            </x-form>
         </div>
+    </div>
 
-        <script>
-            const cardItems = document.querySelectorAll('.card-item');
-            const cardFilter = document.getElementById('card-filter');
 
-            cardFilter.addEventListener('input', function () {
-                const filterValue = cardFilter.value.toLowerCase();
+    <script>
+        const cardItems = document.querySelectorAll('.card-item');
+        const cardFilter = document.getElementById('card-filter');
 
-                cardItems.forEach(function (cardItem) {
-                    const cardName = cardItem.dataset.cardName.toLowerCase();
-                    cardItem.style.display = cardName.includes(filterValue) ? 'block' : 'none';
-                });
+        cardFilter.addEventListener('input', function () {
+            const filterValue = cardFilter.value.toLowerCase();
+
+            cardItems.forEach(function (cardItem) {
+                const cardName = cardItem.dataset.cardName.toLowerCase();
+                cardItem.style.display = cardName.includes(filterValue) ? 'block' : 'none';
             });
-        </script>
-        </x-form>
-    </div>
-    </div>
+        });
+    </script>
 @endsection
