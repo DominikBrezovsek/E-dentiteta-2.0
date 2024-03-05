@@ -65,10 +65,11 @@
                 @endif
             </table>
         </div>
+        <div>
+            {{$data->links('custom_vendor.pagination.default')}}
+        </div>
     </div>
-    <div>
-        {{$data->links('custom_vendor.pagination.default')}}
-    </div>
+
 </div>    
     <script>
         function deleteOrganisation(event, form) {
