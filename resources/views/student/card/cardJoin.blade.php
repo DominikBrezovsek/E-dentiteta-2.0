@@ -1,12 +1,12 @@
 @extends('layout')
 
 @section('content')
-    <div class="card">
-        <div class="card-header">
+    <div class="cards-about">
+        <div class="cards-header">
             <h1>Pridruži se karticam</h1>
         </div>
-        <div class="col-md-12 table-responsive card-body">
-            <table class="table table-striped">
+        <div class="cards-table">
+            <table class="table">
                 <tr>
                     <th>Ime kartice</th>
                     <th>Opis</th>
@@ -24,12 +24,12 @@
                                     <td>
                                         <form action="{{ route('student.card.create', ['cardId' => $row->id]) }}" method="POST">
                                             @csrf
-                                            <button type="submit" class="btn btn-primary">Pridruži se kartici</button>
+                                            <button type="submit" class="btn-add-card">Pridruži se kartici</button>
                                         </form></td>
                                 @else
                                     <td><form action="{{ route('student.card.create', ['cardId' => $row->id]) }}" method="POST">
                                         @csrf
-                                        <button type="submit" class="btn btn-primary">Zaprosi za kartico</button>
+                                        <button type="submit" class="btn-add-card">Zaprosi za kartico</button>
                                     </form>
                                     </td>
                                 @endif
