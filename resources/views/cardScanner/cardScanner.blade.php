@@ -21,7 +21,7 @@
                     </td>
             </table>
         </div>
-        @if(user()->role == 'VEN')
+        @if(session('user')->role = 'VEN')
         <script>
             function docReady(fn) {
                 // see if DOM is already available
@@ -112,7 +112,7 @@
                 html5QrcodeScanner.render(onScanSuccess);
             });
         </script>
-        @elseif(user()->role == 'OAD')
+        @elseif(session('user')->role  == 'OAD')
         <script>
             function docReady(fn) {
                 // see if DOM is already available
@@ -212,7 +212,7 @@
                 html5QrcodeScanner.render(onScanSuccess);
             });
         </script>
-        @elseif(user()->role == 'ADM')
+        @elseif(session('user')->role  == 'ADM')
         <script>
             function docReady(fn) {
                 // see if DOM is already available
@@ -303,7 +303,7 @@
                 html5QrcodeScanner.render(onScanSuccess);
             });
         </script>
-        @elseif(user()->role == 'PRF')
+        @elseif(session('user')->role  == 'PRF')
         <script>
             function docReady(fn) {
                 // see if DOM is already available
