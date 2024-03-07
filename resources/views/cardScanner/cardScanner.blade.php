@@ -63,7 +63,11 @@
                             })
                         } else {
                             // Zapis ne obstaja
-                            console.log("Zapis ne obstaja.");
+                            Swal.fire({
+                                title: 'Uporabnik s takšno verifikacijo ne obstaja',
+                                text: `V podtakovni bazi ne obstaja takšen zapis verifikacijske QR kode.`,
+                                icon: 'error',
+                            })
                         }
                     })
                     .catch(error => {
