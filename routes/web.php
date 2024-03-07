@@ -20,6 +20,7 @@ use App\Http\Controllers\AddUserCardController;
 use App\Http\Controllers\ProfessorCardsController;
 use App\Http\Controllers\AddUserOrganisationController;
 use App\Http\Controllers\UserOrganisationController;
+use App\Http\Controllers\VendorController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -32,10 +33,6 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-/**
- * Route for scanner
- */
-Route::get('/scanner', [QRCodeScanner::class, 'getScanner'])->name('scanner');
 /**
  * Route for home
  */
@@ -95,6 +92,12 @@ Route::group(['middleware' => 'SAD'], function () {
         Route::get('/notifications', [NotificationsController::class, 'getNotifications'])->name('sad.profile.notifications');
         Route::post('/notifications/{notification}',[NotificationsController::class, 'markAsRead'])->name('sad.profile.notifications.markAsRead');
     });
+    Route::prefix('/verify')->group(function (){
+        Route::get('/scanner', [QRCodeScanner::class, 'getScanner'])->name('sad.verify-card');
+        
+        Route::get('/verify-card', [QRCodeVerify::class, 'verifyCard']);
+        Route::post('/verify-card', [QRCodeVerify::class, 'verifyCard']);
+    });
 
 });
 
@@ -146,6 +149,12 @@ Route::group(['middleware' => 'OAD'], function () {
             Route::post('/', [OrganisationController::class, 'postOrganisation'])->name('organisation_admin.organisation.update');
             Route::put('/', [OrganisationController::class, 'postOrganisation'])->name('organisation_admin.organisation.update');
         });
+        Route::prefix('/verify')->group(function (){
+            Route::get('/scanner', [QRCodeScanner::class, 'getScanner'])->name('organisation_admin.verify-card');
+            
+            Route::get('/verify-card', [QRCodeVerify::class, 'verifyCardOAD']);
+            Route::post('/verify-card', [QRCodeVerify::class, 'verifyCardOAD']);
+        });
 
     });
 });
@@ -182,6 +191,12 @@ Route::group(['middleware' => 'PRF'], function () {
             Route::post('/add/{userId}', [AddUserOrganisationController::class, 'postAddUser'])->name('professor.student.add.create');
             Route::put('/add/{userId}', [AddUserOrganisationController::class, 'postAddUser'])->name('professor.student.add.create');
             Route::delete('/delete/{userId}', [AddUserOrganisationController::class, 'deleteUser'])->name('professor.student.delete');
+        });
+        Route::prefix('/verify')->group(function (){
+            Route::get('/scanner', [QRCodeScanner::class, 'getScanner'])->name('professor.verify-card');
+            
+            Route::get('/verify-card', [QRCodeVerify::class, 'verifyCardPRF']);
+            Route::post('/verify-card', [QRCodeVerify::class, 'verifyCardPRF']);
         });
     });
 });
@@ -228,22 +243,33 @@ Route::group(['middleware' => 'USR'], function () {
         });
     });
 });
-
+/**
+ * Routes for vendor
+ */
 Route::group(['middleware' => 'VEN'], function () {
     Route::prefix('/vendor')->group(function () {
-        Route::get('/edit', [ProfileController::class, 'getProfileVendor'])->name('vendor.profile');
-        Route::post('/edit', [ProfileController::class, 'postProfileVendor'])->name('vendor.profile.update');
-        Route::put('/edit', [ProfileController::class, 'postProfileVendor'])->name('vendor.profile.update');
-
-        Route::prefix('/verifications')->group(function (){
+        Route::prefix('/profile')->group(function () {
+            Route::get('/edit', [ProfileController::class, 'getProfileVendor'])->name('vendor.profile');
+            Route::post('/edit', [ProfileController::class, 'postProfileVendor'])->name('vendor.profile.update');
+            Route::put('/edit', [ProfileController::class, 'postProfileVendor'])->name('vendor.profile.update');
 
         });
+        Route::prefix('/verify')->group(function (){
+            Route::get('/scanner', [QRCodeScanner::class, 'getScanner'])->name('vendor.verify-card');
+            
+            Route::get('/verify-card', [QRCodeVerify::class, 'verifyCard']);
+            Route::post('/verify-card', [QRCodeVerify::class, 'verifyCard']);
+        });
+       /*  Route::prefix('/vendor')->group(function () {
+            Route::get('/', [VendorController::class, 'getVendor'])->name('vendor.vendor');
+            Route::post('/', [VendorController::class, 'postVendor'])->name('vendor.vendor.update');
+            Route::put('/', [VendorController::class, 'postVendor'])->name('venodr.vednor.update');
+        }); */
     });
 });
 Route::prefix('/verify')->group(function (){
     Route::get('/card/', [CheckCardController::class, 'verifyCard'])->name('card-check.verify-card');
 });
 
-Route::get('/verify-card', [QRCodeVerify::class, 'verifyCard']);
-Route::post('/verify-card', [QRCodeVerify::class, 'verifyCard']);
+
 

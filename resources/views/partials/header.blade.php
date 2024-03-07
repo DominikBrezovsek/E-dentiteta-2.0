@@ -9,6 +9,9 @@
                 <div class="nav-item">
                     <a class="nav-link" href="{{ route('sad.profile') }}">Partnerji</a>
                 </div>
+                <div class="nav-item">
+                    <a class="nav-link" href="{{route('sad.verify-card')}}">Preveri kartico</a>
+                </div>
                 <div class="controls">
                     <div class="nav-item user">
                         <a class="nav-link" href="{{route('sad.profile.notifications')}}"><i class="fa-solid fa-bell"></i></a>
@@ -36,6 +39,9 @@
                 @endif
                 <div class="nav-item">
                     <a class="nav-link" href="{{ route('organisation_admin.organisation') }}">Organizacija</a>
+                </div>
+                <div class="nav-item">
+                    <a class="nav-link" href="{{route('organisation_admin.verify-card')}}">Preveri kartico</a>
                 </div>
                 <div class="controls">
                     <div class="nav-item user">
@@ -75,6 +81,9 @@
         <div class="nav-item">
             <a class="nav-link" href="{{ route('professor.card.approve') }}">Zahteve za kartico</a>
         </div>
+        <div class="nav-item">
+            <a class="nav-link" href="{{route('professor.verify-card')}}">Preveri kartico</a>
+        </div>
         <div class="controls">
             <div class="nav-item user">
                 <a class="nav-link" href="{{route('professor.profile.notifications')}}"><i class="fa-solid fa-bell"></i></a>
@@ -103,9 +112,15 @@
     </div>
 @elseif(Auth::user() && Auth::user()->role == 'VEN')
     <div class="nav-items">
+        <div class="nav-item">
+            <a class="nav-link" href="{{route('vendor.verify-card')}}">Preveri kartico</a>
+        </div>
+        {{-- <div class="nav-item">
+            <a class="nav-link" href="{{ route('vendor.vendorInfo') }}">Partner</a>
+        </div> --}}
         <div class="controls">
             <div class="nav-item user">
-                <a class=nav-link" href="{{route('professor.profile')}}"><i class="fa-solid fa-user"></i></a>
+                <a class=nav-link" href="{{route('vendor.profile')}}"><i class="fa-solid fa-user"></i></a>
             </div>
             <div class="nav-item logout">
                 <a class=nav-link" href="{{route('logout')}}"><i class="fa-solid fa-right-from-bracket"></i></a>
