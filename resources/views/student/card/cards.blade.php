@@ -27,11 +27,13 @@
                                         <h3>Izdal: {{$row->o_name}}</h3>
                                     </div>
                                 </div>
-                                <div class="btn-verify">
-                                    <h3>Verifikacija veljavnosti</h3>
-                                </div>
+                                <a href="{{ route('student.qrcode-generate', ['cardId' => $row->id]) }}">
+                                    <div class="btn-verify">
+                                        <h3>Verifikacija veljavnosti</h3>
+                                    </div>
+                                </a>
                                 <div class="card-id">
-                                    <p>Št. izkaznice: 642a-hf12-54as-09if</p>
+                                    <p>Št. izkaznice: {{$row->ucId}}</p>
                                 </div>
                             </div>
                         @endforeach
