@@ -21,6 +21,7 @@ use App\Http\Controllers\ProfessorCardsController;
 use App\Http\Controllers\AddUserOrganisationController;
 use App\Http\Controllers\UserOrganisationController;
 use App\Http\Controllers\VendorController;
+use App\Http\Controllers\AddVendorController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -97,6 +98,16 @@ Route::group(['middleware' => 'SAD'], function () {
         
         Route::get('/verify-card', [QRCodeVerify::class, 'verifyCard']);
         Route::post('/verify-card', [QRCodeVerify::class, 'verifyCard']);
+    });
+    Route::prefix('/vendors')->group(function () {
+        Route::get('/', [AddVendorController::class, 'getVendors'])->name('sad.vendors');
+        Route::get('/edit/{vendorId}', [AddVendorController::class, 'getVendor'])->name('sad.vendor');
+        Route::post('/edit/{vendorId}', [AddVendorController::class, 'postVendor'])->name('sad.vendor.update');
+        Route::put('/edit/{vendorId}', [AddVendorController::class, 'postVendor'])->name('sad.vendor.update');
+        Route::delete('/delete/{vendorId}', [AddVendorController::class, 'deleteVendor'])->name('sad.vendor.delete');
+        Route::get('/add', [AddVendorController::class, 'getAddVendor'])->name('sad.add-vendor');
+        Route::post('/add', [AddVendorController::class, 'postAddVendor'])->name('sad.add-vendor.create');
+        Route::put('/add', [AddVendorController::class, 'postAddVendor'])->name('sad.add-vendor.create');
     });
 
 });

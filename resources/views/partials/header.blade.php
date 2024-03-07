@@ -7,7 +7,7 @@
                     <a class="nav-link" href="{{ route('sad.organisations') }}">Organizacije</a>
                 </div>
                 <div class="nav-item">
-                    <a class="nav-link" href="{{ route('sad.profile') }}">Partnerji</a>
+                    <a class="nav-link" href="{{ route('sad.vendors') }}">Partnerji</a>
                 </div>
                 <div class="nav-item">
                     <a class="nav-link" href="{{route('sad.verify-card')}}">Preveri kartico</a>
