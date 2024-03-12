@@ -66,7 +66,7 @@
                             // Zapis ne obstaja
                             Swal.fire({
                                 title: 'Uporabnik s takšno verifikacijo ne obstaja',
-                                text: `V podtakovni bazi ne obstaja takšen zapis verifikacijske QR kode.`,
+                                text: `V podatkovni bazi ne obstaja takšen zapis verifikacijske QR kode.`,
                                 icon: 'error',
                             })
                         }
@@ -157,7 +157,7 @@
                             // Zapis ne obstaja
                             Swal.fire({
                                 title: 'Uporabnik s takšno verifikacijo ne obstaja',
-                                text: `V podtakovni bazi ne obstaja takšen zapis verifikacijske QR kode, ki bi pripadal vaši organizaciji.`,
+                                text: `V podatkovni bazi ne obstaja takšen zapis verifikacijske QR kode, ki bi pripadal vaši organizaciji.`,
                                 icon: 'error',
                             })
                         }
@@ -166,7 +166,7 @@
                             // Zapis ne obstaja
                             Swal.fire({
                                 title: 'Uporabnik s takšno verifikacijo ne obstaja',
-                                text: `V podtakovni bazi ne obstaja takšen zapis verifikacijske QR kode.`,
+                                text: `V podatkovni bazi ne obstaja takšen zapis verifikacijske QR kode.`,
                                 icon: 'error',
                             })
                         }
@@ -257,7 +257,7 @@
                             // Zapis ne obstaja
                             Swal.fire({
                                 title: 'Uporabnik s takšno verifikacijo ne obstaja',
-                                text: `V podtakovni bazi ne obstaja takšen zapis verifikacijske QR kode.`,
+                                text: `V podatkovni bazi ne obstaja takšen zapis verifikacijske QR kode.`,
                                 icon: 'error',
                             })
                         }
@@ -348,7 +348,7 @@
                             // Zapis ne obstaja
                             Swal.fire({
                                 title: 'Uporabnik s takšno verifikacijo ne obstaja',
-                                text: `V podtakovni bazi ne obstaja takšen zapis verifikacijske QR kode, ki bi pripadal vašemu oddelku.`,
+                                text: `V podatkovni bazi ne obstaja takšen zapis verifikacijske QR kode, ki bi pripadal vašemu oddelku.`,
                                 icon: 'error',
                             })
                         }
@@ -357,7 +357,7 @@
                             // Zapis ne obstaja
                             Swal.fire({
                                 title: 'Uporabnik s takšno verifikacijo ne obstaja',
-                                text: `V podtakovni bazi ne obstaja takšen zapis verifikacijske QR kode.`,
+                                text: `V podatkovni bazi ne obstaja takšen zapis verifikacijske QR kode.`,
                                 icon: 'error',
                             })
                         }
