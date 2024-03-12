@@ -96,8 +96,6 @@ Route::group(['middleware' => 'SAD'], function () {
     Route::prefix('/verify')->group(function (){
         Route::get('/scanner', [QRCodeScanner::class, 'getScanner'])->name('sad.verify-card');
         
-        Route::get('/verify-card', [QRCodeVerify::class, 'verifyCard']);
-        Route::post('/verify-card', [QRCodeVerify::class, 'verifyCard']);
     });
     Route::prefix('/vendors')->group(function () {
         Route::get('/', [AddVendorController::class, 'getVendors'])->name('sad.vendors');
@@ -163,8 +161,6 @@ Route::group(['middleware' => 'OAD'], function () {
         Route::prefix('/verify')->group(function (){
             Route::get('/scanner', [QRCodeScanner::class, 'getScanner'])->name('organisation_admin.verify-card');
             
-            Route::get('/verify-card', [QRCodeVerify::class, 'verifyCardOAD']);
-            Route::post('/verify-card', [QRCodeVerify::class, 'verifyCardOAD']);
         });
 
     });
@@ -206,8 +202,6 @@ Route::group(['middleware' => 'PRF'], function () {
         Route::prefix('/verify')->group(function (){
             Route::get('/scanner', [QRCodeScanner::class, 'getScanner'])->name('professor.verify-card');
             
-            Route::get('/verify-card', [QRCodeVerify::class, 'verifyCardPRF']);
-            Route::post('/verify-card', [QRCodeVerify::class, 'verifyCardPRF']);
         });
     });
 });
@@ -268,8 +262,7 @@ Route::group(['middleware' => 'VEN'], function () {
         Route::prefix('/verify')->group(function (){
             Route::get('/scanner', [QRCodeScanner::class, 'getScanner'])->name('vendor.verify-card');
             
-            Route::get('/verify-card', [QRCodeVerify::class, 'verifyCard']);
-            Route::post('/verify-card', [QRCodeVerify::class, 'verifyCard']);
+            
         });
        /*  Route::prefix('/vendor')->group(function () {
             Route::get('/', [VendorController::class, 'getVendor'])->name('vendor.vendor');
@@ -282,5 +275,7 @@ Route::prefix('/verify')->group(function (){
     Route::get('/card/', [CheckCardController::class, 'verifyCard'])->name('card-check.verify-card');
 });
 
+Route::get('/verify-card', [QRCodeVerify::class, 'verifyCard']);
+Route::post('/verify-card', [QRCodeVerify::class, 'verifyCard']);
 
 
