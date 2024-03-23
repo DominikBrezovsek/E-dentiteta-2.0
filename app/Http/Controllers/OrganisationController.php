@@ -21,6 +21,9 @@ class OrganisationController extends Controller
     function postOrganisation(Request $request){
         $oldLogo = Organisation::whereId(session('oid'))->first();
         if ($request->hasFile('logo')) {
+            if (!Storage::disk('public')->exists('images/')){
+                Storage::disk('public')->makeDirectory('images/');
+            }
             $request->validate([
                 'logo' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             ]);
