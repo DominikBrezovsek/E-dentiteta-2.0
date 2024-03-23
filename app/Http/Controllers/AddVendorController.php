@@ -15,7 +15,7 @@ class AddVendorController extends Controller
         return view('systemAdmin.vendor.vendorform',
         ['title' => 'Dodaj partnerja',
         'existingData' => (object) [],
-        'adminInfo' => User::where('role', '=','VEN')->whereNotIn('id', Vendor::all('id_user'))->get()]);
+        'adminInfo' => User::where('role', '=','USR')->whereNotIn('id', Vendor::all('id_user'))->get()]);
     }
     public function postAddVendor(Request $request){
         $validatedData = $request->validate([
