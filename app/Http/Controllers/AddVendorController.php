@@ -69,6 +69,9 @@ class AddVendorController extends Controller
             'country' => $validatedData['country'],
             'id_user' => $validatedData['admin'],
         ]);
+        User::where('id', $vendorId->id_user)->update([
+            'role' => 'VEN',
+        ]);
         return redirect()->route('sad.vendors')->with('message', 'Podatki partnerja so bili uspešno posodobljeni!');
     }
 
