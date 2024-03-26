@@ -36,7 +36,7 @@ class AddVendorController extends Controller
             'city' => $validatedData['city'],
             'country' => $validatedData['country'],
             'id_user' => $validatedData['admin'],
-            'verified_by' => session('user')->id,
+            'verified_by' => session('user')['id'],
             'id' => Str::uuid(),
         ]);
 
@@ -69,7 +69,7 @@ class AddVendorController extends Controller
             'country' => $validatedData['country'],
             'id_user' => $validatedData['admin'],
         ]);
-        User::where('id', $vendorId->id_user)->update([
+        User::whereId($vendorId->id_user)->update([
             'role' => 'VEN',
         ]);
         return redirect()->route('sad.vendors')->with('message', 'Podatki partnerja so bili uspešno posodobljeni!');
