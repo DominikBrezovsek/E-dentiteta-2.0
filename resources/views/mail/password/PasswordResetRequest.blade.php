@@ -1,33 +1,212 @@
-<!DOCTYPE htmlPUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
-<div class="container" style="width: 99vw; height: 70vh; display: flex; flex-direction: column; justify-content: center; align-items: center;">
-    <div class="card" style="display: flex; flex-direction: column; align-items: flex-start; justify-content: flex-start;">
-        <div>
-            <h4>Pozdravljeni, {{$name}} {{$surname}}</h4>
-        </div>
-        <div>
-            <p>Vi ali nekdo, ki ima dostop do Vašega računa je zahteval spremembo gesla za Vaš račun.
-                Spremembo gelsa lahko opravite s klikom na spodnji gumb.
-            </p>
-        </div>
-        <div>
-            <a href="{{$url}}">{{$url}}</a>
-        </div>
-        <div class="footer" style="margin-top: 5vh; padding: 1.5rem 2rem; display: flex; flex-direction: column; justify-content: center; align-items: center; background: rgb(168, 160, 215); color: #c0c0c0; text-align: center;">
-            <div>
-                <p>
-                    To sporočilo je avtomatsko, zato nanj prosimo ne odgovarjate. Za dodatna vprašanja smo vam na voljo preko
-                    e-pošte <a href="mailto:e-dentiteta@usdd.company" style="color: #c0c0c0; text-decoration: none; cursor: pointer;">e-dentiteta@usdd.comapany</a>.
-                </p>
-            </div>
-            <div class="copyright" style="display: flex; gap: 1rem; color: #c0c0c0;">
-                <div>E-dentiteta, {{date('o')}}</div>
-                <div>-</div>
-                <div>Vse pravice pridržane</div>
-            </div>
-        </div>
-
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html data-editor-version="2" class="sg-campaigns" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <!--[if !mso]><!-->
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <!--<![endif]-->
+    <!--[if (gte mso 9)|(IE)]>
+    <xml>
+        <o:OfficeDocumentSettings>
+            <o:AllowPNG/>
+            <o:PixelsPerInch>96</o:PixelsPerInch>
+        </o:OfficeDocumentSettings>
+    </xml>
+    <![endif]-->
+    <!--[if (gte mso 9)|(IE)]>
+    <style type="text/css">
+        body {width: 600px;margin: 0 auto;}
+        table {border-collapse: collapse;}
+        table, td {mso-table-lspace: 0pt;mso-table-rspace: 0pt;}
+        img {-ms-interpolation-mode: bicubic;}
+    </style>
+    <![endif]-->
+    <style type="text/css">
+        body, p, div {
+            font-family: arial,helvetica,sans-serif;
+            font-size: 14px;
+        }
+        body {
+            color: #000000;
+        }
+        body a {
+            color: #1188E6;
+            text-decoration: none;
+        }
+        p { margin: 0; padding: 0; }
+        table.wrapper {
+            width:100% !important;
+            table-layout: fixed;
+            -webkit-font-smoothing: antialiased;
+            -webkit-text-size-adjust: 100%;
+            -moz-text-size-adjust: 100%;
+            -ms-text-size-adjust: 100%;
+        }
+        img.max-width {
+            max-width: 100% !important;
+        }
+        .column.of-2 {
+            width: 50%;
+        }
+        .column.of-3 {
+            width: 33.333%;
+        }
+        .column.of-4 {
+            width: 25%;
+        }
+        ul ul ul ul  {
+            list-style-type: disc !important;
+        }
+        ol ol {
+            list-style-type: lower-roman !important;
+        }
+        ol ol ol {
+            list-style-type: lower-latin !important;
+        }
+        ol ol ol ol {
+            list-style-type: decimal !important;
+        }
+        @media screen and (max-width:480px) {
+            .preheader .rightColumnContent,
+            .footer .rightColumnContent {
+                text-align: left !important;
+            }
+            .preheader .rightColumnContent div,
+            .preheader .rightColumnContent span,
+            .footer .rightColumnContent div,
+            .footer .rightColumnContent span {
+                text-align: left !important;
+            }
+            .preheader .rightColumnContent,
+            .preheader .leftColumnContent {
+                font-size: 80% !important;
+                padding: 5px 0;
+            }
+            table.wrapper-mobile {
+                width: 100% !important;
+                table-layout: fixed;
+            }
+            img.max-width {
+                height: auto !important;
+                max-width: 100% !important;
+            }
+            a.bulletproof-button {
+                display: block !important;
+                width: auto !important;
+                font-size: 80%;
+                padding-left: 0 !important;
+                padding-right: 0 !important;
+            }
+            .columns {
+                width: 100% !important;
+            }
+            .column {
+                display: block !important;
+                width: 100% !important;
+                padding-left: 0 !important;
+                padding-right: 0 !important;
+                margin-left: 0 !important;
+                margin-right: 0 !important;
+            }
+            .social-icon-column {
+                display: inline-block !important;
+            }
+        }
+    </style>
+    <!--user entered Head Start--><!--End Head user entered-->
+</head>
+<body>
+<center class="wrapper" data-link-color="#1188E6" data-body-style="font-size:14px; font-family:arial,helvetica,sans-serif; color:#000000; background-color:#FFFFFF;">
+    <div class="webkit">
+        <table cellpadding="0" cellspacing="0" border="0" width="100%" class="wrapper" bgcolor="#FFFFFF">
+            <tr>
+                <td valign="top" bgcolor="#FFFFFF" width="100%">
+                    <table width="100%" role="content-container" class="outer" align="center" cellpadding="0" cellspacing="0" border="0">
+                        <tr>
+                            <td width="100%">
+                                <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                                    <tr>
+                                        <td>
+                                            <!--[if mso]>
+                                            <center>
+                                                <table><tr><td width="600">
+                                            <![endif]-->
+                                            <table width="100%" cellpadding="0" cellspacing="0" border="0" style="width:100%; max-width:600px;" align="center">
+                                                <tr>
+                                                    <td role="modules-container" style="padding:0px 0px 0px 0px; color:#000000; text-align:left;" bgcolor="#FFFFFF" width="100%" align="left"><table class="module preheader preheader-hide" role="module" data-type="preheader" border="0" cellpadding="0" cellspacing="0" width="100%" style="display: none !important; mso-hide: all; visibility: hidden; opacity: 0; color: transparent; height: 0; width: 0;">
+                                                            <tr>
+                                                                <td role="module-content">
+                                                                    <p>Ponastavitev gesla</p>
+                                                                </td>
+                                                            </tr>
+                                                        </table><table class="module" role="module" data-type="text" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;" data-muid="0d2549ff-3a69-40dd-9319-9d9b1c2dc31e" data-mc-module-version="2019-10-22">
+                                                            <tbody>
+                                                            <tr>
+                                                                <td style="padding:18px 0px 18px 0px; line-height:23px; text-align:inherit;" height="100%" valign="top" bgcolor="" role="module-content"><div><h3 style="text-align: inherit">Pozdravljeni, {{$name}} {{$surname}} <strong>.</strong></h3><div></div></div></td>
+                                                            </tr>
+                                                            </tbody>
+                                                        </table><table class="module" role="module" data-type="text" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;" data-muid="a1dcb59a-f860-43b2-a016-29ea4656381f" data-mc-module-version="2019-10-22">
+                                                            <tbody>
+                                                            <tr>
+                                                                <td style="padding:18px 0px 18px 0px; line-height:20px; text-align:inherit; background-color:#ffffff;" height="100%" valign="top" bgcolor="#ffffff" role="module-content"><div><div style="font-family: inherit; text-align: inherit"><span style="font-family: arial, helvetica, sans-serif; font-size: 14px">Vi ali nekdo z dostopom do Vašega računa je zahteval ponastavitev gesla. Če zahteve niste izvedli Vi, zamenjajte geslo z novo zahtevo, ali nas kontaktirajte.</span></div><div></div></div></td>
+                                                            </tr>
+                                                            </tbody>
+                                                        </table><table class="module" role="module" data-type="spacer" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;" data-muid="3f82595a-9baa-47ab-a4c2-aab59bb11962">
+                                                            <tbody>
+                                                            <tr>
+                                                                <td style="padding:0px 0px 30px 0px;" role="module-content" bgcolor="">
+                                                                </td>
+                                                            </tr>
+                                                            </tbody>
+                                                        </table><table border="0" cellpadding="0" cellspacing="0" class="module" data-role="module-button" data-type="button" role="module" style="table-layout:fixed;" width="100%" data-muid="5f954ef5-7fe8-4e2a-a1de-e1890b823c16">
+                                                            <tbody>
+                                                            <tr>
+                                                                <td align="center" bgcolor="" class="outer-td" style="padding:0px 0px 0px 0px;">
+                                                                    <table border="0" cellpadding="0" cellspacing="0" class="wrapper-mobile" style="text-align:center;">
+                                                                        <tbody>
+                                                                        <tr>
+                                                                            <td align="center" bgcolor="#997ece" class="inner-td" style="border-radius:6px; font-size:16px; text-align:center; background-color:inherit;">
+                                                                                <a href="{{$url}}" style="background-color:#997ece; border:1px solid #333333; border-color:#333333; border-radius:6px; border-width:1px; color:#ffffff; display:inline-block; font-size:14px; font-weight:normal; letter-spacing:0px; line-height:normal; padding:12px 18px 12px 18px; text-align:center; text-decoration:none; border-style:solid;" target="_blank">Ponastavi geslo</a>
+                                                                            </td>
+                                                                        </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                </td>
+                                                            </tr>
+                                                            </tbody>
+                                                        </table><table class="module" role="module" data-type="spacer" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;" data-muid="466de2e8-b321-4456-9763-86b90e6661ff">
+                                                            <tbody>
+                                                            <tr>
+                                                                <td style="padding:0px 0px 50px 0px;" role="module-content" bgcolor="">
+                                                                </td>
+                                                            </tr>
+                                                            </tbody>
+                                                        </table><table class="module" role="module" data-type="text" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;" data-muid="c53e6791-f9fd-4159-8091-1e2d30522d61" data-mc-module-version="2019-10-22">
+                                                            <tbody>
+                                                            <tr>
+                                                                <td style="padding:18px 0px 18px 0px; line-height:22px; text-align:inherit;" height="100%" valign="top" bgcolor="" role="module-content"><div><div style="font-family: inherit; text-align: inherit">To e-poštno sporočilo je avtomatsko, zato nanj ne odgovarjate. V primeru kakršnihkoli težav nas lahko kontaktirate na naslovu info@e-dentiteta.usdd.company</div><div></div></div></td>
+                                                            </tr>
+                                                            </tbody>
+                                                        </table><div data-role="module-unsubscribe" class="module" role="module" data-type="unsubscribe" style="color:#444444; font-size:12px; line-height:20px; padding:16px 16px 16px 16px; text-align:Center;" data-muid="4e838cf3-9892-4a6d-94d6-170e474d21e5"><div class="Unsubscribe--addressLine"></div><p style="font-size:12px; line-height:20px;"><a class="Unsubscribe--unsubscribeLink" href="#" target="_blank" style="">Ne prejemaj več teh obvestil</a></p></div></td>
+                                                </tr>
+                                            </table>
+                                            <!--[if mso]>
+                                            </td>
+                                            </tr>
+                                            </table>
+                                            </center>
+                                            <![endif]-->
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
     </div>
-</div>
+</center>
+</body>
 </html>
-
