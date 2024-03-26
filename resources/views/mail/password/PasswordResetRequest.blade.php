@@ -1,6 +1,6 @@
 <!DOCTYPE htmlPUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
-<div class="container" style="width: 99vw; height: 70vh; display: flex; justify-content: center; align-items: center;">
+<div class="container" style="width: 99vw; height: 70vh; display: flex; flex-direction: column; justify-content: center; align-items: center;">
     <div class="card" style="display: flex; flex-direction: column; align-items: flex-start; justify-content: flex-start;">
         <div>
             <h4>Pozdravljeni, {{$name}} {{$surname}}</h4>
