@@ -6,13 +6,15 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
 class User extends Model implements Authenticatable
 {
     use HasFactory;
     use HasUuids;
+    use Notifiable;
 
-    
+
     protected $primaryKey = 'id';
     public $incrementing = false;
     protected $keyType = 'string';
@@ -55,7 +57,8 @@ class User extends Model implements Authenticatable
         'username',
         'password',
         'emso',
-        'role'
+        'role',
+        'remember_token'
     ];
 
     // Relationships
@@ -63,17 +66,12 @@ class User extends Model implements Authenticatable
     {
         return $this->hasMany(UserCard::class, 'id_user');
     }
-    
+
 
     public function requestCards()
     {
         return $this->hasMany(RequestCard::class, 'id_user');
     }
-    
 
-    public function organisations()
-    {
-        return $this->belongsToMany(Organisation::class, 'organisation_users', 'id_user', 'id_organisation');
-    }
 }
 

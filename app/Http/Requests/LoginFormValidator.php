@@ -12,8 +12,8 @@ class LoginFormValidator extends FormRequest
      */
     protected $stopOnFirstFailure = true;
     /**
-     * Determine if the user is authorized to make this request.
-     * Set to true, because at login we don't expect user to be validated.
+     * Determine if the student is authorized to make this request.
+     * Set to true, because at login we don't expect student to be validated.
      */
     public function authorize(): bool
     {
@@ -30,7 +30,7 @@ class LoginFormValidator extends FormRequest
     {
         return [
             'username' => 'required|string',
-            'password' => 'required'
+            'password' => 'required',
         ];
 
     }

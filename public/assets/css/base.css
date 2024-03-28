@@ -18,6 +18,7 @@ body {
         --toast-background: rgb(255, 255, 255);
         --toast-blur: blur(20px);
         --icon-color: #7ace5c;
+        --success: #6db933;
         --primary: #4f43b6;
         --primary-50: rgb(165, 158, 231);
         --secondary: #32248f;
@@ -35,6 +36,7 @@ body {
         --text-50: #b2b0c7;
         --background: #0f1010;
         --icon-color: #599344;
+        --success: #6db933;
         --toast-background: rgb(85, 68, 168);
         --toast-blur: 20px;
         --primary: #5449bc;

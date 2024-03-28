@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Classes;
 use App\Models\OrganisationEmployees;
 use App\Models\OrganisationUser;
+use App\Models\Students;
+use App\Models\Teacher;
+use App\Models\UserCard;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Organisation;
@@ -11,9 +15,10 @@ class AddUserOrganisationController extends Controller
 {
     public function getUsers()
     {
-        return view('organisation.user.users',
+        $classId = Teacher::whereIdUser(session('user')['id'])->join('classes', 'teachers.id', '=', 'classes.id_teacher')->first();
+        return view('professor.user.users',
             [
-                'data' => OrganisationUser::where('id_organisation', '=', Organisation::where('id_user', session('user')->id)->first()->id)->join('users', 'organisaton_users.id_user', '=', 'users.id')->paginate(5),
+                'data' => Students::where('id_class', '=', $classId->id)->join('users', 'users.id', '=', 'students.id_user')->get(),
                 'title' => 'Uporbaniki organizacije'
             ]
         );
@@ -21,12 +26,9 @@ class AddUserOrganisationController extends Controller
 
     public function getAddUser()
     {
-        return view('organisation.user.userAdd',
+        return view('professor.user.userAdd',
             [
-                'data' => User::where('role', 'USR')->whereNot('id', session('user')->id)->whereNotIn('id', OrganisationEmployees::select('id_user')
-                    ->where('id_organisation', Organisation::where('id_user', session('user')->id)->first()->id)
-                )
-                ->paginate(5),
+                'data' => User::where('role', '=', 'USR')->paginate(5),
                 'title' => 'Dodaj uporabnika'
             ]
         );
@@ -34,16 +36,29 @@ class AddUserOrganisationController extends Controller
 
     public function postAddUser(Request $request, User $userId)
     {
-        OrganisationUser::create([
-            'id_organisation' => Organisation::where('id_user', session('user')->id)->first()->id,
-            'id_user' => $userId->id
+        $teacher = Teacher::whereIdUser(session('user')['id'])->first();
+        $classId = Classes::whereIdTeacher($teacher->id)->first();
+        Students::create([
+            'id_organisation' => $teacher->id_organisation,
+            'id_user' => $userId->id,
+            'id_class' => $classId->id,
+            'verified_by' => $teacher->id,
         ]);
-        return redirect()->route('organisation.users')->with('message', 'Uporabnik uspešno dodan!');
+
+        UserCard::create([
+            'id_user' => $userId->id,
+            'id_card' => $classId->id_card
+        ]);
+        User::where('id', '=', $userId->id)->update(['role' => 'STU']);
+        return redirect()->route('professor.users')->with('message', 'Uporabnik uspešno dodan!');
     }
 
     public function deleteUser(Request $request, User $userId)
     {
-        OrganisationUser::where('id_user', $userId->id)->delete();
-        return redirect()->route('organisation.users')->with('message', 'Uporabnik uspešno odstranjen!');
+
+        Students::where('id_user','=', $userId->id)->delete();
+        User::where('id', '=', $userId->id)->update(['role' => 'USR']);
+        UserCard::where('id_user', '=', $userId->id)->delete();
+        return redirect()->route('professor.users')->with('message', 'Uporabnik uspešno odstranjen!');
     }
 }

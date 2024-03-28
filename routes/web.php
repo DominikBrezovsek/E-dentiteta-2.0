@@ -4,15 +4,24 @@ use App\Http\Controllers\AddOrganisationController;
 use App\Http\Controllers\CheckCardController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogoutController;
+use App\Http\Controllers\NotificationsController;
+use App\Http\Controllers\OrganisationAdminCardsController;
+use App\Http\Controllers\OrganisationController;
 use App\Http\Controllers\PasswordResetController;
+use App\Http\Controllers\ProfesorClassController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\QRCodeController;
+use App\Http\Controllers\QRCodeScanner;
+use App\Http\Controllers\QRCodeVerify;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\AddCardController;
-use App\Http\Controllers\AddUserController;
+use App\Http\Controllers\AddStudentController;
 use App\Http\Controllers\AddUserCardController;
-use App\Http\Controllers\OrganisationCardsController;
+use App\Http\Controllers\ProfessorCardsController;
 use App\Http\Controllers\AddUserOrganisationController;
+use App\Http\Controllers\UserOrganisationController;
+use App\Http\Controllers\VendorController;
+use App\Http\Controllers\AddVendorController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,7 +34,9 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
+/**
+ * Route for home
+ */
 Route::get('/',[LoginController::class, 'getLogin'])->name('home');
 /**
  * Route for logout
@@ -55,120 +66,216 @@ Route::post('/password-reset/post-new/', [PasswordResetController::class, 'setNe
 
 
 /**
- * Routes for admin
+ *
+ *Routes for system admin
  */
-Route::group(['middleware' => 'ADM'], function () {
 
-    Route::prefix('admin')->group(function (){
+Route::group(['middleware' => 'SAD'], function () {
+    Route::prefix('/user')->group(function () {
+
+    });
+    Route::prefix('/organisations')->group(function (){
+        Route::get('/', [AddOrganisationController::class, 'getOrganisations'])->name('sad.organisations');
+        Route::get('/edit/{organisationId}', [AddOrganisationController::class, 'getOrganisation'])->name('sad.organisation');
+        Route::post('/edit/{organisationId}', [AddOrganisationController::class, 'postOrganisation'])->name('sad.organisation.update');
+        Route::put('/edit/{organisationId}', [AddOrganisationController::class, 'postOrganisation'])->name('sad.organisation.update');
+        Route::delete('/delete/{organisationId}', [AddOrganisationController::class, 'deleteOrganisation'])->name('sad.organisation.delete');
+        Route::get('/add', [AddOrganisationController::class, 'getAddOrganisation'])->name('sad.add-organisation');
+        Route::post('/add', [AddOrganisationController::class, 'postAddOrganisation'])->name('sad.add-organisation.create');
+        Route::put('/add', [AddOrganisationController::class, 'postAddOrganisation'])->name('sad.add-organisation.create');
+
+
+    });
+    Route::prefix('/profile')->group(function () {
+        Route::get('/edit', [ProfileController::class, 'getProfileSystemAdmin'])->name('sad.profile');
+        Route::post('/edit', [ProfileController::class, 'postProfileSystemAdmin'])->name('sad.profile.update');
+        Route::put('/edit', [ProfileController::class, 'postProfileSystemAdmin'])->name('sad.profile.update');
+        Route::get('/notifications', [NotificationsController::class, 'getNotifications'])->name('sad.profile.notifications');
+        Route::post('/notifications/{notification}',[NotificationsController::class, 'markAsRead'])->name('sad.profile.notifications.markAsRead');
+    });
+    Route::prefix('/verify')->group(function (){
+        Route::get('/scanner', [QRCodeScanner::class, 'getScanner'])->name('sad.verify-card');
+        
+    });
+    Route::prefix('/vendors')->group(function () {
+        Route::get('/', [AddVendorController::class, 'getVendors'])->name('sad.vendors');
+        Route::get('/edit/{vendorId}', [AddVendorController::class, 'getVendor'])->name('sad.vendor');
+        Route::post('/edit/{vendorId}', [AddVendorController::class, 'postVendor'])->name('sad.vendor.update');
+        Route::put('/edit/{vendorId}', [AddVendorController::class, 'postVendor'])->name('sad.vendor.update');
+        Route::delete('/delete/{vendorId}', [AddVendorController::class, 'deleteVendor'])->name('sad.vendor.delete');
+        Route::get('/add', [AddVendorController::class, 'getAddVendor'])->name('sad.add-vendor');
+        Route::post('/add', [AddVendorController::class, 'postAddVendor'])->name('sad.add-vendor.create');
+        Route::put('/add', [AddVendorController::class, 'postAddVendor'])->name('sad.add-vendor.create');
+    });
+
+});
+
+/**
+ * Routes for organisation_admin
+ */
+Route::group(['middleware' => 'OAD'], function () {
+
+    Route::prefix('organisation_admin')->group(function (){
         /**
-         * Routes for admin profile
+         * Routes for organisation_admin profile
          */
         Route::prefix('/profile')->group(function (){
-            Route::get('/edit', [ProfileController::class, 'getProfileAdmin'])->name('admin.profile');
-            Route::post('/edit', [ProfileController::class, 'postProfileAdmin'])->name('admin.profile.update');
-            Route::put('/edit', [ProfileController::class, 'postProfileAdmin'])->name('admin.profile.update');
-        });
-        Route::prefix('/organisations')->group(function (){
-            Route::get('/', [AddOrganisationController::class, 'getOrganisations'])->name('admin.organisations');
-            Route::get('/edit/{organisationId}', [AddOrganisationController::class, 'getOrganisation'])->name('admin.organisation');
-            Route::post('/edit/{organisationId}', [AddOrganisationController::class, 'postOrganisation'])->name('admin.organisation.update');
-            Route::put('/edit/{organisationId}', [AddOrganisationController::class, 'postOrganisation'])->name('admin.organisation.update');
-            Route::get('/add', [AddOrganisationController::class, 'getAddOrganisation'])->name('admin.organisation.add');
-            Route::post('/add', [AddOrganisationController::class, 'postAddOrganisation'])->name('admin.organisation.create');
-            Route::put('/add', [AddOrganisationController::class, 'postAddOrganisation'])->name('admin.organisation.create');
-            Route::delete('/delete/{organisationId}', [AddOrganisationController::class, 'deleteOrganisation'])->name('admin.organisation.delete');
+            Route::get('/edit', [ProfileController::class, 'getProfileAdmin'])->name('organisation_admin.profile');
+            Route::post('/edit', [ProfileController::class, 'postProfileAdmin'])->name('organisation_admin.profile.update');
+            Route::put('/edit', [ProfileController::class, 'postProfileAdmin'])->name('organisation_admin.profile.update');
+            Route::get('/notifications', [NotificationsController::class, 'getNotifications'])->name('organisation_admin.profile.notifications');
+            Route::post('/notifications/{notification}', [NotificationsController::class, 'markAsRead'])->name('organisation_admin.profile.notifications.markAsRead');
         });
         Route::prefix('/cards')->group(function (){
-            Route::get('/', [AddCardController::class, 'getCards'])->name('admin.cards');
-            Route::get('/edit/{cardId}', [AddCardController::class, 'getCard'])->name('admin.card');
-            Route::post('/edit/{cardId}', [AddCardController::class, 'postCard'])->name('admin.card.update');
-            Route::put('/edit/{cardId}', [AddCardController::class, 'postCard'])->name('admin.card.update');
-            Route::get('/add', [AddCardController::class, 'getAddCard'])->name('admin.card.add');
-            Route::post('/add', [AddCardController::class, 'postAddCard'])->name('admin.card.create');
-            Route::put('/add', [AddCardController::class, 'postAddCard'])->name('admin.card.create');
-            Route::delete('/delete/{cardId}', [AddCardController::class, 'deleteCard'])->name('admin.card.delete');
+            Route::get('/', [AddCardController::class, 'getCards'])->name('organisation_admin.cards');
+            Route::get('/edit/{cardId}', [AddCardController::class, 'getCard'])->name('organisation_admin.card');
+            Route::post('/edit/{cardId}', [AddCardController::class, 'postCard'])->name('organisation_admin.card.update');
+            Route::put('/edit/{cardId}', [AddCardController::class, 'postCard'])->name('organisation_admin.card.update');
+            Route::get('/add', [AddCardController::class, 'getAddCard'])->name('organisation_admin.card.add');
+            Route::post('/add', [AddCardController::class, 'postAddCard'])->name('organisation_admin.card.create');
+            Route::put('/add', [AddCardController::class, 'postAddCard'])->name('organisation_admin.card.create');
+            Route::delete('/delete/{cardId}', [AddCardController::class, 'deleteCard'])->name('organisation_admin.card.delete');
+
+            Route::get('/approve', [OrganisationAdminCardsController::class, 'getApproveCards'])->name('organisation_admin.cards.approve');
+            Route::post('/approve/{requestId}', [OrganisationAdminCardsController::class, 'getApproveCard'])->name('organisation_admin.cards.approve.card');
+            Route::put('/approve/{requestId}', [OrganisationAdminCardsController::class, 'getApproveCard'])->name('organisation_admin.cards.approve.card');
+            Route::post('/decline/{requestId}', [OrganisationAdminCardsController::class, 'getDeclineCard'])->name('organisation_admin.cards.decline.card');
+            Route::put('/decline/{requestId}', [OrganisationAdminCardsController::class, 'getDeclineCard'])->name('organisation_admin.cards.decline.card');
         });
-        Route::prefix('/users')->group(function (){
-            Route::get('/', [AddUserController::class, 'getUsers'])->name('admin.users');
-            Route::get('/edit/{userId}', [AddUserController::class, 'getUser'])->name('admin.user');
-            Route::post('/edit/{userId}', [AddUserController::class, 'postUser'])->name('admin.user.update');
-            Route::put('/edit/{userId}', [AddUserController::class, 'postUser'])->name('admin.user.update');
-            Route::get('/add', [AddUserController::class, 'getAddUser'])->name('admin.user.add');
-            Route::post('/add', [AddUserController::class, 'postAddUser'])->name('admin.user.create');
-            Route::put('/add', [AddUserController::class, 'postAddUser'])->name('admin.user.create');
-            Route::delete('/delete/{userId}', [AddUserController::class, 'deleteUser'])->name('admin.user.delete');
+        Route::prefix('/students')->group(function (){
+            Route::get('/', [AddStudentController::class, 'getUsers'])->name('organisation_admin.students');
+            Route::get('/edit/{userId}', [AddStudentController::class, 'getStudent'])->name('organisation_admin.student');
+            Route::post('/edit/{userId}', [AddStudentController::class, 'postUpdateStudent'])->name('organisation_admin.student.update');
+            Route::put('/edit/{userId}', [AddStudentController::class, 'postUpdateStudent'])->name('organisation_admin.student.update');
+            Route::get('/add', [AddStudentController::class, 'getAddStudent'])->name('organisation_admin.student.add');
+            Route::post('/add', [AddStudentController::class, 'postAddStudent'])->name('organisation_admin.student.create');
+            Route::put('/add', [AddStudentController::class, 'postAddStudent'])->name('organisation_admin.student.create');
+            Route::delete('/delete/{userId}', [AddStudentController::class, 'deleteUser'])->name('organisation_admin.user.delete');
+        });
+
+        Route::prefix('/organisation')->group(function () {
+            Route::get('/', [OrganisationController::class, 'getOrganisation'])->name('organisation_admin.organisation');
+            Route::post('/', [OrganisationController::class, 'postOrganisation'])->name('organisation_admin.organisation.update');
+            Route::put('/', [OrganisationController::class, 'postOrganisation'])->name('organisation_admin.organisation.update');
+        });
+        Route::prefix('/verify')->group(function (){
+            Route::get('/scanner', [QRCodeScanner::class, 'getScanner'])->name('organisation_admin.verify-card');
+            
         });
 
     });
 });
 /**
- * Routes for organisation
+ * Routes for professor
  */
-Route::group(['middleware' => 'ORG'], function () {
+Route::group(['middleware' => 'PRF'], function () {
 
-    Route::prefix('organisation')->group(function (){
+    Route::prefix('professor')->group(function (){
         /**
-         * Routes for organisation profile
+         * Routes for professor profile
          */
         Route::prefix('/profile')->group(function (){
-            Route::get('/edit', [ProfileController::class, 'getProfileOrganisation'])->name('organisation.profile');
-            Route::post('/edit', [ProfileController::class, 'postProfileOrganisation'])->name('organisation.profile.update');
-            Route::put('/edit', [ProfileController::class, 'postProfileOrganisation'])->name('organisation.profile.update');
+            Route::get('/edit', [ProfileController::class, 'getProfileProfessor'])->name('professor.profile');
+            Route::post('/edit', [ProfileController::class, 'postProfileProfessor'])->name('professor.profile.update');
+            Route::put('/edit', [ProfileController::class, 'postProfileProfessor'])->name('professor.profile.update');
+            Route::get('/notifications', [NotificationsController::class, 'getNotifications'])->name('professor.profile.notifications');
+            Route::post('/notifications/{notification}', [NotificationsController::class, 'markAsRead'])->name('professor.profile.notifications.markAsRead');
         });
         //TODO: Add routes for cards check
         Route::prefix('/cards')->group(function(){
-            Route::get('/', [OrganisationCardsController::class, 'getCards'])->name('organisation.cards');
-            Route::get('/edit/{cardId}', [OrganisationCardsController::class, 'getCard'])->name('organisation.card');
-            Route::post('/edit/{cardId}', [OrganisationCardsController::class, 'postCard'])->name('organisation.card.update');
-            Route::put('/edit/{cardId}', [OrganisationCardsController::class, 'postCard'])->name('organisation.card.update');
-            Route::get('/add', [OrganisationCardsController::class, 'getAddCard'])->name('organisation.card.add');
-            Route::post('/add', [OrganisationCardsController::class, 'postAddCard'])->name('organisation.card.create');
-            Route::put('/add', [OrganisationCardsController::class, 'postAddCard'])->name('organisation.card.create');
-            Route::get('/approve', [OrganisationCardsController::class, 'getApproveCards'])->name('organisation.card.approve');
-            Route::post('/approve/{requestId}', [OrganisationCardsController::class, 'getApproveCard'])->name('organisation.card.approve.card');
-            Route::put('/approve/{requestId}', [OrganisationCardsController::class, 'getApproveCard'])->name('organisation.card.approve.card');
-            Route::post('/decline/{requestId}', [OrganisationCardsController::class, 'getDeclineCard'])->name('organisation.card.decline.card');
-            Route::put('/decline/{requestId}', [OrganisationCardsController::class, 'getDeclineCard'])->name('organisation.card.decline.card');
-            Route::delete('/delete/{cardId}', [OrganisationCardsController::class, 'deleteCard'])->name('organisation.card.delete');
-        });
+            Route::get('/', [ProfessorCardsController::class, 'getCards'])->name('professor.cards');
+            Route::get('/edit/{cardId}', [ProfessorCardsController::class, 'getCard'])->name('professor.card');
+            Route::post('/edit/{cardId}', [ProfessorCardsController::class, 'postCard'])->name('professor.card.update');
+            Route::put('/edit/{cardId}', [ProfessorCardsController::class, 'postCard'])->name('professor.card.update');
+            Route::get('/approve', [ProfessorCardsController::class, 'getApproveCards'])->name('professor.card.approve');
+            Route::post('/approve/{requestId}', [ProfessorCardsController::class, 'getApproveCard'])->name('professor.card.approve.card');
+            Route::put('/approve/{requestId}', [ProfessorCardsController::class, 'getApproveCard'])->name('professor.card.approve.card');
+            Route::post('/decline/{requestId}', [ProfessorCardsController::class, 'getDeclineCard'])->name('professor.card.decline.card');
+            Route::put('/decline/{requestId}', [ProfessorCardsController::class, 'getDeclineCard'])->name('professor.card.decline.card');});
         Route::prefix('/users')->group(function (){
-            Route::get('/', [AddUserOrganisationController::class, 'getUsers'])->name('organisation.users');
-            Route::get('/add', [AddUserOrganisationController::class, 'getAddUser'])->name('organisation.user.add');;
-            Route::post('/add/{userId}', [AddUserOrganisationController::class, 'postAddUser'])->name('organisation.user.add.create');
-            Route::put('/add/{userId}', [AddUserOrganisationController::class, 'postAddUser'])->name('organisation.user.add.create');
-            Route::delete('/delete/{userId}', [AddUserOrganisationController::class, 'deleteUser'])->name('organisation.user.delete');
+            Route::get('/', [AddUserOrganisationController::class, 'getUsers'])->name('professor.users');
+            Route::get('/add', [AddUserOrganisationController::class, 'getAddUser'])->name('professor.student.add');;
+            Route::post('/add/{userId}', [AddUserOrganisationController::class, 'postAddUser'])->name('professor.student.add.create');
+            Route::put('/add/{userId}', [AddUserOrganisationController::class, 'postAddUser'])->name('professor.student.add.create');
+            Route::delete('/delete/{userId}', [AddUserOrganisationController::class, 'deleteUser'])->name('professor.student.delete');
+        });
+        Route::prefix('/verify')->group(function (){
+            Route::get('/scanner', [QRCodeScanner::class, 'getScanner'])->name('professor.verify-card');
+            
         });
     });
 });
 /**
- * Routes for user
+ * Routes for student
  */
-Route::group(['middleware' => 'USR'], function () {
+Route::group(['middleware' => 'STU'], function () {
 
-    Route::prefix('user')->group(function (){
+    Route::prefix('student')->group(function (){
         /**
-         * Routes for user profile
+         * Routes for student profile
          */
         Route::prefix('/profile')->group(function (){
-            Route::get('/redis', [ProfileController::class, 'redisGetProfile'])->name('user.redis');
-            Route::get('/edit', [ProfileController::class, 'getProfileUser'])->name('user.profile');
-            Route::post('/edit', [ProfileController::class, 'postProfileUser'])->name('user.profile.update');
-            Route::put('/edit', [ProfileController::class, 'postProfileUser'])->name('user.profile.update');
+            Route::get('/redis', [ProfileController::class, 'redisGetProfile'])->name('student.redis');
+            Route::get('/edit', [ProfileController::class, 'getProfileUser'])->name('student.profile');
+            Route::post('/edit', [ProfileController::class, 'postProfileStudent'])->name('student.profile.update');
+            Route::put('/edit', [ProfileController::class, 'postProfileStudent'])->name('student.profile.update');
         });
         //TODO: Add routes for cards(show,join)
         Route::prefix('/cards')->group(function (){
-            Route::get('/', [AddUserCardController::class, 'getCards'])->name('user.cards');
-            Route::get('/card/{cardId}', [AddUserCardController::class, 'getCard'])->name('user.card');
-            Route::post('/card/{cardId}', [AddUserCardController::class, 'postCard'])->name('user.card.update');
-            Route::put('/card/{cardId}', [AddUserCardController::class, 'postCard'])->name('user.card.update');
-            Route::get('/join', [AddUserCardController::class, 'getAddCard'])->name('user.card.join');
-            Route::post('/join/{cardId}', [AddUserCardController::class, 'postAddCard'])->name('user.card.create');
-            Route::put('/join/{cardId}', [AddUserCardController::class, 'postAddCard'])->name('user.card.create');
-            Route::delete('/delete/{cardId}', [AddUserCardController::class, 'deleteCard'])->name('user.card.delete');
-            Route::get('/validate/{cardId}', [QRCodeController::class, 'generateQRCode'])->name('user.qrcode-generate');
+            Route::get('/', [AddUserCardController::class, 'getCards'])->name('student.cards');
+            Route::get('/card/{cardId}', [AddUserCardController::class, 'getCard'])->name('student.card');
+            Route::post('/card/{cardId}', [AddUserCardController::class, 'postCard'])->name('student.card.update');
+            Route::put('/card/{cardId}', [AddUserCardController::class, 'postCard'])->name('student.card.update');
+            Route::get('/join', [AddUserCardController::class, 'getAddCard'])->name('student.card.join');
+            Route::post('/join/{cardId}', [AddUserCardController::class, 'postAddCard'])->name('student.card.create');
+            Route::put('/join/{cardId}', [AddUserCardController::class, 'postAddCard'])->name('student.card.create');
+            Route::delete('/delete/{cardId}', [AddUserCardController::class, 'deleteCard'])->name('student.card.delete');
+            Route::get('/validate/{cardId}', [QRCodeController::class, 'generateQRCode'])->name('student.qrcode-generate');
         });
+    });
+});
+
+Route::group(['middleware' => 'USR'], function () {
+    Route::prefix('/user')->group(function () {
+        Route::get('/edit', [ProfileController::class, 'getProfileUser'])->name('user.profile');
+        Route::post('/edit', [ProfileController::class, 'postProfileStudent'])->name('user.profile.update');
+        Route::put('/edit', [ProfileController::class, 'postProfileStudent'])->name('user.profile.update');
+
+        Route::prefix('/organisations')->group(function (){
+            Route::get('/', [UserOrganisationController::class, 'getOrganisations'])->name('user.organisations');
+            Route::post('/create/{organisationId}', [UserOrganisationController::class, 'postJoinOrganisation'])->name('user.organisations.add');
+
+        });
+    });
+});
+/**
+ * Routes for vendor
+ */
+Route::group(['middleware' => 'VEN'], function () {
+    Route::prefix('/vendor')->group(function () {
+        Route::prefix('/profile')->group(function () {
+            Route::get('/edit', [ProfileController::class, 'getProfileVendor'])->name('vendor.profile');
+            Route::post('/edit', [ProfileController::class, 'postProfileVendor'])->name('vendor.profile.update');
+            Route::put('/edit', [ProfileController::class, 'postProfileVendor'])->name('vendor.profile.update');
+
+        });
+        Route::prefix('/verify')->group(function (){
+            Route::get('/scanner', [QRCodeScanner::class, 'getScanner'])->name('vendor.verify-card');
+            
+            
+        });
+       /*  Route::prefix('/vendor')->group(function () {
+            Route::get('/', [VendorController::class, 'getVendor'])->name('vendor.vendor');
+            Route::post('/', [VendorController::class, 'postVendor'])->name('vendor.vendor.update');
+            Route::put('/', [VendorController::class, 'postVendor'])->name('venodr.vednor.update');
+        }); */
     });
 });
 Route::prefix('/verify')->group(function (){
     Route::get('/card/', [CheckCardController::class, 'verifyCard'])->name('card-check.verify-card');
 });
+
+Route::get('/verify-card', [QRCodeVerify::class, 'verifyCard']);
+Route::post('/verify-card', [QRCodeVerify::class, 'verifyCard']);
+
+

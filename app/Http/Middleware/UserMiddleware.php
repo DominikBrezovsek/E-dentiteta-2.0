@@ -2,9 +2,9 @@
 
 namespace App\Http\Middleware;
 
-use Auth;
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
 class UserMiddleware
@@ -18,7 +18,7 @@ class UserMiddleware
     {
         $user = Auth::user();
 
-        if ($user && $user->role === 'USR') {
+        if ($user && $user->role == 'USR') {
             return $next($request);
         }
 

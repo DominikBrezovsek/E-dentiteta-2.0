@@ -12,14 +12,13 @@ class RequestCard extends Model
     use HasUuids;
 
     protected $table = 'request_card';
-    protected $primaryKey = 'id_request_card';
+    protected $primaryKey = 'id';
     public $incrementing = false;
     protected $keyType = 'string';
 
     protected $fillable = [
         'id_user',
         'id_card',
-        'id_organisation',
         'status'
     ];
 
@@ -27,13 +26,13 @@ class RequestCard extends Model
     {
         return $this->belongsTo(User::class, 'id_user');
     }
-    
+
     // RequestCard belongs to a Card
     public function card()
     {
         return $this->belongsTo(Card::class, 'id_card');
     }
-    
+
     // RequestCard belongs to an Organisation
     public function organisation()
     {

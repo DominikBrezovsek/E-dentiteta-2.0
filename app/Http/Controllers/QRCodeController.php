@@ -14,7 +14,7 @@ class QRCodeController extends Controller
     {
         $payload = $this->createCode();
         return view(
-            'user.qrcode.qrcode',
+            'student.qrcode.qrcode',
             [
                 'payload' => $payload,
                 'cardName' => $this->cardName

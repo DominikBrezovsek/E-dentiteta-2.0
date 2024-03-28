@@ -7,6 +7,59 @@
 }
 /*end of alert box styling*/
 
+/* button styling*/
+
+.btn-edit {
+    background-color: transparent;
+    border: 2px solid var(--primary);
+    border-radius: 10px;
+    padding: 0.5rem 2rem;
+    font-weight: 500;
+    font-size: 1.1rem;
+    color: var(--text);
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.btn-edit:hover {
+    background-color: var(--primary);
+    color: var(--text-white);
+}
+
+.btn-delete {
+    background-color: transparent;
+    padding: 0.5rem 2rem;
+    color: var(--text);
+    border: 2px solid var(--alert);
+    border-radius: 10px;
+    font-weight: 500;
+    font-size: 1.1rem;
+    cursor: pointer;
+}
+
+.bnt-delete:hover {
+    background-color: var(--alert);
+    border: 2px solid var(--alert);
+    border-radius: 10px;
+    padding: 0.5rem 2rem;
+    color: var(--text-white);
+}
+
+.btn-add-card, .btn-add-user {
+    text-align: center;
+    background: var(--gradient-primary);
+    padding: 1rem 2rem;
+    border-radius: 10px;
+    margin-left: auto;
+    margin-right: 1rem;
+    text-decoration: none;
+    color: var(--text-white);
+    cursor: pointer;
+}
+
 /*navbar styling*/
 .navbar-custom {
     width: 100vw;
@@ -181,6 +234,19 @@
     cursor: pointer;
 }
 
+.remember-me {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.1rem;
+    height: 100%;
+}
+
+.remember-me .inputs {
+    background-color: transparent;
+}
+
 .create-account {
     display: flex;
     flex-direction: row;
@@ -331,6 +397,7 @@
     justify-content: flex-start;
     align-items: flex-start;
     padding: 5rem 5rem;
+    gap: 1rem;
 }
 
 .cards-about .cards-content{
@@ -500,6 +567,19 @@
     color: var(--text);
 }
 
+.card-create .dropdown-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 78%;
+}
+
+.card-create .dropdown-group label {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: var(--text);
+}
+
 .card-create .card-join-dropdown {
     display: flex;
     align-items: center;
@@ -507,10 +587,12 @@
     color: var(--text);
     font-size: 1.1rem;
     font-weight: 500;
+    justify-content: flex-start;
+    width: 100%;
 }
 
 .card-create .card-join-dropdown select{
-    width: 6rem;
+    width: 100%;
     height: 2rem;
     background-color: var(--primary-50);
     color: var(--text);
@@ -630,7 +712,7 @@
     display: flex;
 }
 
-/*organisation users styling*/
+/*professor users styling*/
 
 
 .organisation-users {
@@ -756,6 +838,7 @@
     border: 2px solid var(--alert);
     border-radius: 10px;
     font-weight: 500;
+    font-size: 1.1rem;
 }
 .organisation-users .btn-delete:hover{
     color: var(--text-white);
@@ -777,4 +860,415 @@
 }
 
 
+/* add student and edit student pages styling*/
+
+.create-student{
+    height: 80vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+}
+
+.create-student .card-header {
+    color: var(--text);
+    font-size: 2rem;
+    font-weight: 500;
+}
+
+.create-student .card-body {
+    width: 80%;
+}
+
+.create-student .card-body .form-inputs {
+    display: grid;
+    grid-template-columns: 70% 30%;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.create-student .inputs {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 1.5rem;
+    width: 80%;
+}
+.create-student .text-inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 80%;
+}
+
+.create-student .inputs input {
+    border: none;
+    border-radius: 0;
+    outline: none;
+    background-color: var(--primary-50);
+    width: 90%;
+}
+
+.create-student .inputs input:focus {
+    border-bottom: 2px solid var(--primary);
+    outline: none;
+    background-color: var(--primary-50);
+    color: var(--text);
+}
+
+.create-student .dropdown-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 78%;
+    margin-right: 25vw;
+}
+
+.create-student .dropdown-group label {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: var(--text);
+}
+
+.create-student .card-join-dropdown {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    color: var(--text);
+    font-size: 1.1rem;
+    font-weight: 500;
+    justify-content: flex-start;
+    width: 100%;
+}
+
+.create-student .card-join-dropdown select{
+    width: 100%;
+    height: 3.2rem;
+    background-color: var(--primary-50);
+    color: var(--text);
+    font-weight: 600;
+    border-radius: 10px;
+    padding-right: 0.5rem;
+    padding-left: 0.5rem;
+
+}
+
+.create-student .search-bar {
+    width: 100%;
+    height: 3rem;
+    background-color: var(--secondary-50);
+    border-radius: 10px;
+    padding: 0.5rem 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+
+.create-student .search-bar i {
+    color: var(--text);
+}
+
+.create-student .search-bar input {
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+    color: var(--text);
+    font-weight: 500;
+    border: none;
+}
+.create-student .search-bar input::placeholder{
+    color: var(--text);
+    font-weight: 500;
+}
+
+.create-student .search-bar input:focus {
+    outline: none;
+    border: none;
+}
+
+.card-body .form-buttons .btn-save {
+    margin-top: 1rem;
+}
+
+/* notification panel styling*/
+
+.notification-list {
+    height: 70vh;
+    width: 100vw;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding: 4vh 3vw;
+}
+
+.notification-card {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 2rem;
+    background-color: var(--primary-50);
+    padding: 2vh 3vw;
+    font-weight: 500;
+}
+
+.notification-card .btn-mark-as-read {
+    background-color: transparent;
+    border: none;
+    color: var(--text);
+    font-size: 2rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+/*cards section*/
+
+
+.gallery {
+    position: absolute;
+    width: 100%;
+    height: 85vh;
+    overflow: hidden;
+}
+
+.cards li {
+    list-style: none;
+    position: absolute;
+    height: 100%;
+
+}
+
+.prev {
+    position: absolute;
+    bottom: 30%;
+    left: 25%;
+    transform: translate(-30%, -25%);
+    font-size: 5rem;
+    color: var(--primary);
+    z-index: 1000000;
+}
+
+.next {
+    position: absolute;
+    bottom: 30%;
+    right: 18%;
+    transform: translate(-30%, -18%);
+    font-size: 5rem;
+    color: var(--primary);
+    z-index: 1000000;
+}
+
+
+
+.student-cards {
+    height: 85vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    padding: 5vh 3vw;
+}
+
+.student-cards .cards-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    color: var(--text);
+}
+
+.student-cards .cards {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    overflow: hidden;
+}
+
+.student-cards .cards .li {
+    list-style: none;
+    position: absolute;
+}
+
+.student-cards .cards .card {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 3rem;
+    border-radius: 15px;
+    background-color: var(--primary-50);
+    box-shadow: var(--shadow-input);
+    width: 30%;
+    height: 85%;
+}
+
+
+.student-cards .cards .card .logo h4 {
+    color: var(--text);
+    font-size: 1.4rem;
+    font-weight: 500;
+}
+
+.student-cards .cards .card img {
+    height: 10rem;
+    width: 10rem;
+    border-radius: 50%;
+    object-fit: contain;
+    padding-top: 5%;
+}
+
+.student-cards .cards .card .info .user-info {
+    display:flex;
+    flex-direction: row;
+    gap: 1rem;
+    margin-right: auto;
+}
+
+.student-cards .cards .card .info .user-info h3 {
+    color: var(--text);
+    font-weight: 300;
+    font-size: 1.2rem;
+}
+
+.student-cards .cards .card .info .org-info {
+    padding-top: 5%;
+    display:flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-right: auto;
+    color: var(--text);
+}
+
+.student-cards .cards .card .info .org-info h3 {
+    color: var(--text);
+    font-weight: 300;
+    font-size: 1.2rem;
+}
+
+.student-cards .cards .card .info .org-info .valid-since {
+    display: flex;
+    color: var(--text);
+    text-align: left;
+}
+
+.student-cards .cards .card .info .org-info .granted-by {
+    display: flex;
+    color: var(--text);
+    text-align: left;
+}
+
+.student-cards .cards .card .btn-verify {
+    background: var(--primary);
+    border: none;
+    border-radius: 10px;
+    padding: 0.5rem 2rem;
+    font-weight: 500;
+    font-size: 1.1rem;
+    color: var(--text);
+    cursor: pointer;
+}
+
+.student-cards .cards .card .btn-verify:hover {
+    background: var(--gradient-primary);
+    color: var(--text-white);
+}
+
+.student-cards .cards .card a {
+    text-decoration: none;
+}
+
+.student-cards .cards .card .card-id {
+    color: var(--text);
+    font-weight: 500;
+    font-size: 0.9rem;
+    text-align: left;
+    width: 100%;
+}
+
+/*end of cards section*/
+/*Qr code scanner*/
+.qr-reader{
+    margin: auto auto;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+/*organisation tab*/
+.organisation-header {
+    color: var(--text);
+    font-size: 2.2rem;
+    font-weight: 500;
+    margin-bottom: 2rem;
+
+}
+
+.organisation-data {
+    display: flex;
+    flex-direction: row;
+    gap: 5rem;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.organisation-data .organisation-logo  img{
+    height: 20rem;
+    width: 20rem;
+    border-radius: 50%;
+    object-fit: contain;
+}
+
+.organisation-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    align-items: center;
+    justify-content: center;
+    width: 40%;
+}
+
+.organisation-info h5 {
+    color: var(--text);
+    font-size: 2rem;
+    font-weight: 500;
+    margin-right: auto;
+}
+
+.organisation-info .form-inputs {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+}
+
+.organisation-info .inputs {
+    width: 100%;
+
+}
+
+.organisation-info .inputs input {
+    border: none;
+    border-radius: 0;
+    outline: none;
+    background-color: var(--primary-50);
+    width: 88%;
+}
+
+.organisation-info .inputs input:focus {
+    border-bottom: 2px solid var(--primary);
+    outline: none;
+    background-color: var(--primary-50);
+    color: var(--text);
+}
 

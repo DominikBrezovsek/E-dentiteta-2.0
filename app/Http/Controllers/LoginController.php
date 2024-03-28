@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\LoginFormValidator;
+use App\Models\User;
 use Auth;
 use http\Env\Response;
 use Illuminate\Http\RedirectResponse;
@@ -13,6 +14,22 @@ class LoginController extends Controller
 {
     public function getLogin()
     {
+        if (isset(session('user')['id'])){
+            switch (session('user')['role']){
+                case('SAD'):
+                    return redirect()->route('sad.profile');
+                case('OAD'):
+                    return redirect()->route('organisation_admin.profile');
+                case('PRF'):
+                    return redirect()->route('professor.profile');
+                case('STU'):
+                    return redirect()->route('student.profile');
+                case('USR'):
+                    return redirect()->route('user.profile');
+                case('VEN'):
+                    return redirect()->route('vendor.profile');
+            }
+        }
         return view('login.loginForm', [
             'title' => 'Prijava',
             'existingData' => (object)[],
@@ -22,23 +39,29 @@ class LoginController extends Controller
     public function postLogin(LoginFormValidator $request): RedirectResponse
     {
         $credentials = $request->validated();
-
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
             $request->session()->put('user', Auth::user());
-            if (Auth::user()->role == 'ADM') {
-                return redirect()->route('admin.profile');
+            if (Auth::user()->role == 'SAD') {
+                return redirect()->route('sad.profile');
             } else if (Auth::user()->role == 'USR') {
                 return redirect()->route('user.profile');
-            } else if (Auth::user()->role == 'ORG') {
-                return redirect()->route('organisation.profile');
+            } else if (Auth::user()->role == 'STU') {
+                return redirect()->route('student.profile');
+            } else if (Auth::user()->role == 'OAD') {
+                return redirect()->route('organisation_admin.profile');
+            } else if (Auth::user()->role == 'PRF') {
+                return redirect()->route('professor.profile');
+            } else if (Auth::user()->role == 'VEN') {
+                return redirect()->route('vendor.profile');
             }
         } else {
             return back()->withErrors([
                 'username' => 'Napačno uporabniško ime ali geslo.',
             ])->onlyInput('username');
         }
-        return redirect()->back();
+        return back()->withErrors([
+            'username' => 'Napačno uporabniško ime ali geslo.',
+        ])->onlyInput('username');
     }
-
 }

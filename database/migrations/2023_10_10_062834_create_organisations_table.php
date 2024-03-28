@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->text('description')->nullable();
             $table->enum('verified', ['Y', 'N'])->default('N');
+            $table->string('logo')->default('default.png');
 
             $table->timestamps();
         });

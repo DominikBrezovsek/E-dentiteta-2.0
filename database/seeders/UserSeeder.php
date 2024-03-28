@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\OrganisationAdmin;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
@@ -52,7 +53,18 @@ class UserSeeder extends Seeder
             'created_at' => \Carbon\Carbon::now(),
             'updated_at' => \Carbon\Carbon::now(),
         ]);
-
+        DB::table('users')->insert([
+            'id' => Str::uuid(),
+            'name' => 'Boštjan',
+            'surname' => 'Resinovič',
+            'email' => 'resko@resko.je',
+            'username' => 'resinovicbost',
+            'password' => Hash::make('Default00'),
+            'role' => 'PRF',
+            'emso' => '0101980500123',
+            'created_at' => \Carbon\Carbon::now(),
+            'updated_at' => \Carbon\Carbon::now(),
+        ]);
         User::factory()->count(97)->create();
 
     }

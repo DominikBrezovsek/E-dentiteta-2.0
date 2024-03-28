@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\OrganisationAdmin;
 use Illuminate\Http\Request;
 use App\Models\Card;
 use App\Models\Organisation;
@@ -10,20 +11,23 @@ class AddCardController extends Controller
 {
     public function getCards()
     {
-        return view('admin.cards.cards',
+        $oid = OrganisationAdmin::whereIdUser(session('user')['id'])->first()->id_organisation;
+        session()->put('oid', $oid);
+       // session('user')->put('oid', $oid);
+        return view('organisation_admin.cards.cards',
             [
                 'title' => 'Kartice',
-                'data' => Card::all()
+                'data' => Card::whereIdOrganisation($oid)->get()
             ]
         );
     }
     public function getCard(Request $request, Card $cardId)
     {
-        return view('admin.cards.card',
+        return view('organisation_admin.cards.card',
             [
                 'title' => 'Kartica',
                 'existingData' => $cardId,
-                'orgInfo' => Organisation::all(),
+                'orgInfo' => Organisation::whereId(session('oid'))->get(),
             ]);
     }
     public function postCard(Request $request, Card $cardId)
@@ -41,15 +45,15 @@ class AddCardController extends Controller
             'id_organisation' => $validated['organisation'],
             'auto_join' => $validated['auto_join'],
         ]);
-        return redirect()->route('admin.cards')->with('message', 'Podatki o kartici so bili posodobljeni!');
+        return redirect()->route('organisation_admin.cards')->with('message', 'Podatki o kartici so bili posodobljeni!');
     }
     public function getAddCard(Request $request, Card $cardId)
     {
-        return view('admin.cards.cardAdd',
+        return view('organisation_admin.cards.cardAdd',
             [
                 'title' => 'Dodaj kartico',
                 'existingData' => $cardId,
-                'orgInfo' => Organisation::all(),
+                'orgInfo' => Organisation::whereId(session('oid'))->get(),
             ]);
     }
     public function postAddCard(Request $request, Card $cardId)
@@ -68,11 +72,11 @@ class AddCardController extends Controller
             'auto_join' => $validated['auto_join'],
         ]);
         $card->save();
-        return redirect()->route('admin.cards')->with('message', 'Katrica ustvarjena!');
+        return redirect()->route('organisation_admin.cards')->with('message', 'Katrica ustvarjena!');
     }
     public function deleteCard(Request $request, Card $cardId)
     {
         $cardId->delete();
-        return redirect()->route('admin.cards')->with('message', 'Kartica je izbrisana!');
+        return redirect()->route('organisation_admin.cards')->with('message', 'Kartica je izbrisana!');
     }
 }

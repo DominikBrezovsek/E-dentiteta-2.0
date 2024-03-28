@@ -7,22 +7,23 @@ use App\Models\Organisation;
 use App\Models\User;
 use Illuminate\Support\Str;
 use Mockery\Undefined;
+use Illuminate\Pagination\Paginator;
 
 class AddOrganisationController extends Controller
 {
-    //Add organisation
+    //Add professor
     public function getAddOrganisation(Request $request, Organisation $organisationId){
-        return view('admin.organisation.organisationform',
+        return view('systemAdmin.organisation.organisationform',
         ['title' => 'Dodaj organizacijo',
         'existingData' => (object) [],
-        'adminInfo' => User::where('role', 'ADM')->get()]);
+        'adminInfo' => User::where('role', '=','OAD')->get()]);
     }
     public function postAddOrganisation(Request $request){
         $validatedData = $request->validate([
             'name' => ['required', 'max:255'],
             'verified' => ['required', 'in:Y,N'],
             'preverjanje' => ['required', 'in:Y,N'],
-            'admin' => ['required'],
+            'organisation_admin' => ['required'],
             'description' => ['max:255'],
         ]);
 
@@ -30,20 +31,20 @@ class AddOrganisationController extends Controller
             'name' => $validatedData['name'],
             'verified' => $validatedData['verified'],
             'checkking_all_cards' => $validatedData['preverjanje'],
-            'id_user' => $validatedData['admin'],
+            'id_user' => $validatedData['organisation_admin'],
             'description' => $validatedData['description'],
             'id' => Str::uuid(),
         ]);
 
         $organisation->save();
-        return redirect()->route('admin.organisations')->with('message', 'Organizacija ustvarjena!');
+        return redirect()->route('sad.organisations')->with('message', 'Organizacija ustvarjena!');
     }
-    //Edit organisation
+    //Edit professor
     public function getOrganisation(Request $request, Organisation $organisationId){
-        return view('admin.organisation.organisationformedit',
+        return view('systemAdmin.organisation.organisationformedit',
         ['title' => 'Dodaj organizacijo',
         'existingData' => $organisationId,
-        'adminInfo' => User::where('role', 'ADM')->get()]);
+        'adminInfo' => User::where('role', '=','OAD')->get()]);
     }
     public function postOrganisation(Request $request, Organisation $organisationId){
         $validatedData = $request->validate([
@@ -60,16 +61,19 @@ class AddOrganisationController extends Controller
             'id_user' => $validatedData['admin'],
             'description' => $validatedData['description'],
         ]);
-        return redirect()->route('admin.organisations')->with('message', 'Podatki organizacije so bili posodobljeni!');
+        return redirect()->route('sad.organisations')->with('message', 'Podatki organizacije so bili posodobljeni!');
     }
     //All organisations
     public function getOrganisations(){
-        return view('admin.organisation.organisations',
-        ['title' => 'Seznam organitacij',
-        'data' => Organisation::join('users', 'organisations.id_user', '=', 'users.id')->select('organisations.name AS name', 'verified', 'checkking_all_cards', 'username', 'organisations.id AS id_organisation')->get()]);
+        $data = Organisation::paginate(5);
+        return view('systemAdmin.organisation.organisations',
+        [
+            'title' => 'Seznam organizacij',
+            'data' => $data,
+        ]);
     }
     public function deleteOrganisation(Request $request, Organisation $organisationId){
         $organisationId->delete();
-        return redirect()->route('admin.organisations')->with('message', 'Organizacija je bila izbrisana!');
+        return redirect()->route('sad.organisations')->with('message', 'Organizacija je bila izbrisana!');
     }
 }
