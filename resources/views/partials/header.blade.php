@@ -66,6 +66,9 @@
         </div>
         <div class="controls">
             <div class="nav-item user">
+                <a class="nav-link" href="{{route('student.profile.notifications')}}"><i class="fa-solid fa-bell"></i></a>
+            </div>
+            <div class="nav-item user">
                 <a class=nav-link" href="{{route('student.profile') }}"><i class="fa-solid fa-user"></i></a>
             </div>
             <div class="nav-item logout">

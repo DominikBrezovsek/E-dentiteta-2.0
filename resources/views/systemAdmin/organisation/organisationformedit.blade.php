@@ -27,23 +27,9 @@
                     </select>
                 </div>
                 <label for="verified">Preverjena organizacija</label>
-
                 <div class="card-join-dropdown">
                     <select class="form-control" name="verified" id="verified">
-                        @if ($row->verified == 'Y')
-                            <option value="Y" selected>Da</option>
-                            <option value="N">Ne</option>
-                        @else
-                            <option value="Y">Da</option>
-                            <option value="N" selected>Ne</option>
-                        @endif
-                    </select>
-                </div>
-
-                <label for="preverjanje">Preverjanje vseh kartic</label>
-                <div class="card-join-dropdown">
-                    <select class="form-control" name="preverjanje" id="preverjanje">
-                        @if ($row->checkking_all_cards == 'Y')
+                        @if ($existingData->verified == 'Y')
                             <option value="Y" selected>Da</option>
                             <option value="N">Ne</option>
                         @else

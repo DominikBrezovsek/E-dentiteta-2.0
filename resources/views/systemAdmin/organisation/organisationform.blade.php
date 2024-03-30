@@ -22,19 +22,10 @@
                         @endforeach
                     </select>
                 </div>
-
                 <label for="verified">Preverjena organizacija</label>
                 <div class="card-join-dropdown">
                     <select class="form-control" name="verified" id="verified">
-                        <option value="Y">Da</option>
-                        <option value="N">Ne</option>
-                    </select>
-                </div>
-
-                <label for="preverjanje">Preverjanje vseh kartic</label>
-                <div class="card-join-dropdown">
-                    <select class="form-control" name="preverjanje" id="preverjanje">
-                        <option value="Y">Da</option>
+                        <option value="Y" >Da</option>
                         <option value="N">Ne</option>
                     </select>
                 </div>

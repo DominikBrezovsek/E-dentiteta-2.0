@@ -13,7 +13,7 @@ class OrganisationAdmin extends Model
     use HasUuids;
     use Notifiable;
 
-    protected $primaryKey = 'id';
+    protected $primaryKey = 'id_admin';
 
     protected $keyType = 'string';
 

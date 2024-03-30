@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Card;
+use App\Models\OrganisationAdmin;
 use Illuminate\Http\Request;
 use App\Models\Organisation;
 use App\Models\User;
@@ -16,27 +18,31 @@ class AddOrganisationController extends Controller
         return view('systemAdmin.organisation.organisationform',
         ['title' => 'Dodaj organizacijo',
         'existingData' => (object) [],
-        'adminInfo' => User::where('role', '=','OAD')->get()]);
+        'adminInfo' => User::all()->where('role', '!=','OAD')->where('role', '!=','SAD')]);
     }
     public function postAddOrganisation(Request $request){
         $validatedData = $request->validate([
             'name' => ['required', 'max:255'],
             'verified' => ['required', 'in:Y,N'],
-            'preverjanje' => ['required', 'in:Y,N'],
-            'organisation_admin' => ['required'],
+            'admin' => ['required'],
             'description' => ['max:255'],
         ]);
 
         $organisation = new Organisation([
             'name' => $validatedData['name'],
             'verified' => $validatedData['verified'],
-            'checkking_all_cards' => $validatedData['preverjanje'],
-            'id_user' => $validatedData['organisation_admin'],
             'description' => $validatedData['description'],
             'id' => Str::uuid(),
         ]);
-
         $organisation->save();
+        $oid = Organisation::where('name', $validatedData['name'])->first()->id;
+        OrganisationAdmin::create([
+            'id_admin' => Str::uuid(),
+            'id_organisation' => $oid,
+            'id_user' => $validatedData['admin']
+        ]);
+        User::where('id', $validatedData['admin'])->update(['role' => 'OAD']);
+
         return redirect()->route('sad.organisations')->with('message', 'Organizacija ustvarjena!');
     }
     //Edit professor
@@ -44,23 +50,25 @@ class AddOrganisationController extends Controller
         return view('systemAdmin.organisation.organisationformedit',
         ['title' => 'Dodaj organizacijo',
         'existingData' => $organisationId,
-        'adminInfo' => User::where('role', '=','OAD')->get()]);
+        'adminInfo' => User::where('role', '=','OAD')->join('organisation_admins', 'users.id', '=', 'organisation_admins.id_user')->where('id_organisation', $organisationId->id)->get(),
+        ]);
     }
     public function postOrganisation(Request $request, Organisation $organisationId){
         $validatedData = $request->validate([
             'name' => ['required', 'max:255'],
             'verified' => ['required', 'in:Y,N'],
-            'preverjanje' => ['required', 'in:Y,N'],
             'admin' => ['required'],
             'description' => ['max:255'],
                 ]);
+        $previousAdmin = OrganisationAdmin::where('id_organisation', $organisationId->id)->first();
+        User::where('id', $previousAdmin->id_user)->update(['role' => 'USR']);
         $organisationId->update([
             'name' => $validatedData['name'],
             'verified' => $validatedData['verified'],
-            'checkking_all_cards' => $validatedData['preverjanje'],
-            'id_user' => $validatedData['admin'],
             'description' => $validatedData['description'],
         ]);
+        OrganisationAdmin::where('id_organisation', $organisationId->id)->update(['id_user' => $validatedData['admin']]);
+        User::where('id', $validatedData['admin'])->update(['role' => 'OAD']);
         return redirect()->route('sad.organisations')->with('message', 'Podatki organizacije so bili posodobljeni!');
     }
     //All organisations
@@ -73,6 +81,9 @@ class AddOrganisationController extends Controller
         ]);
     }
     public function deleteOrganisation(Request $request, Organisation $organisationId){
+        $previousAdmin = OrganisationAdmin::where('id_organisation', $organisationId->id)->first();
+        User::where('id', $previousAdmin->id_user)->update(['role' => 'USR']);
+        Card::where('id_organisation', $organisationId->id)->delete();
         $organisationId->delete();
         return redirect()->route('sad.organisations')->with('message', 'Organizacija je bila izbrisana!');
     }

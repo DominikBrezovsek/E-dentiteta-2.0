@@ -39,6 +39,10 @@ class AddVendorController extends Controller
             'verified_by' => session('user')['id'],
             'id' => Str::uuid(),
         ]);
+        User::whereId($validatedData['admin'])->update([
+            'role' => 'VEN',
+        ]);
+
 
         $organisation->save();
         return redirect()->route('sad.vendors')->with('message', 'Partner je bil ustvarjen!');

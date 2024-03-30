@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use App\Models\CardVerification;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 use Illuminate\Support\Facades\DB;
@@ -15,6 +16,10 @@ class Kernel extends ConsoleKernel
     {
         /*$schedule->call(function () {
         })->everyMinute();*/
+
+        $schedule->call(function () {
+            CardVerification::where('expires' , '<', now())->delete();
+        })->everyMinute();
     }
 
     /**

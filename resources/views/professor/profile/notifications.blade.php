@@ -1,19 +1,32 @@
 @extends('layout')
 
 @section('content')
-    @if($notification['card'] ?? [] != null)
-        @foreach($notification as $n)
-            <div style="display: flex; flex-direction: row; gap: 2rem">
-            <div>
-                {{$n->data['id_user']}}
-            </div>
-                <div>
-                    <form action="{{ route('professor.profile.notifications.markAsRead', ['notification' => $n]) }}" method="POST">
-                        @csrf
-                        <button type="submit" class="btn btn-primary">Označi kot prebrano</button>
-                    </form>
+    <div class="notifications">
+        <h1>Neprebrana obvestila</h1>
+        <div class="notification-list">
+            @foreach($notification[0] as $n)
+                <div class="notification-card">
+                    <div style="color: var(--text)">
+                        {{$n->data['message']}}
+                    </div>
+                    <div>
+                        <form
+                            action="{{ route('professor.profile.notifications.markAsRead', ['notification' => $n]) }}"
+                            method="POST">
+                            @csrf
+                            <button type="submit" class="btn-mark-as-read"
+                                    onmouseover="showButton(event, this)"><i class="fa-solid fa-check"></i>
+                            </button>
+                        </form>
+                    </div>
                 </div>
-            </div>
+        </div>
         @endforeach
-    @endif
+    </div>
+
+    <script>
+        function showButton(event, button) {
+            event.preventDefault();
+        }
+    </script>
 @endsection

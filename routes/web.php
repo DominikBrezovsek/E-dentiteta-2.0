@@ -95,7 +95,7 @@ Route::group(['middleware' => 'SAD'], function () {
     });
     Route::prefix('/verify')->group(function (){
         Route::get('/scanner', [QRCodeScanner::class, 'getScanner'])->name('sad.verify-card');
-        
+
     });
     Route::prefix('/vendors')->group(function () {
         Route::get('/', [AddVendorController::class, 'getVendors'])->name('sad.vendors');
@@ -160,7 +160,7 @@ Route::group(['middleware' => 'OAD'], function () {
         });
         Route::prefix('/verify')->group(function (){
             Route::get('/scanner', [QRCodeScanner::class, 'getScanner'])->name('organisation_admin.verify-card');
-            
+
         });
 
     });
@@ -201,7 +201,7 @@ Route::group(['middleware' => 'PRF'], function () {
         });
         Route::prefix('/verify')->group(function (){
             Route::get('/scanner', [QRCodeScanner::class, 'getScanner'])->name('professor.verify-card');
-            
+
         });
     });
 });
@@ -219,6 +219,8 @@ Route::group(['middleware' => 'STU'], function () {
             Route::get('/edit', [ProfileController::class, 'getProfileUser'])->name('student.profile');
             Route::post('/edit', [ProfileController::class, 'postProfileStudent'])->name('student.profile.update');
             Route::put('/edit', [ProfileController::class, 'postProfileStudent'])->name('student.profile.update');
+            Route::get('/notifications', [NotificationsController::class, 'getNotifications'])->name('student.profile.notifications');
+            Route::post('/notifications/{notification}', [NotificationsController::class, 'markAsRead'])->name('student.profile.notifications.markAsRead');
         });
         //TODO: Add routes for cards(show,join)
         Route::prefix('/cards')->group(function (){
@@ -261,8 +263,8 @@ Route::group(['middleware' => 'VEN'], function () {
         });
         Route::prefix('/verify')->group(function (){
             Route::get('/scanner', [QRCodeScanner::class, 'getScanner'])->name('vendor.verify-card');
-            
-            
+
+
         });
        /*  Route::prefix('/vendor')->group(function () {
             Route::get('/', [VendorController::class, 'getVendor'])->name('vendor.vendor');

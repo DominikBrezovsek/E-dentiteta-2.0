@@ -41,6 +41,11 @@ class NotificationsController extends Controller
                 return view('systemAdmin.profile.notifications', [
                     'notification' => $notifications
                 ]);
+                case("STU"):
+                $notifications[] = $this->getUserNotifications();
+                return view('student.profile.notifications', [
+                    'notification' => $notifications
+                ]);
 
         }
 
