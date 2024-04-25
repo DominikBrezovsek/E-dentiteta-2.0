@@ -49,8 +49,8 @@ class AddOrganisationController extends Controller
     public function getOrganisation(Request $request, Organisation $organisationId){
         return view('systemAdmin.organisation.organisationformedit',
         ['title' => 'Dodaj organizacijo',
-        'existingData' => $organisationId,
-        'adminInfo' => User::where('role', '=','OAD')->join('organisation_admins', 'users.id', '=', 'organisation_admins.id_user')->where('id_organisation', $organisationId->id)->get(),
+        'existingData' => $organisationId->join('organisation_admins', 'organisations.id', '=', 'organisation_admins.id_organisation')->where('organisations.id', $organisationId->id)->first() ?? $organisationId,
+        'adminInfo' => User::where('role', '!=','SAD')->get()
         ]);
     }
     public function postOrganisation(Request $request, Organisation $organisationId){
@@ -61,13 +61,21 @@ class AddOrganisationController extends Controller
             'description' => ['max:255'],
                 ]);
         $previousAdmin = OrganisationAdmin::where('id_organisation', $organisationId->id)->first();
-        User::where('id', $previousAdmin->id_user)->update(['role' => 'USR']);
+        if ($previousAdmin != null) {
+            User::where('id', $previousAdmin->id_user)->update(['role' => 'USR']);
+            OrganisationAdmin::where('id_organisation', $organisationId->id)->update(['id_user' => $validatedData['admin']]);
+        }  else {
+            OrganisationAdmin::create([
+                'id_admin' => Str::uuid(),
+                'id_organisation' => $organisationId->id,
+                'id_user' => $validatedData['admin']
+            ]);
+        }
         $organisationId->update([
             'name' => $validatedData['name'],
             'verified' => $validatedData['verified'],
             'description' => $validatedData['description'],
         ]);
-        OrganisationAdmin::where('id_organisation', $organisationId->id)->update(['id_user' => $validatedData['admin']]);
         User::where('id', $validatedData['admin'])->update(['role' => 'OAD']);
         return redirect()->route('sad.organisations')->with('message', 'Podatki organizacije so bili posodobljeni!');
     }

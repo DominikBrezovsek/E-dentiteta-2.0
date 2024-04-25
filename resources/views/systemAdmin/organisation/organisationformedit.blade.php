@@ -17,6 +17,7 @@
 
                 <div class="card-join-dropdown">
                     <select class="form-control" name="admin" id="admin">
+                        <option disabled>Administrator organizacije</option>
                         @foreach ($adminInfo as $row)
                             @if ($row->id == $existingData->id_user)
                                 <option value="{{ $row->id }}" selected>{{ $row->username }}</option>

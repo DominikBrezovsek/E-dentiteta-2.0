@@ -78,7 +78,7 @@ Route::group(['middleware' => 'SAD'], function () {
         Route::get('/', [AddOrganisationController::class, 'getOrganisations'])->name('sad.organisations');
         Route::get('/edit/{organisationId}', [AddOrganisationController::class, 'getOrganisation'])->name('sad.organisation');
         Route::post('/edit/{organisationId}', [AddOrganisationController::class, 'postOrganisation'])->name('sad.organisation.update');
-        Route::put('/edit/{organisationId}', [AddOrganisationController::class, 'postOrganisation'])->name('sad.organisation.update');
+        Route::put('/edit/{organisationId}', [AddOrganisationController::class, 'postOrganisation'])->name('sad.organisation.updatePut');
         Route::delete('/delete/{organisationId}', [AddOrganisationController::class, 'deleteOrganisation'])->name('sad.organisation.delete');
         Route::get('/add', [AddOrganisationController::class, 'getAddOrganisation'])->name('sad.add-organisation');
         Route::post('/add', [AddOrganisationController::class, 'postAddOrganisation'])->name('sad.add-organisation.create');
@@ -89,7 +89,7 @@ Route::group(['middleware' => 'SAD'], function () {
     Route::prefix('/profile')->group(function () {
         Route::get('/edit', [ProfileController::class, 'getProfileSystemAdmin'])->name('sad.profile');
         Route::post('/edit', [ProfileController::class, 'postProfileSystemAdmin'])->name('sad.profile.update');
-        Route::put('/edit', [ProfileController::class, 'postProfileSystemAdmin'])->name('sad.profile.update');
+        Route::put('/edit', [ProfileController::class, 'postProfileSystemAdmin'])->name('sad.profile.updatePut');
         Route::get('/notifications', [NotificationsController::class, 'getNotifications'])->name('sad.profile.notifications');
         Route::post('/notifications/{notification}',[NotificationsController::class, 'markAsRead'])->name('sad.profile.notifications.markAsRead');
     });
@@ -101,11 +101,11 @@ Route::group(['middleware' => 'SAD'], function () {
         Route::get('/', [AddVendorController::class, 'getVendors'])->name('sad.vendors');
         Route::get('/edit/{vendorId}', [AddVendorController::class, 'getVendor'])->name('sad.vendor');
         Route::post('/edit/{vendorId}', [AddVendorController::class, 'postVendor'])->name('sad.vendor.update');
-        Route::put('/edit/{vendorId}', [AddVendorController::class, 'postVendor'])->name('sad.vendor.update');
+        Route::put('/edit/{vendorId}', [AddVendorController::class, 'postVendor'])->name('sad.vendor.updatePut');
         Route::delete('/delete/{vendorId}', [AddVendorController::class, 'deleteVendor'])->name('sad.vendor.delete');
         Route::get('/add', [AddVendorController::class, 'getAddVendor'])->name('sad.add-vendor');
         Route::post('/add', [AddVendorController::class, 'postAddVendor'])->name('sad.add-vendor.create');
-        Route::put('/add', [AddVendorController::class, 'postAddVendor'])->name('sad.add-vendor.create');
+        Route::put('/add', [AddVendorController::class, 'postAddVendor'])->name('sad.add-vendor.createPut');
     });
 
 });
@@ -122,7 +122,7 @@ Route::group(['middleware' => 'OAD'], function () {
         Route::prefix('/profile')->group(function (){
             Route::get('/edit', [ProfileController::class, 'getProfileAdmin'])->name('organisation_admin.profile');
             Route::post('/edit', [ProfileController::class, 'postProfileAdmin'])->name('organisation_admin.profile.update');
-            Route::put('/edit', [ProfileController::class, 'postProfileAdmin'])->name('organisation_admin.profile.update');
+            Route::put('/edit', [ProfileController::class, 'postProfileAdmin'])->name('organisation_admin.profile.updatePut');
             Route::get('/notifications', [NotificationsController::class, 'getNotifications'])->name('organisation_admin.profile.notifications');
             Route::post('/notifications/{notification}', [NotificationsController::class, 'markAsRead'])->name('organisation_admin.profile.notifications.markAsRead');
         });
@@ -130,33 +130,33 @@ Route::group(['middleware' => 'OAD'], function () {
             Route::get('/', [AddCardController::class, 'getCards'])->name('organisation_admin.cards');
             Route::get('/edit/{cardId}', [AddCardController::class, 'getCard'])->name('organisation_admin.card');
             Route::post('/edit/{cardId}', [AddCardController::class, 'postCard'])->name('organisation_admin.card.update');
-            Route::put('/edit/{cardId}', [AddCardController::class, 'postCard'])->name('organisation_admin.card.update');
+            Route::put('/edit/{cardId}', [AddCardController::class, 'postCard'])->name('organisation_admin.card.updatePut');
             Route::get('/add', [AddCardController::class, 'getAddCard'])->name('organisation_admin.card.add');
             Route::post('/add', [AddCardController::class, 'postAddCard'])->name('organisation_admin.card.create');
-            Route::put('/add', [AddCardController::class, 'postAddCard'])->name('organisation_admin.card.create');
+            Route::put('/add', [AddCardController::class, 'postAddCard'])->name('organisation_admin.card.createPut');
             Route::delete('/delete/{cardId}', [AddCardController::class, 'deleteCard'])->name('organisation_admin.card.delete');
 
             Route::get('/approve', [OrganisationAdminCardsController::class, 'getApproveCards'])->name('organisation_admin.cards.approve');
             Route::post('/approve/{requestId}', [OrganisationAdminCardsController::class, 'getApproveCard'])->name('organisation_admin.cards.approve.card');
-            Route::put('/approve/{requestId}', [OrganisationAdminCardsController::class, 'getApproveCard'])->name('organisation_admin.cards.approve.card');
+            Route::put('/approve/{requestId}', [OrganisationAdminCardsController::class, 'getApproveCard'])->name('organisation_admin.cards.approve.cardPut');
             Route::post('/decline/{requestId}', [OrganisationAdminCardsController::class, 'getDeclineCard'])->name('organisation_admin.cards.decline.card');
-            Route::put('/decline/{requestId}', [OrganisationAdminCardsController::class, 'getDeclineCard'])->name('organisation_admin.cards.decline.card');
+            Route::put('/decline/{requestId}', [OrganisationAdminCardsController::class, 'getDeclineCard'])->name('organisation_admin.cards.decline.cardPut');
         });
         Route::prefix('/students')->group(function (){
             Route::get('/', [AddStudentController::class, 'getUsers'])->name('organisation_admin.students');
             Route::get('/edit/{userId}', [AddStudentController::class, 'getStudent'])->name('organisation_admin.student');
             Route::post('/edit/{userId}', [AddStudentController::class, 'postUpdateStudent'])->name('organisation_admin.student.update');
-            Route::put('/edit/{userId}', [AddStudentController::class, 'postUpdateStudent'])->name('organisation_admin.student.update');
+            Route::put('/edit/{userId}', [AddStudentController::class, 'postUpdateStudent'])->name('organisation_admin.student.updatePut');
             Route::get('/add', [AddStudentController::class, 'getAddStudent'])->name('organisation_admin.student.add');
             Route::post('/add', [AddStudentController::class, 'postAddStudent'])->name('organisation_admin.student.create');
-            Route::put('/add', [AddStudentController::class, 'postAddStudent'])->name('organisation_admin.student.create');
+            Route::put('/add', [AddStudentController::class, 'postAddStudent'])->name('organisation_admin.student.createPut');
             Route::delete('/delete/{userId}', [AddStudentController::class, 'deleteUser'])->name('organisation_admin.user.delete');
         });
 
         Route::prefix('/organisation')->group(function () {
             Route::get('/', [OrganisationController::class, 'getOrganisation'])->name('organisation_admin.organisation');
             Route::post('/', [OrganisationController::class, 'postOrganisation'])->name('organisation_admin.organisation.update');
-            Route::put('/', [OrganisationController::class, 'postOrganisation'])->name('organisation_admin.organisation.update');
+            Route::put('/', [OrganisationController::class, 'postOrganisation'])->name('organisation_admin.organisation.updatePut');
         });
         Route::prefix('/verify')->group(function (){
             Route::get('/scanner', [QRCodeScanner::class, 'getScanner'])->name('organisation_admin.verify-card');
@@ -177,7 +177,7 @@ Route::group(['middleware' => 'PRF'], function () {
         Route::prefix('/profile')->group(function (){
             Route::get('/edit', [ProfileController::class, 'getProfileProfessor'])->name('professor.profile');
             Route::post('/edit', [ProfileController::class, 'postProfileProfessor'])->name('professor.profile.update');
-            Route::put('/edit', [ProfileController::class, 'postProfileProfessor'])->name('professor.profile.update');
+            Route::put('/edit', [ProfileController::class, 'postProfileProfessor'])->name('professor.profile.updatePut');
             Route::get('/notifications', [NotificationsController::class, 'getNotifications'])->name('professor.profile.notifications');
             Route::post('/notifications/{notification}', [NotificationsController::class, 'markAsRead'])->name('professor.profile.notifications.markAsRead');
         });
@@ -186,17 +186,17 @@ Route::group(['middleware' => 'PRF'], function () {
             Route::get('/', [ProfessorCardsController::class, 'getCards'])->name('professor.cards');
             Route::get('/edit/{cardId}', [ProfessorCardsController::class, 'getCard'])->name('professor.card');
             Route::post('/edit/{cardId}', [ProfessorCardsController::class, 'postCard'])->name('professor.card.update');
-            Route::put('/edit/{cardId}', [ProfessorCardsController::class, 'postCard'])->name('professor.card.update');
+            Route::put('/edit/{cardId}', [ProfessorCardsController::class, 'postCard'])->name('professor.card.updatePut');
             Route::get('/approve', [ProfessorCardsController::class, 'getApproveCards'])->name('professor.card.approve');
             Route::post('/approve/{requestId}', [ProfessorCardsController::class, 'getApproveCard'])->name('professor.card.approve.card');
-            Route::put('/approve/{requestId}', [ProfessorCardsController::class, 'getApproveCard'])->name('professor.card.approve.card');
+            Route::put('/approve/{requestId}', [ProfessorCardsController::class, 'getApproveCard'])->name('professor.card.approve.cardPut');
             Route::post('/decline/{requestId}', [ProfessorCardsController::class, 'getDeclineCard'])->name('professor.card.decline.card');
-            Route::put('/decline/{requestId}', [ProfessorCardsController::class, 'getDeclineCard'])->name('professor.card.decline.card');});
+            Route::put('/decline/{requestId}', [ProfessorCardsController::class, 'getDeclineCard'])->name('professor.card.decline.cardPut');});
         Route::prefix('/users')->group(function (){
             Route::get('/', [AddUserOrganisationController::class, 'getUsers'])->name('professor.users');
             Route::get('/add', [AddUserOrganisationController::class, 'getAddUser'])->name('professor.student.add');;
             Route::post('/add/{userId}', [AddUserOrganisationController::class, 'postAddUser'])->name('professor.student.add.create');
-            Route::put('/add/{userId}', [AddUserOrganisationController::class, 'postAddUser'])->name('professor.student.add.create');
+            Route::put('/add/{userId}', [AddUserOrganisationController::class, 'postAddUser'])->name('professor.student.add.createPut');
             Route::delete('/delete/{userId}', [AddUserOrganisationController::class, 'deleteUser'])->name('professor.student.delete');
         });
         Route::prefix('/verify')->group(function (){
@@ -218,7 +218,7 @@ Route::group(['middleware' => 'STU'], function () {
             Route::get('/redis', [ProfileController::class, 'redisGetProfile'])->name('student.redis');
             Route::get('/edit', [ProfileController::class, 'getProfileUser'])->name('student.profile');
             Route::post('/edit', [ProfileController::class, 'postProfileStudent'])->name('student.profile.update');
-            Route::put('/edit', [ProfileController::class, 'postProfileStudent'])->name('student.profile.update');
+            Route::put('/edit', [ProfileController::class, 'postProfileStudent'])->name('student.profile.updatePut');
             Route::get('/notifications', [NotificationsController::class, 'getNotifications'])->name('student.profile.notifications');
             Route::post('/notifications/{notification}', [NotificationsController::class, 'markAsRead'])->name('student.profile.notifications.markAsRead');
         });
@@ -227,10 +227,10 @@ Route::group(['middleware' => 'STU'], function () {
             Route::get('/', [AddUserCardController::class, 'getCards'])->name('student.cards');
             Route::get('/card/{cardId}', [AddUserCardController::class, 'getCard'])->name('student.card');
             Route::post('/card/{cardId}', [AddUserCardController::class, 'postCard'])->name('student.card.update');
-            Route::put('/card/{cardId}', [AddUserCardController::class, 'postCard'])->name('student.card.update');
+            Route::put('/card/{cardId}', [AddUserCardController::class, 'postCard'])->name('student.card.updatePut');
             Route::get('/join', [AddUserCardController::class, 'getAddCard'])->name('student.card.join');
             Route::post('/join/{cardId}', [AddUserCardController::class, 'postAddCard'])->name('student.card.create');
-            Route::put('/join/{cardId}', [AddUserCardController::class, 'postAddCard'])->name('student.card.create');
+            Route::put('/join/{cardId}', [AddUserCardController::class, 'postAddCard'])->name('student.card.createPut');
             Route::delete('/delete/{cardId}', [AddUserCardController::class, 'deleteCard'])->name('student.card.delete');
             Route::get('/validate/{cardId}', [QRCodeController::class, 'generateQRCode'])->name('student.qrcode-generate');
         });
@@ -241,7 +241,7 @@ Route::group(['middleware' => 'USR'], function () {
     Route::prefix('/user')->group(function () {
         Route::get('/edit', [ProfileController::class, 'getProfileUser'])->name('user.profile');
         Route::post('/edit', [ProfileController::class, 'postProfileStudent'])->name('user.profile.update');
-        Route::put('/edit', [ProfileController::class, 'postProfileStudent'])->name('user.profile.update');
+        Route::put('/edit', [ProfileController::class, 'postProfileStudent'])->name('user.profile.updatePut');
 
         Route::prefix('/organisations')->group(function (){
             Route::get('/', [UserOrganisationController::class, 'getOrganisations'])->name('user.organisations');
@@ -258,7 +258,7 @@ Route::group(['middleware' => 'VEN'], function () {
         Route::prefix('/profile')->group(function () {
             Route::get('/edit', [ProfileController::class, 'getProfileVendor'])->name('vendor.profile');
             Route::post('/edit', [ProfileController::class, 'postProfileVendor'])->name('vendor.profile.update');
-            Route::put('/edit', [ProfileController::class, 'postProfileVendor'])->name('vendor.profile.update');
+            Route::put('/edit', [ProfileController::class, 'postProfileVendor'])->name('vendor.profile.updatePut');
 
         });
         Route::prefix('/verify')->group(function (){
