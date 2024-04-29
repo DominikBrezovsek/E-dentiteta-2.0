@@ -69,8 +69,8 @@ class Kernel extends HttpKernel
         'register' => [
             \App\Http\Middleware\RegisterMiddleware::class,
         ],
-        'cron' => [
-            CronMiddleware::class,
+        'OAD_API' => [
+            \App\Http\Middleware\OrganisationAdminAPIMiddleware::class,
         ]
     ];
 

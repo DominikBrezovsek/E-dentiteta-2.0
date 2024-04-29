@@ -22,3 +22,7 @@ Route::prefix('/OAD/')->group(function () {
 
     });
 });
+
+Route::prefix('/PRF/')->group(function () {
+    Route::post('login/', [\App\Http\Controllers\TeaherApiController::class, 'login']);
+});

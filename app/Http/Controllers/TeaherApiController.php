@@ -6,7 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
-class OrganisationAdminApiController extends Controller
+class TeaherApiController extends Controller
 {
     public function login(Request $request) {
         $username = $request->username;
@@ -19,7 +19,7 @@ class OrganisationAdminApiController extends Controller
             ]);
         }
 
-        $userStatus = User::authenticate($username, $password, 'OAD');
+        $userStatus = User::authenticate($username, $password, 'PRF');
 
         if (isset($userStatus->id)) {
             Session::put('userId', $userStatus->id);

@@ -74,9 +74,9 @@ class User extends Model implements Authenticatable
         return $this->hasMany(RequestCard::class, 'id_user');
     }
 
-    public static function authenticate($username, $password): bool|User
+    public static function authenticate($username, $password, $userRole): bool|User
     {
-        $user = User::whereUsername($username)->first();
+        $user = User::whereUsername($username)->whereRole($userRole)->first();
         if (isset($user->id)) {
             if(Hash::check($password, $user->password)) {
                 return $user;
