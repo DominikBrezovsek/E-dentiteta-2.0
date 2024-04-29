@@ -4,9 +4,6 @@ on:
   push:
     branches:
       - dev/api
-      - master
-      - development
-      
 
 jobs:
   ploi-deploy:
