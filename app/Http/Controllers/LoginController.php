@@ -8,14 +8,15 @@ use Auth;
 use http\Env\Response;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Session;
 
 class LoginController extends Controller
 {
     public function getLogin()
     {
-        if (isset(session('user')['id'])){
-            switch (session('user')['role']){
+        if (isset(session('user')['id'])) {
+            switch (session('user')['role']) {
                 case('SAD'):
                     return redirect()->route('sad.profile');
                 case('OAD'):
@@ -64,4 +65,7 @@ class LoginController extends Controller
             'username' => 'Napačno uporabniško ime ali geslo.',
         ])->onlyInput('username');
     }
+
 }
+
+

@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class CronMiddleware
+class OrganisationAdminAPIMiddleware
 {
     /**
      * Handle an incoming request.
@@ -15,10 +15,9 @@ class CronMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if ($request->header('key') == 'ExpectoPatronum65!') {
+        if ($request->bearerToken() != null) {
             return $next($request);
-        } else {
-            return response('Invalid API key', 401);
         }
+        return response()->json([ 'message' => 'Unauthorized' ], 401);
     }
 }

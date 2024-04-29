@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Hash;
 
 class User extends Model implements Authenticatable
 {
@@ -71,6 +72,17 @@ class User extends Model implements Authenticatable
     public function requestCards()
     {
         return $this->hasMany(RequestCard::class, 'id_user');
+    }
+
+    public static function authenticate($username, $password): bool|User
+    {
+        $user = User::whereUsername($username)->first();
+        if (isset($user->id)) {
+            if(Hash::check($password, $user->password)) {
+                return $user;
+            }
+        }
+        return false;
     }
 
 }
