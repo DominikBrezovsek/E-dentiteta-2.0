@@ -47,6 +47,9 @@ class OrganisationAdminApiController extends Controller
     }
 
     public function getUser(){
+        return response(json_encode([
+            'session' => Session::get('userId'),
+        ]));
         if (Session::has('userId')){
             $user  = Redis::get('user_'.Session::get('userId'));
             $userDecoded = json_decode($user, true);
