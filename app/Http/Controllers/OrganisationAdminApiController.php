@@ -28,6 +28,7 @@ class OrganisationAdminApiController extends Controller
             return response(json_encode([
                 'status' => 'success',
                 'message' => 'Login success.',
+                'userId' => $userStatus->id
             ]), 200);
         } else {
             return response(json_encode([
@@ -45,12 +46,9 @@ class OrganisationAdminApiController extends Controller
         ]));
     }
 
-    public function getUser(){
-        return response(json_encode([
-            'session' => session('userId'),
-        ]));
-        if (Session::has('userId')){
-            $user  = Redis::get('user_'.Session::get('userId'));
+    public function getUser(Request $request){
+        if ($request->userId != null){
+            $user  = Redis::get('user_'.$request->userId);
             $userDecoded = json_decode($user, true);
             return response(json_encode([
                 'status' => 'success',
