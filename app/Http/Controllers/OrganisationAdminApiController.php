@@ -23,8 +23,7 @@ class OrganisationAdminApiController extends Controller
         $userStatus = User::authenticate($username, $password, 'OAD');
 
         if (isset($userStatus->id)) {
-            Session::put('userId', $userStatus->id);
-            Session::put('role', $userStatus->role);
+            \session('userId', $userStatus->id);
             Redis::set('user_'.$userStatus->id, $userStatus);
             return response(json_encode([
                 'status' => 'success',
