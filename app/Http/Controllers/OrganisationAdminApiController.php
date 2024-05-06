@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Session;
 
 class OrganisationAdminApiController extends Controller
@@ -24,6 +25,7 @@ class OrganisationAdminApiController extends Controller
         if (isset($userStatus->id)) {
             Session::put('userId', $userStatus->id);
             Session::put('role', $userStatus->role);
+            Redis::set('user_'.$userStatus->id, $userStatus);
             return response(json_encode([
                 'status' => 'success',
                 'message' => 'Login success.',
@@ -41,6 +43,22 @@ class OrganisationAdminApiController extends Controller
         return response(json_encode([
             'status' => 'success',
             'message' => 'Logout success.',
+        ]));
+    }
+
+    public function getUser(){
+        if (Session::has('userId')){
+            $user  = Redis::get('user_'.Session::get('userId'));
+            $userDecoded = json_decode($user, true);
+            return response(json_encode([
+                'status' => 'success',
+                'data' => $userDecoded,
+            ]));
+        }
+        return response(json_encode([
+            'status' => 'failed',
+            'message' => 'Uporabnik ne obstaja!',
+
         ]));
     }
 }
