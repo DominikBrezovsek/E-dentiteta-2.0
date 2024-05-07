@@ -21,4 +21,11 @@ class Students extends Model
         'id_class',
         'verified_by',
     ];
+
+    public static function getAllStudents($organisationId){
+        return Students::select('users.name AS name','users.surname', 'users.email', 'users.emso', 'classes.name AS userClass')
+            ->join('users', 'users.id', '=', 'students.id_user')
+            ->join('classes', 'classes.id', '=', 'students.id_class')
+            ->where('students.id_organisation', $organisationId)->get();
+    }
 }

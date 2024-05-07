@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Card;
 use App\Models\Organisation;
 use App\Models\OrganisationAdmin;
+use App\Models\Students;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Casts\Json;
 use Illuminate\Http\Request;
@@ -45,7 +46,8 @@ class OrganisationAdminApiController extends Controller
 
     public function logout(Request $request) {
         Session::flush();
-        Redis::del('userId_'.$request->userId);
+        Redis::del('user_'.$request->userId);
+        Redis::del('OAD_'.$request->userId);
         return response(json_encode([
             'status' => 'success',
             'message' => 'Logout success.',
@@ -107,5 +109,31 @@ class OrganisationAdminApiController extends Controller
         return response(json_encode([
             'status' => 'failed',
         ]));
+    }
+
+    public function getStudents(Request $request){
+        if ($request->userId != null){
+            $user  = Redis::get('OAD_'.$request->userId);
+            $userDecoded = json_decode($user, true);
+            if ($userDecoded != null){
+                $students = Students::getAllStudents($userDecoded["id_organisation"]);
+                if ($students != null){
+                    return response($students->toJson(), 200);
+                } else {
+                    return response(json_encode([
+                        'status' => 'failed',
+                    ]));
+                }
+
+            } else {
+                return response(json_encode([
+                    'status' => 'failed',
+                ]));
+            }
+        } else {
+            return response(json_encode([
+                'status' => 'missing data',
+            ]));
+        }
     }
 }
