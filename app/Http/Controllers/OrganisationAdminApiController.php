@@ -6,6 +6,7 @@ use App\Models\Card;
 use App\Models\Organisation;
 use App\Models\OrganisationAdmin;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Casts\Json;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Session;
@@ -75,8 +76,12 @@ class OrganisationAdminApiController extends Controller
                 Redis::set('OAD'.$userDecoded["id"], $organisationAdmin);
             }
             $cards  = Card::getAllCards($organisationAdmin->id_organisation);
+            $cardsJson = "";
+            foreach ($cards as $card){
+                $cardsJson = json_encode($card);
+            }
             if ($cards != null){
-                return response(json_encode($cards, JSON_FORCE_OBJECT));
+                return response(json_encode($cardsJson));
             }
             return response(json_encode([
                 'status' => 'failed',
