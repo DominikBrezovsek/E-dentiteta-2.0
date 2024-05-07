@@ -43,7 +43,7 @@ class Card extends Model
     public static function getAllCards($organisationId) {
         return Card::select('cards.id', 'id_organisation', 'cards.name AS card_name', 'description', 'auto_join', 'organisations.name AS organisation_name')
             ->where('id_organisation', $organisationId)
-            ->join('organisations', 'id_organisation', 'id')->get();
+            ->join('organisations', 'id_organisation', 'organisations.id')->get();
     }
 
 }
