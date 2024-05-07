@@ -46,5 +46,15 @@ class Card extends Model
             ->join('organisations', 'id_organisation', 'organisations.id')->get();
     }
 
+    public static function createCard($request,$organisationId) {
+        $card = new Card();
+        $card->name = $request['card_name'];
+        $card->description = $request["description"];
+        $card-> auto_join = $request["auto_join"];
+        $card->organisation()->associate($organisationId);
+        $card->save();
+        return self::getAllCards($organisationId);
+    }
+
 }
 

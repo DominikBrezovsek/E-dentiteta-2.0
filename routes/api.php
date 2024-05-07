@@ -19,9 +19,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('/OAD/')->group(function () {
     Route::post('login/', [OrganisationAdminApiController::class, 'login']);
+    Route::post('/logout/' , [OrganisationAdminApiController::class, 'logout']);
     Route::middleware('OAD_API')->group(function () {
         Route::post('/getUser/', [OrganisationAdminApiController::class, 'getUser']);
         Route::post('/getCards/', [OrganisationAdminApiController::class, 'getCards']);
+        Route::post('/createCard/', [OrganisationAdminApiController::class, 'createCard']);
     });
 });
 

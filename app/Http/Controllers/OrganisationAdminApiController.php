@@ -43,8 +43,9 @@ class OrganisationAdminApiController extends Controller
         }
     }
 
-    public function logout() {
+    public function logout(Request $request) {
         Session::flush();
+        Redis::del('userId_'.$request->userId);
         return response(json_encode([
             'status' => 'success',
             'message' => 'Logout success.',
@@ -73,7 +74,7 @@ class OrganisationAdminApiController extends Controller
             $userDecoded = json_decode($user, true);
             $organisationAdmin = OrganisationAdmin::findUserById($userDecoded["id"]);
             if ($organisationAdmin != null){
-                Redis::set('OAD'.$userDecoded["id"], $organisationAdmin);
+                Redis::set('OAD_'.$userDecoded["id"], $organisationAdmin);
             }
             $cards  = Card::getAllCards($organisationAdmin->id_organisation);
             if ($cards != null){
@@ -84,5 +85,27 @@ class OrganisationAdminApiController extends Controller
                 'message' => 'Uporabnik ne obstaja!',
             ]));
         }
+    }
+
+    public function createCard(Request $request){
+        if ($request->userId != null){
+            $user  = Redis::get('OAD_'.$request->userId);
+            $userDecoded = json_decode($user, true);
+            if ($userDecoded != null){
+                $cards = Card::createCard(request()->all(), $userDecoded["id_organisation"]);
+                if ($cards != null){
+                    return response($cards->toJson(), 200);
+                }
+                return response(json_encode([
+                    'status' => 'failed',
+                ]));
+            }
+            return response(json_encode([
+                'status' => $user,
+            ]));
+        }
+        return response(json_encode([
+            'status' => 'failed',
+        ]));
     }
 }
