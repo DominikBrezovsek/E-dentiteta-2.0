@@ -76,12 +76,8 @@ class OrganisationAdminApiController extends Controller
                 Redis::set('OAD'.$userDecoded["id"], $organisationAdmin);
             }
             $cards  = Card::getAllCards($organisationAdmin->id_organisation);
-            $cardsJson = "";
-            foreach ($cards as $card){
-                $cardsJson = json_encode($card);
-            }
             if ($cards != null){
-                return response($cardsJson);
+                return response($cards->toJson(), 200);
             }
             return response(json_encode([
                 'status' => 'failed',
