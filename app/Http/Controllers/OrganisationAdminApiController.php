@@ -76,8 +76,7 @@ class OrganisationAdminApiController extends Controller
             }
             $cards  = Card::getAllCards($organisationAdmin->id_organisation);
             if ($cards != null){
-                return response(json_encode($cards)
-                );
+                return response(json_encode($cards, JSON_FORCE_OBJECT));
             }
             return response(json_encode([
                 'status' => 'failed',
