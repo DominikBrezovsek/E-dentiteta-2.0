@@ -21,6 +21,7 @@ Route::prefix('/OAD/')->group(function () {
     Route::post('login/', [OrganisationAdminApiController::class, 'login']);
     Route::middleware('OAD_API')->group(function () {
         Route::post('/getUser/', [OrganisationAdminApiController::class, 'getUser']);
+        Route::post('/getCards/', [OrganisationAdminApiController::class, 'getCards']);
     });
 });
 

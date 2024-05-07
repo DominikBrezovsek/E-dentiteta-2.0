@@ -27,17 +27,23 @@ class Card extends Model
     {
         return $this->belongsTo(Organisation::class, 'id_organisation');
     }
-    
+
     // Card has many UserCards
     public function userCards()
     {
         return $this->hasMany(UserCard::class, 'id_card');
     }
-    
+
     // Card has many RequestCards
     public function requestCards()
     {
         return $this->hasMany(RequestCard::class, 'id_card');
+    }
+
+    public static function getAllCards($organisationId) {
+        return Card::select('cards.id', 'id_organisation', 'cards.name AS card_name', 'description', 'auto_join', 'organisation.name AS organisation_name')
+            ->where('id_organisation', $organisationId)
+            ->join('organisation', 'id_organisation', 'id')->get();
     }
 
 }

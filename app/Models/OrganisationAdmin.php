@@ -25,4 +25,8 @@ class OrganisationAdmin extends Model
         'id_user',
         'id_organisation',
     ];
+
+    public static function findUserById($userId){
+        return OrganisationAdmin::where('id_user', $userId)->first();
+    }
 }

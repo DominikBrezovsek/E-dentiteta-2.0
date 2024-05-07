@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Card;
+use App\Models\Organisation;
+use App\Models\OrganisationAdmin;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redis;
@@ -60,5 +63,24 @@ class OrganisationAdminApiController extends Controller
             'message' => 'Uporabnik ne obstaja!',
 
         ]));
+    }
+
+    public function getCards(Request $request){
+        if ($request->userId != null){
+            $user  = Redis::get('user_'.$request->userId);
+            $userDecoded = json_decode($user, true);
+            $organisationAdmin = OrganisationAdmin::findUserById($userDecoded["id"]);
+            if ($organisationAdmin != null){
+                Redis::set('OAD'.$userDecoded["id"], $organisationAdmin);
+            }
+            $cards  = Card::getAllCards($organisationAdmin->id_organisation);
+            if ($cards != null){
+                return response(json_encode($cards));
+            }
+            return response(json_encode([
+                'status' => 'failed',
+                'message' => 'Uporabnik ne obstaja!',
+            ]));
+        }
     }
 }
