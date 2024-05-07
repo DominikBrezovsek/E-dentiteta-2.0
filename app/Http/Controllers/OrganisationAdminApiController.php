@@ -81,7 +81,7 @@ class OrganisationAdminApiController extends Controller
                 $cardsJson = json_encode($card);
             }
             if ($cards != null){
-                return response(json_encode($cardsJson));
+                return response($cardsJson);
             }
             return response(json_encode([
                 'status' => 'failed',
