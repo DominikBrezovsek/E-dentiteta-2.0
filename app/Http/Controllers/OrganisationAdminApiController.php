@@ -9,6 +9,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Session;
+use function MongoDB\BSON\toJSON;
 
 class OrganisationAdminApiController extends Controller
 {
@@ -75,7 +76,7 @@ class OrganisationAdminApiController extends Controller
             }
             $cards  = Card::getAllCards($organisationAdmin->id_organisation);
             if ($cards != null){
-                return response(json_encode($cards, JSON_PRETTY_PRINT)
+                return response(json_encode($cards)
                 );
             }
             return response(json_encode([
