@@ -212,7 +212,7 @@ class OrganisationAdminApiController extends Controller
             $user  = Redis::get('OAD_'.$request->userId);
             $userDecoded = json_decode($user, true);
             if ($userDecoded != null){
-                $user =User::select(['users.id AS user_id',',users.name AS user_name', 'users.surname AS user_surname', 'users.email', 'organisations.name AS organisation'])
+                $user = User::select(['users.id AS user_id','users.name AS user_name', 'users.surname AS user_surname', 'users.email', 'organisations.name AS organisation'])
                     ->join('organisation_admins', 'organisation_admins.id_user', '=', 'users.id')
                     ->join('organisations', 'organisations.id', '=', 'organisation_admins.id_organisation')
                     ->where('organisations.id', $userDecoded['id_organisation'])
