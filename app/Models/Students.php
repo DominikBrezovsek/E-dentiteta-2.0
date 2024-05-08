@@ -73,7 +73,7 @@ class Students extends Model
         $student = new Students();
         $student->id_user = $user->id;
         $student->id_organisation = $organisationId;
-        $student->id_class = $request['id_class'];
+        $student->id_class = $request['userClass'];
         $student->verified_by = $oad_id;
         $student->save();
     }
