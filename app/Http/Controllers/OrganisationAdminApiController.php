@@ -206,4 +206,35 @@ class OrganisationAdminApiController extends Controller
             Organisation::updateById($request->all());
         }
     }
+
+    public function getAdmin(Request $request){
+        if ($request->userId != null){
+            $user  = Redis::get('OAD_'.$request->userId);
+            $userDecoded = json_decode($user, true);
+            if ($userDecoded != null){
+                $user =User::select(['users.id AS user_id',',users.name AS user_name', 'users.surname AS user_surname', 'users.email', 'organisations.name AS organisation'])
+                    ->join('organisation_admins', 'organisation_admins.id_user', '=', 'users.id')
+                    ->join('organisations', 'organisations.id', '=', 'organisation_admins.id_organisation')
+                    ->where('organisations.id', $userDecoded['id_organisation'])
+                    ->where('users.id', $request->userId)->first();
+                if ($user != null){
+                    return response($user->toJson(), 200);
+                } else {
+                    return response(json_encode([
+                        'status' => 'failed',
+                    ]));
+                }
+            }
+        }
+    }
+
+    public function updateAdmin(Request $request){
+        if ($request->userId != null){
+            User::whereId($request->userId)->update([
+                'name' => $request->name,
+                'surname' => $request->surname,
+                'email' => $request->email,
+            ]);
+        }
+    }
 }
