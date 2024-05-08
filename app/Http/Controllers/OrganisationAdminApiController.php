@@ -136,4 +136,22 @@ class OrganisationAdminApiController extends Controller
             ]));
         }
     }
+
+    public function updateStudent(Request $request){
+        if ($request->userId != null){
+            $user  = Redis::get('OAD_'.$request->userId);
+            $userDecoded = json_decode($user, true);
+            if ($userDecoded != null){
+                Students::updateByEmso($userDecoded["id_organisation"], request()->all());
+                return response(json_encode([
+                    'status' => 'success',
+                    'message' => 'Update success.'
+                ]));
+            } else {
+                return response(json_encode([
+                    'status' => 'failed',
+                ]));
+            }
+        }
+    }
 }

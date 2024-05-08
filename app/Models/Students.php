@@ -28,4 +28,18 @@ class Students extends Model
             ->join('classes', 'classes.id', '=', 'students.id_class')
             ->where('students.id_organisation', $organisationId)->get();
     }
+
+    public static function updateByEmso($organisationId, $request){
+        $classId = Classes::where('name', $request['userClass'])->first();
+        Students::where('students.id_organisation', $organisationId)
+            ->where('users.emso',  $request['emso'])
+            ->join('users', 'users.id', '=', 'students.id_user')
+            ->join('classes', 'classes.id', '=', 'students.id_class')
+            ->update([
+                'users.name' => $request['name'],
+                'users.surname' => $request['surname'],
+                'users.email' => $request['email'],
+                'students.id_class' => $classId->id,
+            ]);
+    }
 }
