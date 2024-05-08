@@ -31,15 +31,23 @@ class Students extends Model
 
     public static function updateByEmso($organisationId, $request){
         $classId = Classes::where('name', $request['userClass'])->first();
-        Students::where('students.id_organisation', $organisationId)
+
+       $user =  Students::select('users.name AS name','users.surname', 'users.email', 'users.emso', 'students.id_class', 'users.id AS uid')
+            ->where('students.id_organisation', $organisationId)
             ->where('users.emso', '=', $request['emso'])
             ->join('users', 'users.id', '=', 'students.id_user')
             ->join('classes', 'classes.id', '=', 'students.id_class')
-            ->update([
-                'users.name' => $request['name'],
-                'users.surname' => $request['surname'],
-                'users.email' => $request['email'],
-                'students.id_class' => $classId->id,
-            ]);
+            ->first();
+       User::where('users.id', $user->uid)
+        ->update([
+           'name' => $request['name'],
+            'surname' => $request['surname'],
+            'email' => $request['email'],
+        ]);
+       Students::where('id_user', $user->uid)
+           ->update([
+               'id_class' => $classId->id,
+           ]);
+
     }
 }
