@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Card;
+use App\Models\Classes;
 use App\Models\Organisation;
 use App\Models\OrganisationAdmin;
 use App\Models\Students;
@@ -57,6 +58,10 @@ class OrganisationAdminApiController extends Controller
     public function getUser(Request $request){
         if ($request->userId != null){
             $user  = Redis::get('user_'.$request->userId);
+            if(!Redis::exists('OAD_'.$request->userId)){
+                $organisationAdmin = OrganisationAdmin::findUserById($request->userId);
+                Redis::set('OAD_'.$request->userId, $organisationAdmin);
+            }
             $userDecoded = json_decode($user, true);
             return response(json_encode([
                 'status' => 'success',
@@ -73,6 +78,10 @@ class OrganisationAdminApiController extends Controller
     public function getCards(Request $request){
         if ($request->userId != null){
             $user  = Redis::get('user_'.$request->userId);
+            if(!Redis::exists('OAD_'.$request->userId)){
+                $organisationAdmin = OrganisationAdmin::findUserById($request->userId);
+                Redis::set('OAD_'.$request->userId, $organisationAdmin);
+            }
             $userDecoded = json_decode($user, true);
             $organisationAdmin = OrganisationAdmin::findUserById($userDecoded["id"]);
             if ($organisationAdmin != null){
@@ -91,6 +100,10 @@ class OrganisationAdminApiController extends Controller
 
     public function createCard(Request $request){
         if ($request->userId != null){
+            if(!Redis::exists('OAD_'.$request->userId)){
+                $organisationAdmin = OrganisationAdmin::findUserById($request->userId);
+                Redis::set('OAD_'.$request->userId, $organisationAdmin);
+            }
             $user  = Redis::get('OAD_'.$request->userId);
             $userDecoded = json_decode($user, true);
             if ($userDecoded != null){
@@ -134,6 +147,10 @@ class OrganisationAdminApiController extends Controller
 
     public function getStudents(Request $request){
         if ($request->userId != null){
+            if(!Redis::exists('OAD_'.$request->userId)){
+                $organisationAdmin = OrganisationAdmin::findUserById($request->userId);
+                Redis::set('OAD_'.$request->userId, $organisationAdmin);
+            }
             $user  = Redis::get('OAD_'.$request->userId);
             $userDecoded = json_decode($user, true);
             if ($userDecoded != null){
@@ -158,8 +175,31 @@ class OrganisationAdminApiController extends Controller
         }
     }
 
+    public function createStudent(Request $request){
+        if ($request->userId != null){
+            if(!Redis::exists('OAD_'.$request->userId)){
+                $organisationAdmin = OrganisationAdmin::findUserById($request->userId);
+                Redis::set('OAD_'.$request->userId, $organisationAdmin);
+            }
+            $user  = Redis::get('OAD_'.$request->userId);
+            $userDecoded = json_decode($user, true);
+            if ($userDecoded != null){
+                Students::createStudent($request->all(), $userDecoded["id_organisation"], $userDecoded['id_admin']);
+            } else {
+                return response(json_encode([
+                    'status' => 'failed',
+                ]));
+            }
+
+        }
+    }
+
     public function updateStudent(Request $request){
         if ($request->userId != null){
+            if(!Redis::exists('OAD_'.$request->userId)){
+                $organisationAdmin = OrganisationAdmin::findUserById($request->userId);
+                Redis::set('OAD_'.$request->userId, $organisationAdmin);
+            }
             $user  = Redis::get('OAD_'.$request->userId);
             $userDecoded = json_decode($user, true);
             if ($userDecoded != null){
@@ -187,7 +227,10 @@ class OrganisationAdminApiController extends Controller
     }
 
     public function getOrganisation(Request $request){
-        if ($request->userId != null){
+        if(!Redis::exists('OAD_'.$request->userId)){
+            $organisationAdmin = OrganisationAdmin::findUserById($request->userId);
+            Redis::set('OAD_'.$request->userId, $organisationAdmin);
+        }
             $user  = Redis::get('OAD_'.$request->userId);
             $userDecoded = json_decode($user, true);
             if ($userDecoded != null){
@@ -199,7 +242,7 @@ class OrganisationAdminApiController extends Controller
                 ]));
             }
         }
-    }
+
 
     public function updateOrganisation(Request $request){
         if ($request->organisationId != null){
@@ -209,6 +252,10 @@ class OrganisationAdminApiController extends Controller
 
     public function getAdmin(Request $request){
         if ($request->userId != null){
+            if(!Redis::exists('OAD_'.$request->userId)){
+                $organisationAdmin = OrganisationAdmin::findUserById($request->userId);
+                        Redis::set('OAD_'.$request->userId, $organisationAdmin);
+            }
             $user  = Redis::get('OAD_'.$request->userId);
             $userDecoded = json_decode($user, true);
             if ($userDecoded != null){
@@ -236,5 +283,35 @@ class OrganisationAdminApiController extends Controller
                 'email' => $request->email,
             ]);
         }
+        return response(json_encode([]));
+    }
+
+    public function getClasses(Request $request){
+        if ($request->userId != null){
+            if (!Redis::exists('OAD_'.$request->userId)){
+                $organisationAdmin = OrganisationAdmin::findUserById($request->userId);
+                Redis::set('OAD_'.$request->userId, $organisationAdmin);
+            }
+            $user  = Redis::get('OAD_'.$request->userId);
+            $userDecoded = json_decode($user, true);
+            if ($userDecoded != null){
+                $classes = Classes::getAllClasses($userDecoded["id_organisation"]);
+                if ($classes != null){
+                    return response($classes->toJson(), 200);
+                } else {
+                    return response(json_encode([
+                        'status' => 'failed',
+                        'message' => 'no class found'
+                    ]));
+                }
+            } else{
+                return response(json_encode([
+                    'status' => 'failed',
+                ]));
+            }
+        }else {
+        return response(json_encode([
+            'status' => 'failed',
+        ]));}
     }
 }

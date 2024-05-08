@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Hash;
 
 class Students extends Model
 {
@@ -56,5 +57,24 @@ class Students extends Model
         $user = User::where('users.emso', $emso)->first();
         Students::where('students.id_user', $user->id)->delete();
         $user->delete();
+    }
+
+    public static function createStudent($request, $organisationId, $oad_id){
+        $user = new User();
+        $user->name = $request['name'];
+        $user->surname = $request['surname'];
+        $user->email = $request['email'];
+        $user->emso = $request['emso'];
+        $user->password = Hash::make($request['password']);
+        $user->username = $request['username'];
+        $user->role = 'STU';
+        $user->save();
+
+        $student = new Students();
+        $student->id_user = $user->id;
+        $student->id_organisation = $organisationId;
+        $student->id_class = $request['id_class'];
+        $student->verified_by = $oad_id;
+        $student->save();
     }
 }

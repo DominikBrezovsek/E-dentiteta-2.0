@@ -20,4 +20,8 @@ class Classes extends Model
         'id_card',
         'id_organisation'
     ];
+
+    public static function getAllClasses($organisation){
+        return Classes::where('id_organisation', $organisation)->get();
+    }
 }

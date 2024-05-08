@@ -33,6 +33,7 @@ Route::prefix('/OAD/')->group(function () {
         Route::post('/updateOrganisation/', [OrganisationAdminApiController::class, 'updateOrganisation']);
         Route::post('/getAdmin/', [OrganisationAdminApiController::class, 'getAdmin']);
         Route::post('/updateAdmin/', [OrganisationAdminApiController::class, 'updateAdmin']);
+        Route::post('/getClasses/', [OrganisationAdminApiController::class, 'getClasses']);
 
     });
 });
