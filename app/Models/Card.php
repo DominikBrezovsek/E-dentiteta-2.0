@@ -41,7 +41,7 @@ class Card extends Model
     }
 
     public static function getAllCards($organisationId) {
-        return Card::select('cards.id', 'id_organisation', 'cards.name AS card_name', 'cards.description', 'auto_join', 'organisations.name AS organisation_name')
+        return Card::select('cards.id', 'id_organisation', 'cards.name AS card_name', 'cards.description AS card_desc', 'auto_join', 'organisations.name AS organisation_name')
             ->where('id_organisation', $organisationId)
             ->join('organisations', 'id_organisation', 'organisations.id')->get();
     }
