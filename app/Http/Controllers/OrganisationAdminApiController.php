@@ -111,6 +111,27 @@ class OrganisationAdminApiController extends Controller
         ]));
     }
 
+    public function updateCard(Request $request){
+        if ($request->cardId != null){
+            Card::updateById($request->all());
+        } else {
+            return response(json_encode([
+                'status' => 'failed',
+            ]));
+        }
+    }
+
+    public function deleteCard(Request $request){
+        if ($request->cardId != null){
+            Card::deleteById($request->cardId);
+        } else {
+            return response(json_encode([
+                'status' => 'failed',
+            ]));
+        }
+    }
+
+
     public function getStudents(Request $request){
         if ($request->userId != null){
             $user  = Redis::get('OAD_'.$request->userId);

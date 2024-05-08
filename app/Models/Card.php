@@ -56,5 +56,19 @@ class Card extends Model
         return self::getAllCards($organisationId);
     }
 
+    public static function updateById($request) {
+        Card::where('id', $request['cardId'])
+            ->update([
+                'name' => $request['name'],
+                'description' => $request['description'],
+                'auto_join' => $request['auto_join'] == "Da" ? 'Y' : 'N',
+            ]);
+
+    }
+
+    public static function deleteById($cardId) {
+        Card::where('id', $cardId)->delete();
+    }
+
 }
 

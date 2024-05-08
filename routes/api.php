@@ -24,6 +24,8 @@ Route::prefix('/OAD/')->group(function () {
         Route::post('/getUser/', [OrganisationAdminApiController::class, 'getUser']);
         Route::post('/getCards/', [OrganisationAdminApiController::class, 'getCards']);
         Route::post('/createCard/', [OrganisationAdminApiController::class, 'createCard']);
+        Route::post('/deleteCard/', [OrganisationAdminApiController::class, 'deleteCard']);
+        Route::post('/updateCard/', [OrganisationAdminApiController::class, 'updateCard']);
         Route::post('/getStudents/', [OrganisationAdminApiController::class, 'getStudents']);
         Route::post('/updateStudent/', [OrganisationAdminApiController::class, 'updateStudent']);
         Route::post('/deleteStudent/', [OrganisationAdminApiController::class, 'deleteStudent']);
