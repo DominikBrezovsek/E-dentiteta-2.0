@@ -154,4 +154,14 @@ class OrganisationAdminApiController extends Controller
             }
         }
     }
+
+    public function deleteStudent(Request $request){
+        if ($request->emso != null){
+                Students::deleteByEmso($request->emso);
+            } else {
+            return response(json_encode([
+                'status' => 'failed',
+            ]));
+        }
+    }
 }
