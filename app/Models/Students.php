@@ -50,4 +50,11 @@ class Students extends Model
            ]);
 
     }
+
+    public static function deleteByEmso($emso)
+    {
+        $user = User::where('users.emso', $emso)->first();
+        Students::where('students.id_user', $user->id)->delete();
+        $user->delete();
+    }
 }
