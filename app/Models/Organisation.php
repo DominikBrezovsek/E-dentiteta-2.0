@@ -33,5 +33,13 @@ class Organisation extends Model
     {
         return $this->hasMany(RequestCard::class, 'id_organisation');
     }
+
+    public static function updateById($request){
+        Organisation::where('id', $request['organisationId'])
+            ->update([
+            'name' => $request['name'],
+                'description' => $request['description'],
+        ]);
+    }
 }
 

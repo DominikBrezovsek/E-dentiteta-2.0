@@ -185,4 +185,25 @@ class OrganisationAdminApiController extends Controller
             ]));
         }
     }
+
+    public function getOrganisation(Request $request){
+        if ($request->userId != null){
+            $user  = Redis::get('OAD_'.$request->userId);
+            $userDecoded = json_decode($user, true);
+            if ($userDecoded != null){
+                $organisation = Organisation::whereId($userDecoded['id_organisation'])->first();
+                return response($organisation->toJson(), 200);
+            } else {
+                return response(json_encode([
+                    'status' => 'failed',
+                ]));
+            }
+        }
+    }
+
+    public function updateOrganisation(Request $request){
+        if ($request->organisationId != null){
+            Organisation::updateById($request->all());
+        }
+    }
 }
