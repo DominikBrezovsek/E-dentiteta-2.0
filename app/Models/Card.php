@@ -61,7 +61,7 @@ class Card extends Model
             ->update([
                 'name' => $request['name'],
                 'description' => $request['description'],
-                'auto_join' => $request['auto_join'] == "Da" ? 'Y' : 'N',
+                'auto_join' => $request['auto_join'],
             ]);
 
     }
