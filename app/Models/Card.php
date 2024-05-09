@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Facades\DB;
 
 class Card extends Model
 {
@@ -47,27 +48,33 @@ class Card extends Model
     }
 
     public static function createCard($request,$organisationId) {
+        DB::beginTransaction();
         $card = new Card();
         $card->name = $request['card_name'];
         $card->description = $request["description"];
         $card-> auto_join = $request["auto_join"];
         $card->organisation()->associate($organisationId);
         $card->save();
+        DB::commit();
         return self::getAllCards($organisationId);
     }
 
     public static function updateById($request) {
+        DB::beginTransaction();
         Card::where('id', $request['cardId'])
             ->update([
                 'name' => $request['name'],
                 'description' => $request['description'],
                 'auto_join' => $request['auto_join'],
             ]);
+        DB::commit();
 
     }
 
     public static function deleteById($cardId) {
+        DB::beginTransaction();
         Card::where('id', $cardId)->delete();
+        DB::commit();
     }
 
 }

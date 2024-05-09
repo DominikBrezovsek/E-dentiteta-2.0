@@ -27,6 +27,7 @@ class TeaherApiController extends Controller
             return response(json_encode([
                 'status' => 'success',
                 'message' => 'Login success.',
+                'userId' => $userStatus->id
             ]), 200);
         } else {
             return response(json_encode([

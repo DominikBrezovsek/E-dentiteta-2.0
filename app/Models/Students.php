@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use DB;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -39,6 +40,7 @@ class Students extends Model
             ->join('users', 'users.id', '=', 'students.id_user')
             ->join('classes', 'classes.id', '=', 'students.id_class')
             ->first();
+       DB::beginTransaction();
        User::where('users.id', $user->uid)
         ->update([
            'name' => $request['name'],
@@ -49,6 +51,7 @@ class Students extends Model
            ->update([
                'id_class' => $classId->id,
            ]);
+       DB::commit();
 
     }
 
@@ -60,6 +63,7 @@ class Students extends Model
     }
 
     public static function createStudent($request, $organisationId, $oad_id){
+        DB::beginTransaction();
         $user = new User();
         $user->name = $request['name'];
         $user->surname = $request['surname'];
@@ -76,5 +80,6 @@ class Students extends Model
         $student->id_class = $request['userClass'];
         $student->verified_by = $oad_id;
         $student->save();
+        DB::commit();
     }
 }

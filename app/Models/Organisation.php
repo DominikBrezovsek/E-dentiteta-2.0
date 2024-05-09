@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Facades\DB;
 
 class Organisation extends Model
 {
@@ -35,11 +36,13 @@ class Organisation extends Model
     }
 
     public static function updateById($request){
+        DB::beginTransaction();
         Organisation::where('id', $request['organisationId'])
             ->update([
             'name' => $request['name'],
                 'description' => $request['description'],
         ]);
+        DB::commit();
     }
 }
 
