@@ -33,5 +33,71 @@ class ClassSeeder extends Seeder
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ]);
+
+        Classes::insert([
+            'id' => Str::uuid(),
+            'name' => 'R4A',
+            'id_organisation' => $oid->id,
+            'id_teacher' => $teacher->id,
+            'id_card' => $card->id,
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
+
+        ]);
+
+        Classes::insert([
+            'id' => Str::uuid(),
+            'name' => 'R3A',
+            'id_organisation' => $oid->id,
+            'id_teacher' => $teacher->id,
+            'id_card' => $card->id,
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
+        ]);
+        Classes::insert([
+            'id' => Str::uuid(),
+            'name' => 'R3B',
+            'id_organisation' => $oid->id,
+            'id_teacher' => $teacher->id,
+            'id_card' => $card->id,
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
+        ]);
+        Classes::insert([
+            'id' => Str::uuid(),
+            'name' => 'R2A',
+            'id_organisation' => $oid->id,
+            'id_teacher' => $teacher->id,
+            'id_card' => $card->id,
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
+        ]);
+        Classes::insert([
+            'id' => Str::uuid(),
+            'name' => 'R2B',
+            'id_organisation' => $oid->id,
+            'id_teacher' => $teacher->id,
+            'id_card' => $card->id,
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
+        ]);
+        Classes::insert([
+            'id' => Str::uuid(),
+            'name' => 'R1A',
+            'id_organisation' => $oid->id,
+            'id_teacher' => $teacher->id,
+            'id_card' => $card->id,
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
+        ]);
+        Classes::insert([
+            'id' => Str::uuid(),
+            'name' => 'R1B',
+            'id_organisation' => $oid->id,
+            'id_teacher' => $teacher->id,
+            'id_card' => $card->id,
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
+        ]);
     }
 }
