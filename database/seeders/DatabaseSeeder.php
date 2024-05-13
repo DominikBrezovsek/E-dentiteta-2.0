@@ -65,5 +65,19 @@ class DatabaseSeeder extends Seeder
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ]);
+
+
+        $users = User::where('role', 'USR')->limit(20)->get();
+        foreach ($users as $user) {
+            Students::insert([
+                'id' => Str::uuid(),
+                'id_user' => $user->id,
+                'id_organisation' => $oid->id,
+                'id_class' => $r4b->id,
+                'verified_by' => $organisationAdmin->id_admin,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ]);
+        }
     }
 }

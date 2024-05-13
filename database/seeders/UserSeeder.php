@@ -55,9 +55,9 @@ class UserSeeder extends Seeder
         ]);
         DB::table('users')->insert([
             'id' => Str::uuid(),
-            'name' => 'Boštjan',
-            'surname' => 'Resinovič',
-            'email' => 'resko@resko.je',
+            'name' => 'Wolfgang',
+            'surname' => 'Mozzart',
+            'email' => 'wolfgang@example.org',
             'username' => 'resinovicbost',
             'password' => Hash::make('Default00'),
             'role' => 'PRF',
