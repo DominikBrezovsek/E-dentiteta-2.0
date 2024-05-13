@@ -36,6 +36,10 @@ class CardSeeder extends Seeder
             'updated_at' => \Carbon\Carbon::now(),
             'auto_join' => 'N',
         ]);
-        Card::factory()->count(3)->create();
+        Card::factory()->count(20)->create();
+        Card::all()->each(function ($card) use ($KER) {
+            $card->update(['id_organisation' => $KER->id]);
+        });
+
     }
 }
